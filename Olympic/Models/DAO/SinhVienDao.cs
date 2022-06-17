@@ -47,7 +47,7 @@ namespace Models.DAO
 
         public byte ChangeStatus(int ID, byte status)
         {
-            var item = db.a_GiaoVien.FirstOrDefault(x => x.ID == ID);
+            var item = db.a_SinhVien.FirstOrDefault(x => x.ID == ID);
             if (item == null)
             {
                 return 0;
@@ -60,21 +60,24 @@ namespace Models.DAO
             }
         }
 
-        public byte Edit(a_GiaoVien result)
+        public byte Edit(a_SinhVien result)
         {
-            var item = db.a_GiaoVien.FirstOrDefault(x => x.ID == result.ID);
+            var item = db.a_SinhVien.FirstOrDefault(x => x.ID == result.ID);
             if (item == null)
             {
                 return 0;
             }
             else
             {
+                item.MaSV = result.MaSV;
                 item.Email = result.Email;
                 item.GioiTinh = result.GioiTinh;
                 item.HoTen = result.HoTen;
-                item.MaGiaoVien = result.MaGiaoVien;
-                item.Password = result.Password;
+                item.Lop = result.Lop;
                 item.SDT = result.SDT;
+                item.DiaChi = result.DiaChi;
+                item.NgaySinh = result.NgaySinh;
+                item.AnhHoSo = result.AnhHoSo;
                 db.SaveChanges();
                 return 1;
             }
