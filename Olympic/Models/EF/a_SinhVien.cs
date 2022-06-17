@@ -16,7 +16,7 @@ namespace Models.EF
         [StringLength(50)]
         public string HoTen { get; set; }
 
-        public int? ID_Lop { get; set; }
+        public string Lop { get; set; }
 
         [StringLength(50)]
         public string Email { get; set; }
