@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -14,13 +15,13 @@ namespace Models.DAO
         public List<a_GiaoVien> getAllGiaoVien(string search, ref int totalCount)
         {
             List<a_GiaoVien> lst = new List<a_GiaoVien>();
-            if(search == "")
+            if(search != "" && search != null)
             {
-                lst = db.a_GiaoVien.Where(x => x.TrangThai != 10).ToList();
+                lst = db.a_GiaoVien.Where(x => x.TrangThai != 10 && x.HoTen.Contains(search)).ToList();
             }
             else
             {
-                lst = db.a_GiaoVien.Where(x => x.TrangThai != 10 && x.HoTen.Contains(search)).ToList();
+                lst = db.a_GiaoVien.Where(x => x.TrangThai != 10).ToList();
             }
             totalCount = lst.Count();
             return lst;
@@ -74,6 +75,22 @@ namespace Models.DAO
                 return 1;
             }
         }
+
+        public int Delete(string ListID)
+        {
+            try
+            {
+                string _sqlStr = "update a_GiaoVien set TrangThai = 10 where ID in (select * from dbo.SplitDelimiterString(@lstMa,','))";
+                var maTinParam1 = new SqlParameter("@lstMa", ListID);
+                var delete = db.Database.ExecuteSqlCommand(_sqlStr, maTinParam1);
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+            return 1;
+        }
+
 
         public byte Edit(a_GiaoVien result)
         {

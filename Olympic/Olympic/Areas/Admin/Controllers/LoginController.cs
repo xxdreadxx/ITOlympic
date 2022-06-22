@@ -13,5 +13,10 @@ namespace Olympic.Areas.Admin.Controllers
         {
             return View();
         }
+
+        public ActionResult Resetpass()
+        {
+            return View();
+        }
     }
 }

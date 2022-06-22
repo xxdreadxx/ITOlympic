@@ -1,0 +1,41 @@
+﻿<div class="modal fade" id="Delete" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" style="float:left">Thông báo</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <p>Nhấn đồng ý để xác nhận xóa!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnSave" onclick="deleteOne()"> Đồng ý </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"> Đóng</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Modal hỏi xác nhận xóa người dùng -->
+<div class="modal fade" id="DeleteND" role="dialog">
+    <div class="modal-dialog">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" style="float:left">Thông báo</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+
+            </div>
+            <div class="modal-body">
+                <p type="hidden" id="NDID_Popup"></p>
+                <p>Bạn có muốn xóa người dùng đã chọn hay không!</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" id="btnSave" onclick="deleteOne()"> Đồng ý </button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal"> Hủy bỏ</button>
+            </div>
+        </div>
+    </div>
+</div>

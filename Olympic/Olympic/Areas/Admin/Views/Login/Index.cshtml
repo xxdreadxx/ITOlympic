@@ -1,63 +1,74 @@
-﻿@{ 
+﻿@{
     Layout = null;
 }
 <!doctype html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="initial-scale=1.0,maximum-scale=1.0,user-scalable=no">
+    <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <!-- Remove Tap Highlight on Windows Phone IE -->
-    <meta name="msapplication-tap-highlight" content="no" />
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <link rel="icon" type="image/png" href="~/Content/Login/assets/img/favicon-16x16.png" sizes="16x16">
-    <link rel="icon" type="image/png" href="~/Content/Login/assets/img/favicon-32x32.png" sizes="32x32">
-    <title></title>
+    <title>Nixon : Widget</title>
 
-    <link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500" rel='stylesheet' type='text/css'>
-    <!-- uikit -->
-    <link href="~/Content/Template/bower_components/uikit/css/uikit.almost-flat.min.css" rel="stylesheet" />
-    <!-- altair admin login page -->
-    <link href="~/Content/Login/assets/css/login_page.min.css" rel="stylesheet" />
+    <!-- ================= Favicon ================== -->
+    <!-- Standard -->
+    <link rel="shortcut icon" href="http://placehold.it/64.png/000/fff">
+    <!-- Retina iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="144x144" href="http://placehold.it/144.png/000/fff">
+    <!-- Retina iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="114x114" href="http://placehold.it/114.png/000/fff">
+    <!-- Standard iPad Touch Icon-->
+    <link rel="apple-touch-icon" sizes="72x72" href="http://placehold.it/72.png/000/fff">
+    <!-- Standard iPhone Touch Icon-->
+    <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
+
+    <!-- Styles -->
+    <link href="~/Content/Asset/assets/fontAwesome/css/fontawesome-all.min.css" rel="stylesheet" />
+    <link href="~/Content/Asset/assets/css/lib/themify-icons.css" rel="stylesheet" />
+    <link href="~/Content/Asset/assets/css/lib/bootstrap.min.css" rel="stylesheet" />
+    <link href="~/Content/Asset/assets/css/lib/nixon.css" rel="stylesheet" />
+    <link href="~/Content/Asset/assets/css/style.css" rel="stylesheet" />
 </head>
-<body class="login_page">
-    <div class="login_page_wrapper">
-        <div class="md-card" id="login_card">
-            <div class="md-card-content large-padding" id="login_form">
-                <div class="login_heading">
-                    <div class="user_avatar"></div>
+
+<body class="bg-primary">
+
+    <div class="Nixon-login">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 col-lg-offset-3">
+                    <div class="login-content">
+                        <div class="login-form">
+                            <h4>Đăng nhập</h4>
+                            <form>
+                                <div class="form-group">
+                                    <label>Tên đăng nhập</label>
+                                    <input type="email" class="form-control" placeholder="Email">
+                                </div>
+                                <div class="form-group">
+                                    <label>Mật khẩu</label>
+                                    <input type="password" class="form-control" placeholder="Password">
+                                </div>
+                                <div class="checkbox">
+                                    <label>
+                                        <input type="checkbox"> Ghi nhớ tài khoản
+                                    </label>
+                                    <label class="pull-right">
+                                        <a href="/Admin/Login/Resetpass">Quên mật khẩu?</a>
+                                    </label>
+
+                                </div>
+                                <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Đăng nhập</button>
+                                @*<div class="register-link m-t-15 text-center">
+                                    <p>Don't have account ? <a href="page-register.html"> Sign Up Here</a></p>
+                                </div>*@
+                            </form>
+                        </div>
+                    </div>
                 </div>
-                <form>
-                    <div class="uk-form-row">
-                        <label for="login_username">Tài khoản</label>
-                        <input class="md-input" type="text" id="login_username" name="login_username" />
-                    </div>
-                    <div class="uk-form-row">
-                        <label for="login_password">Mật khẩu</label>
-                        <input class="md-input" type="password" id="login_password" name="login_password" />
-                    </div>
-                    <div class="uk-margin-medium-top">
-                        <a href="/Admin/HomeAd/Index" class="md-btn md-btn-primary md-btn-block md-btn-large">Đăng nhập</a>
-                    </div>
-                    <div class="uk-margin-top">
-                        <a href="#" id="login_help_show" class="uk-float-right">Trợ giúp?</a>
-                        <span class="icheck-inline">
-                            <input type="checkbox" name="login_page_stay_signed" id="login_page_stay_signed" data-md-icheck />
-                            <label for="login_page_stay_signed" class="inline-label">Ghi nhớ đăng nhập</label>
-                        </span>
-                    </div>
-                </form>
             </div>
         </div>
     </div>
 
-    <!-- common functions -->
-    <script src="~/Content/Login/assets/js/common.min.js"></script>
-    <!-- uikit functions -->
-    <script src="~/Content/Login/assets/js/uikit_custom.min.js"></script>
-    <!-- altair core functions -->
-    <script src="~/Content/Login/assets/js/altair_admin_common.min.js"></script>
-    <!-- altair login page functions -->
-    <script src="~/Content/Login/assets/js/pages/login.min.js"></script>
 </body>
+
 </html>

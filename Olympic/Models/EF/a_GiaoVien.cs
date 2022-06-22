@@ -31,6 +31,8 @@ namespace Models.EF
 
         [StringLength(50)]
         public string Email { get; set; }
+        public string DiaChi { get; set; }
+        public DateTime? NgaySinh { get; set; }
 
         public byte? TrangThai { get; set; }
     }
