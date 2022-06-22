@@ -28,10 +28,10 @@
     <link href="~/Content/Asset/assets/css/lib/bootstrap.min.css" rel="stylesheet" />
     <link href="~/Content/Asset/assets/css/lib/nixon.css" rel="stylesheet" />
     <link href="~/Content/Asset/assets/css/style.css" rel="stylesheet" />
+    <link href="~/Content/toastr.min.css" rel="stylesheet" />
 </head>
 
 <body class="bg-primary">
-
     <div class="Nixon-login">
         <div class="container">
             <div class="row">
@@ -39,29 +39,27 @@
                     <div class="login-content">
                         <div class="login-form">
                             <h4>Đăng nhập</h4>
-                            <form>
-                                <div class="form-group">
-                                    <label>Tên đăng nhập</label>
-                                    <input type="email" class="form-control" placeholder="Email">
-                                </div>
-                                <div class="form-group">
-                                    <label>Mật khẩu</label>
-                                    <input type="password" class="form-control" placeholder="Password">
-                                </div>
-                                <div class="checkbox">
-                                    <label>
-                                        <input type="checkbox"> Ghi nhớ tài khoản
-                                    </label>
-                                    <label class="pull-right">
-                                        <a href="/Admin/Login/Resetpass">Quên mật khẩu?</a>
-                                    </label>
+                            <div class="form-group">
+                                <label>Tên đăng nhập</label>
+                                <input id="txtUsername" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <label>Mật khẩu</label>
+                                <input type="password" id="txtPassword" class="form-control" placeholder="Password">
+                            </div>
+                            <div class="checkbox">
+                                <label>
+                                    <input type="checkbox"> Ghi nhớ tài khoản
+                                </label>
+                                <label class="pull-right">
+                                    <a href="/Admin/Login/Resetpass">Quên mật khẩu?</a>
+                                </label>
 
-                                </div>
-                                <button type="submit" class="btn btn-primary btn-flat m-b-30 m-t-30">Đăng nhập</button>
-                                @*<div class="register-link m-t-15 text-center">
+                            </div>
+                            <button class="btn btn-primary btn-flat m-b-30 m-t-30" onclick="DangNhap()">Đăng nhập</button>
+                            @*<div class="register-link m-t-15 text-center">
                                     <p>Don't have account ? <a href="page-register.html"> Sign Up Here</a></p>
                                 </div>*@
-                            </form>
                         </div>
                     </div>
                 </div>
@@ -69,6 +67,40 @@
         </div>
     </div>
 
+    <script src="~/Content/Asset/assets/js/lib/jquery.min.js"></script>
+    <script src="~/Content/Asset/assets/js/lib/bootstrap.min.js"></script>
+    <script src="~/Scripts/toastr.min.js"></script>
+
+    <script>
+        function DangNhap() {
+            var username = $('#txtUsername').val();
+            var pass = $('#txtPassword').val();
+            $.ajax({
+                url: '/Login/Login',
+                data: {
+                    username: username,
+                    pass: pass,
+                },
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status == true) {
+                        toastr.success(response.mess, '', { timeOut: 2000 });
+                        setTimeout(function () {
+                            window.location = '/Admin/HomeAd';
+                        }, 1000);
+                    }
+                    else {
+                        toastr.error(response.mess, '', { timeOut: 2000 });
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
+    </script>
 </body>
 
 </html>
+
