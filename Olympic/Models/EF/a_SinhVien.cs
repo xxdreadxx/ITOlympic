@@ -16,6 +16,7 @@ namespace Models.EF
         [StringLength(50)]
         public string HoTen { get; set; }
 
+        [StringLength(50)]
         public string Lop { get; set; }
 
         [StringLength(50)]
