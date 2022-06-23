@@ -42,6 +42,21 @@ namespace Models.DAO
             }
         }
 
+        public int getByUsername(string username, string password)
+        {
+            var user = db.a_GiaoVien.FirstOrDefault(x => x.Username == username && x.Password == password && x.TrangThai != 10);
+            if (user == null)
+            {
+                // username or password is incorrect
+                return 0;
+            }
+            else
+            {
+                //return status of Account: 1-Using, 2-Lock, 3-Expired
+                return (int)user.ID;
+            }
+        }
+
         public a_GiaoVien getByID(int ID)
         {
             return db.a_GiaoVien.FirstOrDefault(x => x.ID == ID);
@@ -90,7 +105,6 @@ namespace Models.DAO
             }
             return 1;
         }
-
 
         public byte Edit(a_GiaoVien result)
         {

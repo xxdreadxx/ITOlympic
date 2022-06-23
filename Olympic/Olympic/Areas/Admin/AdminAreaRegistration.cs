@@ -17,7 +17,7 @@ namespace Olympic.Areas.Admin
             context.MapRoute(
                 "Admin_default",
                 "Admin/{controller}/{action}/{id}",
-                new { action = "Index", id = UrlParameter.Optional }
+                new { controller = "HomeAd", action = "Index", id = UrlParameter.Optional }
             );
         }
     }

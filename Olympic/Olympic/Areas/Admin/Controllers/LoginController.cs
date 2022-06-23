@@ -6,6 +6,8 @@ using System.Web.Mvc;
 using Models;
 using Models.EF;
 using Models.DAO;
+using System.Text;
+using System.Security.Cryptography;
 
 namespace Olympic.Areas.Admin.Controllers
 {
@@ -27,7 +29,8 @@ namespace Olympic.Areas.Admin.Controllers
         {
             bool kt = true;
             string mess = "Đăng nhập thành công!";
-            int kq = userDao.Login(username, pass);
+            string passmd5 = MD5Hash(pass);
+            int kq = userDao.Login(username, passmd5);
             if (kq == 0)
             {
                 kt = false;
@@ -36,18 +39,30 @@ namespace Olympic.Areas.Admin.Controllers
             else if (kq == 2)
             {
                 kt = false;
-                mess = "Tài khoản đang bị khóa, vui lòng liên hệ quản trị viên để mở khóa!";
+                mess = "Tài khoản đang bị dừng dử dụng, vui lòng liên hệ quản trị viên!";
             }
-            else if (kq == 3)
+            else
             {
-                kt = false;
-                mess = "Tài khoản hết hạn sử dụng, vui lòng liên hệ quản trị viên để gia hạn!";
+                Session["UserID"] = userDao.getByUsername(username, passmd5);
             }
             return Json(new
             {
                 status = kt,
                 mess = mess
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        public static string MD5Hash(string input)
+        {
+            StringBuilder hash = new StringBuilder();
+            MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider();
+            byte[] bytes = md5provider.ComputeHash(new UTF8Encoding().GetBytes(input));
+
+            for (int i = 0; i < bytes.Length; i++)
+            {
+                hash.Append(bytes[i].ToString("x2"));
+            }
+            return hash.ToString();
         }
     }
 }
