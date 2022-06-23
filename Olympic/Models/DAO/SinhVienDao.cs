@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,7 +26,21 @@ namespace Models.DAO
             totalCount = lst.Count();
             return lst;
         }
-
+        public int Delete(string ListID)
+        {
+            try
+            {
+                var convertArray = ListID.Replace("[", "").Replace("]", "");
+                string _sqlStr = "update a_SinhVien set TrangThai = 10 where ID in (select * from dbo.SplitDelimiterString(@lstMa,','))";
+                var maTinParam1 = new SqlParameter("@lstMa", convertArray);
+                var delete = db.Database.ExecuteSqlCommand(_sqlStr, maTinParam1);
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+            return 1;
+        }
         public a_SinhVien getByID(int ID)
         {
             return db.a_SinhVien.FirstOrDefault(x => x.ID == ID);

@@ -24,7 +24,7 @@ namespace Models.DAO
                 lst = db.a_GiaoVien.Where(x => x.TrangThai != 10).ToList();
             }
             totalCount = lst.Count();
-            return lst;
+            return lst.OrderByDescending(x=>x.ID).ToList();
         }
 
         public int Login(string username, string password)
@@ -80,8 +80,9 @@ namespace Models.DAO
         {
             try
             {
+                var convertArray = ListID.Replace("[", "").Replace("]", "");
                 string _sqlStr = "update a_GiaoVien set TrangThai = 10 where ID in (select * from dbo.SplitDelimiterString(@lstMa,','))";
-                var maTinParam1 = new SqlParameter("@lstMa", ListID);
+                var maTinParam1 = new SqlParameter("@lstMa", convertArray);
                 var delete = db.Database.ExecuteSqlCommand(_sqlStr, maTinParam1);
             }
             catch (Exception)
@@ -112,9 +113,9 @@ namespace Models.DAO
             }
         }
 
-        public bool checkUsername(string username)
+        public bool checkUsername(string username, int id)
         {
-            var item = db.a_GiaoVien.FirstOrDefault(x => x.Username == username && x.TrangThai != 10);
+            var item = db.a_GiaoVien.FirstOrDefault(x => x.Username == username && x.TrangThai != 10 && x.ID != id);
             if(item != null)
             {
                 return false;

@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
 using System.Linq;
-using System.Security.Cryptography;
-using System.Text;
-using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using Models.DAO;
@@ -12,27 +8,26 @@ using Models.EF;
 
 namespace Olympic.Areas.Admin.Controllers
 {
-
-    public class dGiaoVienController : Controller
+    public class SinhVienController : Controller
     {
+        // GET: Admin/SinhVien
         private OlympicDbContext db = new OlympicDbContext();
-        private UserDao dao = new UserDao();
+        private SinhVienDao dao = new SinhVienDao();
         // GET: Admin/dGiaoVien
         public ActionResult Index()
         {
             return View();
         }
 
-        public ActionResult getList(string search =""  , int page = 1)
+        public ActionResult getList(string search = "", int page = 1)
         {
             int totalCount = 0;
             int pageSize = 15;
             int pageno = 0;
             pageno = page == null ? 1 : int.Parse(page.ToString());
-            List<a_GiaoVien> lstGV = new List<a_GiaoVien>();
-            UserDao dao = new UserDao();
-            var getdata = dao.getAllGiaoVien(search, ref totalCount);
-            lstGV = getdata.Skip((pageno - 1) * pageSize).Take(pageSize).ToList();
+            List<a_SinhVien> lstSV = new List<a_SinhVien>();
+            var getdata = dao.lstAll(search, ref totalCount);
+            lstSV = getdata.Skip((pageno - 1) * pageSize).Take(pageSize).ToList();
             ViewBag.Page = page;
             int maxCount = totalCount;
             if (maxCount % pageSize > 0)
@@ -43,7 +38,7 @@ namespace Olympic.Areas.Admin.Controllers
             {
                 ViewBag.MaxPage = (maxCount / pageSize);
             }
-            return PartialView(lstGV);
+            return PartialView(lstSV);
         }
 
         [HttpPost]
@@ -74,27 +69,25 @@ namespace Olympic.Areas.Admin.Controllers
         public JsonResult Save(FormCollection c)
         {
             int ID = int.Parse(c["ID"].ToString());
-            var passwordEncrypted = MD5Hash(c["MatKhau"]);
             var ngaysinh = c["NgaySinh"];
             DateTime? birth = null;
             if (ngaysinh != "" && ngaysinh != null)
             {
-              birth  = DateTime.ParseExact(ngaysinh, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+                birth = DateTime.ParseExact(ngaysinh, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
             }
-           
+
             if (ID == 0)
             {
                 //thêm mới
                 a_GiaoVien gv = new a_GiaoVien();
                 gv.HoTen = c["HoTen"] != null ? c["HoTen"].Trim() : "";
                 gv.Username = c["TenDangNhap"] != null ? c["TenDangNhap"].Trim() : "";
-                gv.Password = passwordEncrypted;
                 gv.LoaiTK = byte.Parse(c["KieuNguoiDung"].ToString());
                 gv.Email = c["Email"] != null ? c["Email"].Trim() : "";
                 gv.SDT = c["SDT"] != null ? c["SDT"].Trim() : "";
                 gv.DiaChi = c["DiaChi"] != null ? c["DiaChi"].Trim() : "";
                 gv.NgaySinh = birth;
-                if(c["GioiTinh"]== "1")
+                if (c["GioiTinh"] == "1")
                 {
                     gv.GioiTinh = true;
                 }
@@ -119,7 +112,6 @@ namespace Olympic.Areas.Admin.Controllers
                 a_GiaoVien gv = db.a_GiaoVien.FirstOrDefault(x => x.ID == ID);
                 gv.HoTen = c["HoTen"] != null ? c["HoTen"].Trim() : "";
                 gv.Username = c["TenDangNhap"] != null ? c["TenDangNhap"].Trim() : "";
-                gv.Password = passwordEncrypted;
                 gv.LoaiTK = byte.Parse(c["KieuNguoiDung"].ToString());
                 gv.Email = c["Email"] != null ? c["Email"].Trim() : "";
                 gv.SDT = c["SDT"] != null ? c["SDT"].Trim() : "";
@@ -149,54 +141,13 @@ namespace Olympic.Areas.Admin.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
-        public JsonResult ChangeStatus(int id, byte trangthai)
-        {
-            int result = dao.ChangeStatus(id, trangthai);
-
-            if (result <= 0)
-            {
-                return Json(new
-                {
-                    status = false
-                }, JsonRequestBehavior.AllowGet);
-            }
-            return Json(new
-            {
-                status = true
-            }, JsonRequestBehavior.AllowGet);
-        }
-        public static string MD5Hash(string input)
-        {
-            StringBuilder hash = new StringBuilder();
-            MD5CryptoServiceProvider md5provider = new MD5CryptoServiceProvider();
-            byte[] bytes = md5provider.ComputeHash(new UTF8Encoding().GetBytes(input));
-
-            for (int i = 0; i < bytes.Length; i++)
-            {
-                hash.Append(bytes[i].ToString("x2"));
-            }
-            return hash.ToString();
-        }
-
         public JsonResult Edit(int id)
         {
             var data = dao.getByID(id);
-            string ngaysinh = data.NgaySinh.GetValueOrDefault().ToString("yyyy-MM-dd");
             return Json(new
             {
                 status = true,
-                data = data,
-                ngaysinh = ngaysinh
-            }, JsonRequestBehavior.AllowGet);
-        }
-
-        public JsonResult checkTenDangNhap(string user, int id)
-        {
-            var data = dao.checkUsername(user, id);
-
-            return Json(new
-            {
-                status = data,
+                data = data
             }, JsonRequestBehavior.AllowGet);
         }
     }

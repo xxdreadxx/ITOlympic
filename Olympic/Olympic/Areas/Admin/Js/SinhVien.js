@@ -94,7 +94,7 @@ function Add(id) {
             }
         });
     }
-   $('#addNewUser').modal('show');
+    $('#addNewUser').modal('show');
 }
 
 function resetForm() {
@@ -128,16 +128,16 @@ function checkDate(strDate, kt) {
     else {
         //nếu ko có dữ liệu thì ko cần kiểm tra(trường ngày tháng có thể để trống)
 
-            var comp = strDate.split('/');
-            var d = comp[0];
-            var m = comp[1];
-            var y = comp[2];
-            var date = new Date(y, m - 1, d);
-            if (date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d) {
-                return true;
-            }
-            return false;
-        
+        var comp = strDate.split('/');
+        var d = comp[0];
+        var m = comp[1];
+        var y = comp[2];
+        var date = new Date(y, m - 1, d);
+        if (date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d) {
+            return true;
+        }
+        return false;
+
     }
 }
 
@@ -171,7 +171,7 @@ $("#NewUserName").keyup(function () {
 //    else {
 //        $('#errNgaySinh').hide();
 //    }
-    
+
 //})
 
 $("#NewPassword").keyup(function () {
@@ -291,9 +291,9 @@ function Save() {
                 $('#errEmail').show();
             }
         }
-        
+
     }
-    
+
 
     if (isSave == true) {
         var formData = new FormData();
@@ -307,7 +307,7 @@ function Save() {
         if (nam.checked == true && nam != null) {
             gioitinh = 1;
         }
-        if (nu != null && nu.checked == true ) {
+        if (nu != null && nu.checked == true) {
             gioitinh = 0;
         }
         if (kichhoat.checked == true && kichhoat != null) {
@@ -364,12 +364,12 @@ function Save() {
             }
         });
     }
-    
+
 }
 var idND = "";
 function Link_DeleteTT_onclick(DID) {
     idND = DID;
-    if (idND != "" || idND ==0)//view popup xác nhận xóa
+    if (idND != "" || idND == 0)//view popup xác nhận xóa
     {
         $("#DeleteND").modal("show");
     }
@@ -429,65 +429,6 @@ function deleteAll() {
             }
         }
     })
-}
-
-var idBG = "";
-var status = "";
-function Link_Status_onclick(DID, trangthai) {
-    idBG = DID;
-    status = trangthai;
-    if (idBG != "")//view popup xác nhận xóa
-    {
-        if (status == 2) {
-            $('#noidung').text('Bạn có muốn bỏ kích hoạt tài khoản giáo viên đã chọn hay không?')
-        }
-        else {
-            $('#noidung').text('Bạn có muốn kích hoạt tài khoản giáo viên đã chọn hay không?')
-        }
-        $("#status").modal("show");
-    }
-}
-
-function changeStatus() {
-    $.ajax({
-        url: "/dGiaoVien/ChangeStatus",
-        data: {
-            id: idBG,
-            trangthai: status
-        },
-        type: 'post',
-        success: function (result) {
-            if (result.status == true) {
-                $("#status").modal("hide");
-                if (status == 1) {
-                    bootbox.alert({
-                        title: "Thông báo",
-                        message: "Kích hoạt tài khoản giáo viên thành công",
-                        buttons: {
-                            ok: {
-                                label: 'Đóng',
-                                className: "btn btn-default",
-                            }
-                        },
-                        callback: function () { loadPartial(); }
-                    })
-                }
-                else {
-                    bootbox.alert({
-                        title: "Thông báo",
-                        message: "Bỏ kích hoạt tài khoản giáo viên thành công",
-                        buttons: {
-                            ok: {
-                                label: 'Đóng',
-                                className: "btn btn-default",
-                            }
-                        },
-                        callback: function () { loadPartial(); }
-                    })
-                }
-            }
-        }
-    });
 }
 
 $(document).ready(function () {

@@ -1,4 +1,4 @@
-﻿@model IEnumerable<Models.EF.a_GiaoVien>
+﻿@model IEnumerable<Models.EF.a_SinhVien>
 @{
     ViewBag.Title = "Index";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
@@ -16,7 +16,7 @@
     <div class="col-lg-8 p-0">
         <div class="page-header">
             <div class="page-title">
-                <h1>Quản lý giáo viên</h1>
+                <h1>Quản lý sinh viên</h1>
             </div>
         </div>
     </div>
@@ -26,7 +26,7 @@
             <div class="page-title">
                 <ol class="breadcrumb text-right">
                     <li><a href="/Admin/HomeAd/Index">Trang chủ</a></li>
-                    <li class="active">Quản lý giáo viên</li>
+                    <li class="active">Quản lý sinh viên</li>
                 </ol>
             </div>
         </div>
@@ -47,23 +47,21 @@
                     <div class="col-lg-offset-6 custom-search-form">
                         <input type="text" class="form-control" tabindex="2" value="@ViewBag.Search" name="Search" id="txtSearch" placeholder="Tìm kiếm..." />
                         @*<span class="input-group-btn">
-                            <button class="btn btn-default" type="submit" tabindex="3" id="btnSearch"><i class="ti-search"></i></button>
-                        </span>*@
+                                <button class="btn btn-default" type="submit" tabindex="3" id="btnSearch"><i class="ti-search"></i></button>
+                            </span>*@
                     </div>
                 </div>
             </div>
             <div class="card-body" id="tableNguoiDung">
-                @Html.Action("getList", "dGiaoVien")
+                @Html.Action("getList", "SinhVien")
             </div>
-        
+
         </div><!-- /# card -->
     </div>
 </div>
 
 <!-- Modal xóa -->
 @Html.Partial("~/Areas/Admin/Views/Shared/HoiXacNhan_Modal.cshtml")
-<!-- Modal thông báo -->
-@Html.Partial("~/Areas/Admin/Views/Shared/ThongBao_Modal.cshtml")
 
 <!-- Modal -->
 <div id="addNewUser" class="modal fade" role="dialog">
@@ -90,7 +88,7 @@
                             <div class="lms-input-group">
                                 <div class="input-group-title right">Tên đăng nhập <span class="text-danger">(*) </span></div>
                                 <div class="input-group-content">
-                                    <input type="text" name="NewUserName" maxlength="32" class="form-control" id="NewUserName"  />
+                                    <input type="text" name="NewUserName" maxlength="32" class="form-control" id="NewUserName" />
                                 </div>
                                 <span id="errUsername" style="display:none;" class="error-message pull-right"></span>
                             </div>
@@ -112,7 +110,7 @@
                                 <div class="input-group-title right">Giới tính</div>
                                 <div class="input-group-content">
                                     <div class="col-md-4">
-                                        <input type="radio" id="NewGender_1" name="NewGender" value="True" checked/>
+                                        <input type="radio" id="NewGender_1" name="NewGender" value="True" checked />
                                         <label for="radNewGenderMale" class="group-label input-label">Nam</label>
                                     </div>
                                     <div class="group">
@@ -143,7 +141,7 @@
                             <div class="lms-input-group">
                                 <div class="input-group-title right">Số điện thoại</div>
                                 <div class="input-group-content">
-                                    <input type="text" name="NewPhone" id="NewPhone" value="" maxlength="20"  class="form-control" />
+                                    <input type="text" name="NewPhone" id="NewPhone" value="" maxlength="20" class="form-control" />
                                 </div>
                             </div>
 
@@ -189,6 +187,7 @@
 
 
 @section scripts{
-    <script src="~/Areas/Admin/Js/dGiaoVien.js"></script>
+
+    <script src="~/Areas/Admin/Js/SinhVien.js"></script>
 }
 
