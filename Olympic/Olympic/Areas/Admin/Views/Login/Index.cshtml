@@ -70,36 +70,7 @@
     <script src="~/Content/Asset/assets/js/lib/jquery.min.js"></script>
     <script src="~/Content/Asset/assets/js/lib/bootstrap.min.js"></script>
     <script src="~/Scripts/toastr.min.js"></script>
-
-    <script>
-        function DangNhap() {
-            var username = $('#txtUsername').val();
-            var pass = $('#txtPassword').val();
-            $.ajax({
-                url: '/Login/Login',
-                data: {
-                    username: username,
-                    pass: pass,
-                },
-                type: 'GET',
-                dataType: 'json',
-                success: function (response) {
-                    if (response.status == true) {
-                        toastr.success(response.mess, '', { timeOut: 2000 });
-                        setTimeout(function () {
-                            window.location = '/Admin/HomeAd';
-                        }, 1000);
-                    }
-                    else {
-                        toastr.error(response.mess, '', { timeOut: 2000 });
-                    }
-                },
-                error: function (err) {
-                    console.log(err);
-                }
-            });
-        }
-    </script>
+    <script src="~/Areas/Admin/Js/User.js"></script>
 </body>
 
 </html>

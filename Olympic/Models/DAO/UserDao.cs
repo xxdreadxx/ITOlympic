@@ -122,6 +122,9 @@ namespace Models.DAO
                 item.MaGiaoVien = result.MaGiaoVien;
                 item.Password = result.Password;
                 item.SDT = result.SDT;
+                item.Image = result.Image;
+                item.DiaChi = result.DiaChi;
+                item.NgaySinh = result.NgaySinh;
                 db.SaveChanges();
                 return 1;
             }

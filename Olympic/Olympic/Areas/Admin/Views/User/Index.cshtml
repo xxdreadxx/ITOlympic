@@ -9,6 +9,13 @@
     .a_hover:hover {
         cursor: pointer
     }
+    .lms-input-group {
+        margin-top: 15px;
+    }
+
+    .error-message {
+        color: red;
+    }
 </style>
 
 <div class="row">
@@ -80,22 +87,22 @@
                                                 <h4>Thông tin liên lạc</h4>
                                                 <div class="phone-content">
                                                     <span class="contact-title">Số điện thoại:</span>
-                                                    <span class="phone-number">@result.SDT</span>
+                                                    <span class="phone-number" id="tPhone">@result.SDT</span>
                                                 </div>
                                                 <div class="address-content">
                                                     <span class="contact-title">Đại chỉ:</span>
-                                                    <span class="mail-address">@result.DiaChi</span>
+                                                    <span class="mail-address" id="tAddress">@result.DiaChi</span>
                                                 </div>
                                                 <div class="email-content">
                                                     <span class="contact-title">Email:</span>
-                                                    <span class="contact-email">@result.Email</span>
+                                                    <span class="contact-email" id="tEmail">@result.Email</span>
                                                 </div>
                                             </div>
                                             <div class="basic-information">
                                                 <h4>Thông tin riêng</h4>
                                                 <div class="birthday-content">
                                                     <span class="contact-title">Ngày sinh:</span>
-                                                    <span class="birth-date">@result.NgaySinh.GetValueOrDefault().ToString("dd/MM/yyyy")</span>
+                                                    <span class="birth-date" id="ttBirthday">@result.NgaySinh.GetValueOrDefault().ToString("dd/MM/yyyy")</span>
                                                 </div>
                                                 <div class="gender-content">
                                                     <span class="contact-title">Giới tính:</span>
@@ -120,71 +127,174 @@
         </div>
         <div class="col-lg-7">
             <div class="row">
-                <div class="col-lg-3">
-                    <div class="card">
-                        <div class="stat-widget-one">
-                            <div class="profile-widget">
-                                <div class="stat-text">Job Done</div>
-                                <div class="stat-digit">19</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card">
-                        <div class="stat-widget-one">
-                            <div class="profile-widget">
-                                <div class="stat-text">Ongoing</div>
-                                <div class="stat-digit">6</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card">
-                        <div class="stat-widget-one">
-                            <div class="profile-widget">
-                                <div class="stat-text">Reject</div>
-                                <div class="stat-digit">6</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="col-lg-3">
-                    <div class="card">
-                        <div class="stat-widget-one">
-                            <div class="profile-widget">
-                                <div class="stat-text">Upcomming</div>
-                                <div class="stat-digit">29</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                <div class="col-lg-12">
-                    <div class="card alert">
-                        <div class="card-header">
-                            <h4>Task </h4>
-                            <div class="card-header-right-icon">
-                                <ul>
-                                    <li class="card-close" data-dismiss="alert"><i class="ti-close"></i></li>
-
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="todo-list">
-                            <div class="tdl-holder">
-                                <div class="tdl-content">
-                                    <ul>
-                                        <li><label><input type="checkbox"><i></i><span>get up</span><a href='#' class="ti-close"></a></label></li>
-                                        <li><label><input type="checkbox"><i></i><span>don't give up the fight.</span><a href='#' class="ti-close"></a></label></li>
-                                        <li><label><input type="checkbox" checked><i></i><span>stand up</span><a href='#' class="ti-close"></a></label></li>
-                                        <li><label><input type="checkbox"><i></i><span>don't give up the fight.</span><a href='#' class="ti-close"></a></label></li>
-                                        <li><label><input type="checkbox" checked><i></i><span>do something else</span><a href='#' class="ti-close"></a></label></li>
-                                    </ul>
+                <div class="nav-tabs-custom">
+                    <ul class="nav nav-tabs">
+                        <li class="active"><a href="#activity" data-toggle="tab">Thông tin chung</a></li>
+                        <li><a href="#timeline" data-toggle="tab">Đổi mật khẩu</a></li>
+                    </ul>
+                    <div class="tab-content">
+                        <div class="active tab-pane" id="activity">
+                            <div class="row">
+                                <input type="hidden" id="UserID" value="@Session["UserID"]" />
+                                <div class="form-group" style="margin-top: 10px; margin-left: 20px; margin-right: 20px">
+                                    <div class="row">
+                                        <div class="col-md-3" style="padding-top:5px">
+                                            Họ tên:*
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtHoTen" class="form-control" value="@result.HoTen" />
+                                            <span id="errHoTen" style="display:none;" class="error-message pull-right"></span>
+                                        </div>
+                                    </div>
                                 </div>
-                                <input type="text" class="tdl-new form-control" placeholder="Write new item and hit 'Enter'...">
+                                <div class="form-group" style="margin-top: 10px; margin-left: 20px; margin-right: 20px">
+                                    <div class="row">
+                                        <div class="col-md-3" style="padding-top:5px">
+                                            Ngày sinh:*
+                                        </div>
+                                        <div class="col-md-9">
+                                            @*<input type="text" id="txtNgaySinh" class="form-control" value="@result.NgaySinh" />*@
+                                            <input type="date" class="form-control" name="txtNgaySinh" id="txtNgaySinh" value="@result.NgaySinh.GetValueOrDefault().ToString("dd/MM/yyyy")" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+                                            <span id="errNgaySinh" style="display:none;" class="error-message pull-right"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-top:10px; margin-left:20px; margin-right:20px">
+                                    <div class="row">
+                                        <div class="col-md-3" style="padding-top:5px">
+                                            Ảnh đại diện:
+                                        </div>
+                                        <div class="col-md-9">
+                                            @if (result.Image == null || result.Image.Trim() == "")
+                                            {
+                                                <img id="imgAvatar" src="~/Content/Images/Avatars/images.png" width="200" height="200" />
+                                            }
+                                            else
+                                            {
+                                                <img id="imgAvatar" src="@result.Image" width="200" height="200" />
+                                            }
+                                            <label for="fImage" class="a_hover">
+                                                <i class="fa fa-camera" for="imageUpload" style="position:relative; top:-70px; right:40px; font-size:30px; color:#12111175"></i>
+                                            </label>
+                                            <input type="file" id="fImage" onchange="changeIMG()" name="fImage" accept="*/image" style="display:none" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-top: 10px; margin-left: 20px; margin-right: 20px">
+                                    <div class="row">
+                                        <div class="col-md-3" style="padding-top:5px">
+                                            Địa chỉ:
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtDiaChi" class="form-control" value="@result.DiaChi" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-top: 10px; margin-left: 20px; margin-right: 20px">
+                                    <div class="row">
+                                        <div class="col-md-3" style="padding-top:5px">
+                                            Số điện thoại:*
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input type="number" id="txtSDT" class="form-control" value="@result.SDT" />
+                                            <span id="errSDT" style="display:none;" class="error-message pull-right"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-top: 10px; margin-left: 20px; margin-right: 20px">
+                                    <div class="row">
+                                        <div class="col-md-3" style="padding-top:5px">
+                                            Email:*
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input type="text" id="txtEmail" class="form-control" value="@result.Email" />
+                                            <span id="errEmail" style="display:none;" class="error-message pull-right"></span>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-top: 10px; margin-left: 20px; margin-right: 20px">
+                                    <div class="row">
+                                        <div class="col-md-3" style="padding-top:5px">
+                                            Giới tính:*
+                                        </div>
+                                        <div class="col-md-9">
+                                            <div class="input-group-content">
+                                                @if (result.GioiTinh == true)
+                                                {
+                                                    <div class="col-md-6">
+                                                        <input type="radio" id="NewGender_1" name="NewGender" value="True" checked />
+                                                        <label for="radNewGenderMale" class="group-label input-label">Nam</label>
+                                                    </div>
+                                                    <div class="group">
+                                                        <input type="radio" id="NewGender_0" name="NewGender" value="False" />
+                                                        <label for="radNewGenderFemale" class="group-label input-label">Nữ</label>
+                                                    </div>
+                                                }
+                                                else
+                                                {
+                                                    <div class="col-md-6">
+                                                        <input type="radio" id="NewGender_1" name="NewGender" value="True" />
+                                                        <label for="radNewGenderMale" class="group-label input-label">Nam</label>
+                                                    </div>
+                                                    <div class="group">
+                                                        <input type="radio" id="NewGender_0" name="NewGender" value="False" checked/>
+                                                        <label for="radNewGenderFemale" class="group-label input-label">Nữ</label>
+                                                    </div>
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-top: 10px; margin-left: 20px; margin-right: 20px">
+                                    <div class="row">
+                                        <div class="col-md-9"></div>
+                                        <div class="col-md-3" style="text-align:right">
+                                            <a onclick="UpdateInfo()" class="btn btn-primary btn-block"><b>Cập nhật</b></a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="tab-pane" id="timeline">
+                            <div class="row">
+                                <div class="form-group" style="margin-top: 10px; margin-left: 20px; margin-right: 20px">
+                                    <div class="row">
+                                        <div class="col-md-3" style="padding-top:5px">
+                                            Mật khẩu cũ:*
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input type="password" id="txtOldPass" disabled value="@result.Password" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-top: 10px; margin-left: 20px; margin-right: 20px">
+                                    <div class="row">
+                                        <div class="col-md-3" style="padding-top:5px">
+                                            Mật khẩu mới:*
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input type="password" id="txtNewPass" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-top: 10px; margin-left: 20px; margin-right: 20px">
+                                    <div class="row">
+                                        <div class="col-md-3" style="padding-top:5px">
+                                            Nhập lại mật khẩu:*
+                                        </div>
+                                        <div class="col-md-9">
+                                            <input type="password" id="txtPassConfirm" class="form-control" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-group" style="margin-top: 10px; margin-left: 20px; margin-right: 20px">
+                                    <div class="row">
+                                        <div class="col-md-9"></div>
+                                        <div class="col-md-3" style="text-align:right">
+                                            <a class="btn btn-primary btn-block" onclick="updatePass()"><b>Cập nhật</b></a>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -193,3 +303,7 @@
         </div>
     </div><
 </div>
+
+@section scripts{
+    <script src="~/Areas/Admin/Js/User.js"></script>
+}
