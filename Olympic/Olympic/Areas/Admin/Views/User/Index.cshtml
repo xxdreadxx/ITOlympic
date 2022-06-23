@@ -1,0 +1,195 @@
+﻿@using Models;
+@using Models.EF;
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
+    a_GiaoVien result = ViewBag.User;
+}
+<style>
+    .a_hover:hover {
+        cursor: pointer
+    }
+</style>
+
+<div class="row">
+    <div class="col-lg-8 p-0">
+        <div class="page-header">
+            <div class="page-title">
+                <h1>Thông tin cá nhân</h1>
+            </div>
+        </div>
+    </div>
+    <!-- /# column -->
+    <div class="col-lg-4 p-0">
+        <div class="page-header">
+            <div class="page-title">
+                <ol class="breadcrumb text-right">
+                    <li><a href="/Admin">Trang chủ</a></li>
+                    <li class="active">Thông tin cá nhân</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+    <!-- /# column -->
+</div>
+
+<div class="main-content">
+    <div class="row">
+        <div class="col-lg-5">
+            <div class="card alert">
+                <div class="card-body">
+                    <div class="user-profile">
+                        <div class="row">
+                            <div class="col-lg-4">
+                                <div class="user-photo m-b-30">
+                                    @if (string.IsNullOrEmpty(result.Image))
+                                    {
+                                        <img class="img-responsive" src="~/Content/Images/Avatars/images.png" alt="" />
+                                    }
+                                    else
+                                    {
+                                        <img class="img-responsive" src="@result.Image" alt="" />
+                                    }
+                                </div>
+                            </div>
+                            <div class="col-lg-8">
+                                <div class="user-profile-name">@result.HoTen</div>
+                                @if (result.LoaiTK == 1)
+                                {
+                                    <div class="user-job-title">Quản trị viên</div>
+                                }
+                                else
+                                {
+                                    <div class="user-job-title">Giáo viên/Huấn luyện viên</div>
+                                }
+                                <div class="ratings">
+                                    <h4>Username</h4>
+                                    <div class="rating-star">
+                                        <span>@result.Username</span>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-lg-12">
+                                <div class="custom-tab user-profile-tab">
+                                    <ul class="nav nav-tabs" role="tablist">
+                                        <li role="presentation" class="active"><a href="#1" aria-controls="1" role="tab" data-toggle="tab">Thông tin cá nhân</a></li>
+                                    </ul>
+                                    <div class="tab-content">
+                                        <div role="tabpanel" class="tab-pane active" id="1">
+                                            <div class="contact-information">
+                                                <h4>Thông tin liên lạc</h4>
+                                                <div class="phone-content">
+                                                    <span class="contact-title">Số điện thoại:</span>
+                                                    <span class="phone-number">@result.SDT</span>
+                                                </div>
+                                                <div class="address-content">
+                                                    <span class="contact-title">Đại chỉ:</span>
+                                                    <span class="mail-address">@result.DiaChi</span>
+                                                </div>
+                                                <div class="email-content">
+                                                    <span class="contact-title">Email:</span>
+                                                    <span class="contact-email">@result.Email</span>
+                                                </div>
+                                            </div>
+                                            <div class="basic-information">
+                                                <h4>Thông tin riêng</h4>
+                                                <div class="birthday-content">
+                                                    <span class="contact-title">Ngày sinh:</span>
+                                                    <span class="birth-date">@result.NgaySinh.GetValueOrDefault().ToString("dd/MM/yyyy")</span>
+                                                </div>
+                                                <div class="gender-content">
+                                                    <span class="contact-title">Giới tính:</span>
+                                                    @if (result.GioiTinh == true)
+                                                    {
+                                                        <span class="gender" style="color:aqua"><i class="fa fa-male"></i> Nam</span>
+                                                    }
+                                                    else
+                                                    {
+                                                        <span class="gender" style="color:hotpink"><i class="fa fa-female"></i> Nữ</span>
+                                                    }
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-7">
+            <div class="row">
+                <div class="col-lg-3">
+                    <div class="card">
+                        <div class="stat-widget-one">
+                            <div class="profile-widget">
+                                <div class="stat-text">Job Done</div>
+                                <div class="stat-digit">19</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card">
+                        <div class="stat-widget-one">
+                            <div class="profile-widget">
+                                <div class="stat-text">Ongoing</div>
+                                <div class="stat-digit">6</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card">
+                        <div class="stat-widget-one">
+                            <div class="profile-widget">
+                                <div class="stat-text">Reject</div>
+                                <div class="stat-digit">6</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3">
+                    <div class="card">
+                        <div class="stat-widget-one">
+                            <div class="profile-widget">
+                                <div class="stat-text">Upcomming</div>
+                                <div class="stat-digit">29</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="card alert">
+                        <div class="card-header">
+                            <h4>Task </h4>
+                            <div class="card-header-right-icon">
+                                <ul>
+                                    <li class="card-close" data-dismiss="alert"><i class="ti-close"></i></li>
+
+                                </ul>
+                            </div>
+                        </div>
+                        <div class="todo-list">
+                            <div class="tdl-holder">
+                                <div class="tdl-content">
+                                    <ul>
+                                        <li><label><input type="checkbox"><i></i><span>get up</span><a href='#' class="ti-close"></a></label></li>
+                                        <li><label><input type="checkbox"><i></i><span>don't give up the fight.</span><a href='#' class="ti-close"></a></label></li>
+                                        <li><label><input type="checkbox" checked><i></i><span>stand up</span><a href='#' class="ti-close"></a></label></li>
+                                        <li><label><input type="checkbox"><i></i><span>don't give up the fight.</span><a href='#' class="ti-close"></a></label></li>
+                                        <li><label><input type="checkbox" checked><i></i><span>do something else</span><a href='#' class="ti-close"></a></label></li>
+                                    </ul>
+                                </div>
+                                <input type="text" class="tdl-new form-control" placeholder="Write new item and hit 'Enter'...">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div><
+</div>
