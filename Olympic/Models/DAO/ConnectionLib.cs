@@ -12,7 +12,7 @@ namespace Models.DAO
     public class ConnectionLib
     {
         public static bool CnnStatus = true;
-        public static string ConnectString = ConfigurationManager.ConnectionStrings["LibDbContext"].ToString();
+        public static string ConnectString = ConfigurationManager.ConnectionStrings["OlympicDbContext"].ToString();
 
         public static void ExecSQL(SqlCommand _cmd)
         {

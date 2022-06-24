@@ -1,5 +1,8 @@
 ﻿using System;
+using Dapper;
 using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -29,6 +32,107 @@ namespace Models.DAO
         public a_CuocThi getByID(int id)
         {
             return db.a_CuocThi.FirstOrDefault(x => x.ID == id);
+        }
+
+        public int Add(a_CuocThi result)
+        {
+            try
+            {
+                db.a_CuocThi.Add(result);
+                db.SaveChanges();
+                return 1;
+            }
+            catch
+            {
+                return 0;
+            }
+        }
+
+        public byte Edit(a_CuocThi result)
+        {
+            var item = db.a_CuocThi.FirstOrDefault(x => x.ID == result.ID);
+            if (item == null)
+            {
+                return 0;
+            }
+            else
+            {
+                item.MaCuocThi = result.MaCuocThi;
+                item.TenCuocThi = result.TenCuocThi;
+                item.BTC = result.BTC;
+                item.Cap = result.Cap;
+                if(result.FileDinhKem != null)
+                {
+                    item.FileDinhKem = result.FileDinhKem;
+                }
+                item.GiaiThuong = result.GiaiThuong;
+                item.KinhPhi = result.KinhPhi;
+                item.NoiDung = result.NoiDung;
+                item.Nam = result.Nam;
+                item.ThoiGianBatDau = result.ThoiGianBatDau;
+                item.ThoiGianKetThuc = result.ThoiGianKetThuc;
+                db.SaveChanges();
+                return 1;
+            }
+        }
+
+        public byte ChangeStatus(int ID, byte status)
+        {
+            var item = db.a_CuocThi.FirstOrDefault(x => x.ID == ID);
+            if (item == null)
+            {
+                return 0;
+            }
+            else
+            {
+                item.TrangThai = status;
+                db.SaveChanges();
+                return 1;
+            }
+        }
+
+        public int ChangeStatusMore(string ListID, byte status)
+        {
+            try
+            {
+                var convertArray = ListID.Replace("[", "").Replace("]", "");
+                string _sqlStr = $"update a_CuocThi set TrangThai = {status} where ID in (select * from dbo.SplitDelimiterString('{convertArray}',','))";
+                var upd = db.Database.ExecuteSqlCommand(_sqlStr);
+            }
+            catch (Exception)
+            {
+                return 0;
+            }
+            return 1;
+        }
+
+        public void updateStatusAuto()
+        {
+            string dateNow = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString();
+            string _sqlStr = $"update a_CuocThi set TrangThai = 2 where ThoiGianBatDau <= {dateNow} and {dateNow} <= ThoiGianKetThuc and TrangThai = 1";
+            var upd = db.Database.ExecuteSqlCommand(_sqlStr);
+            string _sqlStr1 = $"update a_CuocThi set TrangThai = 3 where ThoiGianBatDau < {dateNow} and {dateNow} > ThoiGianKetThuc and TrangThai = 2";
+            var upd1 = db.Database.ExecuteSqlCommand(_sqlStr);
+        }
+
+        public int FindData(int id)
+        {
+            string dateNow = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString();
+            int _result = 0;
+            using (SqlConnection _conn = new SqlConnection(ConnectionLib.ConnectString))
+            {
+                _conn.Open();
+                try
+                {
+                    var _sqlStr = $@"select * from a_CuocThi where TrangThai <> 10 and ID = {id} and ThoiGianBatDau <= {dateNow} and {dateNow} <= ThoiGianKetThuc";
+                    _result = _conn.Query<a_CuocThi>(_sqlStr, null, commandType: CommandType.Text).ToList().Count();
+                    return _result;
+                }
+                catch (Exception)
+                {
+                    return 0;
+                }
+            }
         }
     }
 }

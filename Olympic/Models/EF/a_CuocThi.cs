@@ -38,5 +38,6 @@ namespace Models.EF
         public byte? TrangThai { get; set; }
 
         public string FileDinhKem { get; set; }
+        public string LyDoHuy { get; set; }
     }
 }

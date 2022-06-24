@@ -21,6 +21,8 @@ namespace Olympic.Areas.Admin.Controllers
             }
             int userID = int.Parse(Session["UserID"].ToString());
             ViewBag.User = userDao.getByID(userID);
+            Session["UserImg"] = ViewBag.User.Image;
+            Session["UserHoTen"] = ViewBag.User.HoTen;
             return View();
         }
     }
