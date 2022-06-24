@@ -52,6 +52,15 @@ namespace Olympic.Areas.Admin.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        public JsonResult LogOut()
+        {
+            Session["IDUser"] = null;
+            return Json(new
+            {
+                status = true
+            }, JsonRequestBehavior.AllowGet);
+        }
+
         public static string MD5Hash(string input)
         {
             StringBuilder hash = new StringBuilder();

@@ -44,7 +44,6 @@
                             <li><a href="ui-badges.html">Quản lý thi đội nhóm</a></li>
                             <li><a href="ui-button.html">Quản lý thi cá nhân</a></li>
                             <li><a href="ui-dropdown.html">Quản lý kết quả</a></li>
-
                         </ul>
                     </li>
                     <li><a href="#"><i class="ti-bar-chart-alt"></i> Báo cáo</a></li>
@@ -56,7 +55,7 @@
     <div class="header">
         <div class="pull-left">
             <div class="logo">
-                <a href="index.html">
+                <a href="/Admin">
                     <img id="logoImg" src="logo/logo.png" data-logo_big="logo/logo.png" data-logo_small="logo/logoSmall.png" alt="Nixon" />
                 </a>
             </div>
@@ -181,12 +180,19 @@
                 </li>
                 <li class="header-icon dib chat-sidebar-icon"><i class="ti-comments"></i></li>
                 <li class="header-icon dib">
-                    <img class="avatar-img" src="assets/images/avatar/1.jpg" alt="" /> <span class="user-avatar">Jane <i class="ti-angle-down f-s-10"></i></span>
+                    @if (ViewBag.User.Image == null || ViewBag.User.Image == "")
+                    {
+                        <img class="avatar-img" src="assets/images/avatar/1.jpg" alt="" /> <span class="user-avatar">@ViewBag.User.HoTen <i class="ti-angle-down f-s-10"></i></span>
+                    }
+                    else
+                    {
+                        <img class="avatar-img" src="@ViewBag.User.Image" alt="" /> <span class="user-avatar">@ViewBag.User.HoTen <i class="ti-angle-down f-s-10"></i></span>
+                    }
                     <div class="drop-down dropdown-profile">
                         <div class="dropdown-content-body">
                             <ul>
-                                <li><a href="#"><i class="ti-user"></i> <span>Thông tin cá nhân</span></a></li>
-                                <li><a href="#"><i class="ti-power-off"></i> <span>Đăng xuất</span></a></li>
+                                <li><a href="/Admin/User"><i class="ti-user"></i> <span>Thông tin cá nhân</span></a></li>
+                                <li><a onclick="LogOut()"><i class="ti-power-off"></i> <span>Đăng xuất</span></a></li>
                             </ul>
                         </div>
                     </div>
@@ -362,6 +368,23 @@
                 editTitle: false
             });
         });
+    </script>
+    <script>
+        function LogOut() {
+            $.ajax({
+                url: '/Admin/Login/LogOut',
+                type: 'GET',
+                dataType: 'json',
+                success: function (response) {
+                    if (response.status == true) {
+                        window.location = '/Admin/Login/Index';
+                    }
+                },
+                error: function (err) {
+                    console.log(err);
+                }
+            });
+        }
     </script>
     @RenderSection("scripts", required: false)
 </body>

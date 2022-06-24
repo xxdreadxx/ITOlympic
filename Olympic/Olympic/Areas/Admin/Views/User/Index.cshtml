@@ -154,7 +154,7 @@
                                         </div>
                                         <div class="col-md-9">
                                             @*<input type="text" id="txtNgaySinh" class="form-control" value="@result.NgaySinh" />*@
-                                            <input type="date" class="form-control" name="txtNgaySinh" id="txtNgaySinh" value="@result.NgaySinh.GetValueOrDefault().ToString("dd/MM/yyyy")" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+                                            <input type="date" class="form-control" name="txtNgaySinh" id="txtNgaySinh" value="@result.NgaySinh.GetValueOrDefault().ToString("yyyy-MM-dd")" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
                                             <span id="errNgaySinh" style="display:none;" class="error-message pull-right"></span>
                                         </div>
                                     </div>
@@ -274,6 +274,7 @@
                                         </div>
                                         <div class="col-md-9">
                                             <input type="password" id="txtNewPass" class="form-control" />
+                                            <span id="errPass" style="display:none;" class="error-message pull-right"></span>
                                         </div>
                                     </div>
                                 </div>
@@ -284,6 +285,7 @@
                                         </div>
                                         <div class="col-md-9">
                                             <input type="password" id="txtPassConfirm" class="form-control" />
+                                            <span id="errPassConfirm" style="display:none;" class="error-message pull-right"></span>
                                         </div>
                                     </div>
                                 </div>

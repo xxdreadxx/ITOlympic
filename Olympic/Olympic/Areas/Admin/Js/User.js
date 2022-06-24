@@ -28,35 +28,32 @@
 
 function updatePass() {
     var kt = true;
-    var IDNV = $('#hdIDNV').val();
+    var IDNV = $('#UserID').val();
     var PassOld = $('#txtOldPass').val();
     var NewPass = $('#txtNewPass').val();
     var PassConfirm = $('#txtPassConfirm').val();
-    if (PassOld.trim() == '') {
-        toastr.warning('Chưa nhập mật khẩu!', '', { timeOut: 1000 });
-        $('#txtOldPass').focus();
+    if (NewPass.trim() == '') {
+        $('#txtNewPass').focus();
+        document.getElementById('errPass').innerHTML = "Chưa nhập mật khẩu mới!";
+        $('#errPass').show();
         kt = false;
     }
-    else {
-        if (NewPass.trim() == '') {
-            toastr.warning('Chưa nhập mật khẩu mới!', '', { timeOut: 1000 });
-            $('#txtOldPass').focus();
-            kt = false;
-        }
-        else if (NewPass.trim().length < 6 || NewPass.trim().length > 20) {
-            toastr.warning('Mật khẩu phải từ 6 đến 20 kí tự!', '', { timeOut: 1000 });
-            $('#txtNewPass').focus();
-            kt = false;
-        }
-        else if (PassConfirm.trim() == '') {
-            toastr.warning('Chưa nhập lại mật khẩu mới!', '', { timeOut: 1000 });
-            $('#txtPassConfirm').focus();
-            kt = false;
-        }
-        else if (NewPass != PassConfirm) {
-            toastr.warning('Mật khẩu nhập lại không khớp!', '', { timeOut: 1000 });
-            kt = false;
-        }
+    else if (NewPass.trim().length < 4 || NewPass.trim().length > 8) {
+        document.getElementById('errPass').innerHTML = "Mật khẩu phải từ 4 đến 8 kí tự!";
+        $('#errPass').show();
+        $('#txtNewPass').focus();
+        kt = false;
+    }
+    else if (PassConfirm.trim() == '') {
+        document.getElementById('errPassConfirm').innerHTML = "Chưa nhập lại mật khẩu mới!";
+        $('#errPassConfirm').show();
+        $('#txtPassConfirm').focus();
+        kt = false;
+    }
+    else if (NewPass != PassConfirm) {
+        document.getElementById('errPassConfirm').innerHTML = "Mật khẩu nhập lại không khớp!";
+        $('#errPassConfirm').show();
+        kt = false;
     }
     if (kt == true) {
         var formData = new FormData();
@@ -206,7 +203,7 @@ $("#txtEmail").keyup(function () {
         document.getElementById('errEmail').innerHTML = "Chưa nhập email";
         $('#errEmail').show();
     }
-}) 
+})
 
 $("#txtHoTen").keyup(function () {
     var ten = $('#txtHoTen').val().trim();
@@ -238,6 +235,27 @@ $("#txtNgaySinh").keyup(function () {
     else {
         document.getElementById('errNgaySinh').innerHTML = "Chưa nhập số ngày sinh";
         $('#errNgaySinh').show();
+    }
+})
+
+$("#txtNewPass").keyup(function () {
+    var ten = $('#txtNewPass').val().trim().length;
+    if (ten >=4 && ten<=8) {
+        $('#errPass').hide();
+    }
+    else {
+        document.getElementById('errPass').innerHTML = "Mật khẩu phải từ 4 đến 8 kí tự!";
+        $('#errPass').show();
+    }
+})
+$("#errPassConfirm").keyup(function () {
+    var ten = $('#errPassConfirm').val().trim().length;
+    if (ten >= 4 && ten <= 8) {
+        $('#errPassConfirm').hide();
+    }
+    else {
+        document.getElementById('errPassConfirm').innerHTML = "Mật khẩu phải từ 4 đến 8 kí tự!";
+        $('#errPassConfirm').show();
     }
 })
 

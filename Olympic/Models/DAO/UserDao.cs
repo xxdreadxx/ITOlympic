@@ -120,13 +120,37 @@ namespace Models.DAO
                 item.GioiTinh = result.GioiTinh;
                 item.HoTen = result.HoTen;
                 item.MaGiaoVien = result.MaGiaoVien;
-                item.Password = result.Password;
                 item.SDT = result.SDT;
-                item.Image = result.Image;
+                if (result.Image != null)
+                {
+                    item.Image = result.Image;
+                }
                 item.DiaChi = result.DiaChi;
                 item.NgaySinh = result.NgaySinh;
                 db.SaveChanges();
                 return 1;
+            }
+        }
+
+        public byte UpdatePass(string pass, int IDNV)
+        {
+            try
+            {
+                a_GiaoVien item = db.a_GiaoVien.FirstOrDefault(x => x.ID == IDNV);
+                if (item.Password == pass)
+                {
+                    return 1;
+                }
+                else
+                {
+                    item.Password = pass;
+                    db.SaveChanges();
+                    return 0;
+                }
+            }
+            catch
+            {
+                return 2;
             }
         }
 
