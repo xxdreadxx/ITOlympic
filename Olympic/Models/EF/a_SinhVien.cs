@@ -28,7 +28,7 @@ namespace Models.EF
         [StringLength(500)]
         public string DiaChi { get; set; }
 
-        public byte? GioiTinh { get; set; }
+        public bool? GioiTinh { get; set; }
 
         [StringLength(50)]
         public string NgaySinh { get; set; }

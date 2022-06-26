@@ -1,4 +1,15 @@
-﻿
+﻿function changeIMG() {
+    var f = document.getElementById("fImage").files;
+    if (f.length > 0) {
+        var fileToLoad = f[0];
+        var fileReader = new FileReader();
+        fileReader.onload = function (fileLoadedEvent) {
+            var srcData = fileLoadedEvent.target.result; // <--- data: base64
+            document.getElementById("imgAvatar").src = srcData;
+        }
+        fileReader.readAsDataURL(fileToLoad);
+    }
+};
 
 var mangId = [];
 $(document).on('change', '#check-all-delete-js', function () {
@@ -66,7 +77,6 @@ $(document).on('change', '#check-all-delete-js , #tblUser > tbody > tr  input.on
     }
 });
 
-
 function Add(id) {
     resetForm();
     if (id == null || id == 0) {
@@ -75,7 +85,7 @@ function Add(id) {
     else {
         document.getElementById('tieude').innerHTML = "Cập nhật thông tin giáo viên";
         $.ajax({
-            url: "/dGiaoVien/Edit",
+            url: "/SinhVien/Edit",
             data: {
                 id: id
             },
@@ -84,10 +94,12 @@ function Add(id) {
                 if (result.status == true) {
                     $('#id').val(id);
                     $('#NewFirstName').val(result.data.HoTen);
-                    $('#NewUserName').val(result.data.Username);
+                    $('#txtMSV').val(result.data.MaSV);
+                    $('#txtLop').val(result.data.Lop);
+                    document.getElementById("imgAvatar").src = result.data.AnhHoSo;
                     //$('#NewPassword').val(result.data.HoTen);
                     $('#NewEmail').val(result.data.Email);
-                    $('#NewBirthday').val(result.ngaysinh);
+                    $('#NewBirthday').val(result.NgaySinh);
                     $('#NewPhone').val(result.data.SDT);
                     $('#NewAddress').val(result.data.DiaChi);
                 }
@@ -99,19 +111,19 @@ function Add(id) {
 
 function resetForm() {
     $('#NewFirstName').val('');
-    $('#NewUserName').val('');
-    $('#NewPassword').val('');
+    $('#txtLop').val('');
+    $('#txtMSV').val('');
     $('#NewEmail').val('');
     $('#NewBirthday').val('');
     $('#NewPhone').val('');
     $('#NewAddress').val('');
+    document.getElementById("imgAvatar").src = '~/Content/Images/Avatars/images.png';
     $('#errTen').hide();
     $('#errUsername').hide();
     $('#errEmail').hide();
     $('#errPass').hide();
     $('#errNgaySinh').hide();
 }
-
 
 function checkDate(strDate, kt) {
     if (kt == true) {
@@ -141,6 +153,16 @@ function checkDate(strDate, kt) {
     }
 }
 
+$("#txtMSV").keyup(function () {
+    var ten = $('#txtMSV').val().trim();
+    if (ten != "") {
+        $('#errMSV').hide();
+    }
+    else {
+        document.getElementById('errMSV').innerHTML = "Chưa nhập hmã sinh viên";
+        $('#errMSV').show();
+    }
+})
 $("#NewFirstName").keyup(function () {
     var ten = $('#NewFirstName').val().trim();
     if (ten != "") {
@@ -152,42 +174,14 @@ $("#NewFirstName").keyup(function () {
     }
 })
 
-$("#NewUserName").keyup(function () {
-    var ten = $('#NewUserName').val().trim();
+$("#txtLop").keyup(function () {
+    var ten = $('#txtLop').val().trim();
     if (ten != "") {
-        $('#errUsername').hide();
+        $('#errLop').hide();
     }
     else {
-        document.getElementById('errUsername').innerHTML = "Chưa nhập tên đăng nhập";
-        $('#errUsername').show();
-    }
-})
-
-//$("#NewBirthday").keyup(function () {
-//    if (checkDate($('#NewBirthday').val(), false) == false) {
-//        document.getElementById('errNgaySinh').innerHTML = "Ngày tháng năm sai định dạng.";
-//        $('#errNgaySinh').show();
-//    }
-//    else {
-//        $('#errNgaySinh').hide();
-//    }
-
-//})
-
-$("#NewPassword").keyup(function () {
-    var ten = $('#NewPassword').val().trim();
-    if (ten != "") {
-        if (!isPass(ten)) {
-            document.getElementById('errPass').innerHTML = "Tối thiểu 4 ký tự, tối đa 8 ký tự, ít nhất 1 chữ cái và 1 số";
-            $('#errPass').show();
-        }
-        else {
-            $('#errPass').hide();
-        }
-    }
-    else {
-        document.getElementById('errPass').innerHTML = "Chưa nhập mật khẩu";
-        $('#errPass').show();
+        document.getElementById('errLop').innerHTML = "Chưa nhập lớp";
+        $('#errLop').show();
     }
 })
 
@@ -213,26 +207,22 @@ function isEmail(email) {
     return regex.test(email);
 }
 
-function isPass(pass) {
-    var regex = /^(?=.*[A-Za-z])(?=.*\d)[A-Za-z\d]{4,8}$/;
-    return regex.test(pass);
-}
-
 function loadPartial() {
-    $('#tableNguoiDung').load('/Admin/dGiaoVien/getList');
+    $('#tableNguoiDung').load('/Admin/SinhVien/getList');
 }
 
 function Save() {
     var isSave = true;
     var hoten = $('#NewFirstName').val().trim();
-    var taikhoan = $('#NewUserName').val().trim();
-    var matkhau = $('#NewPassword').val().trim();
+    var lop = $('#txtLop').val().trim();
+    var MaSV = $('#txtMSV').val().trim();
     var email = $('#NewEmail').val().trim();
     var id = $('#id').val();
     var nam = document.getElementById('NewGender_1');
     var nu = document.getElementById('radNewGender_0');
     var kichhoat = document.getElementById('activeKH_1');
     var kokichhoat = document.getElementById('activeKH_0');
+    var Image = document.getElementById("fImage").files[0];
     var gioitinh = "";
     var ac = "";
     var kieu = $('#ddlKieuND').val();
@@ -240,42 +230,6 @@ function Save() {
         isSave = false;
         document.getElementById('errTen').innerHTML = "Chưa nhập họ tên";
         $('#errTen').show();
-    }
-    if (taikhoan == "") {
-        isSave = false;
-        document.getElementById('errUsername').innerHTML = "Chưa nhập tên đăng nhập";
-        $('#errUsername').show();
-    }
-    else {
-        $.ajax({
-            url: "/dGiaoVien/checkTenDangNhap",
-            data: {
-                user: taikhoan,
-                id: id
-            },
-            type: 'post',
-            success: function (result) {
-                if (result.status == false) {
-                    isSave = false;
-                    document.getElementById('errUsername').innerHTML = "Tên đăng nhập đã tồn tại trong hệ thống";
-                    $('#errUsername').show();
-                }
-            }
-        });
-    }
-    if (id == 0) {
-        if (matkhau == "") {
-            isSave = false;
-            document.getElementById('errPass').innerHTML = "Chưa nhập mật khẩu";
-            $('#errPass').show();
-        }
-        else {
-            if (!isPass(matkhau)) {
-                isSave = false;
-                document.getElementById('errPass').innerHTML = "Tối thiểu 4 ký tự, tối đa 8 ký tự, ít nhất 1 chữ cái và 1 số.";
-                $('#errPass').show();
-            }
-        }
     }
 
     if (email == "") {
@@ -291,19 +245,18 @@ function Save() {
                 $('#errEmail').show();
             }
         }
-
     }
-
 
     if (isSave == true) {
         var formData = new FormData();
         formData.append("HoTen", hoten);
-        formData.append("TenDangNhap", taikhoan);
-        formData.append("MatKhau", matkhau);
+        formData.append("MaSV", MaSV);
+        formData.append("Lop", lop);
         formData.append("SDT", $('#NewPhone').val());
         formData.append("Email", email);
         formData.append("DiaChi", $('#NewAddress').val());
         formData.append("NgaySinh", $('#NewBirthday').val());
+        formData.append("Image", Image);
         if (nam.checked == true && nam != null) {
             gioitinh = 1;
         }
@@ -323,7 +276,7 @@ function Save() {
         $.ajax({
             async: false,
             type: 'POST',
-            url: "/dGiaoVien/Save",
+            url: "/SinhVien/Save",
             data: formData,
             cache: false,
             contentType: false,
@@ -334,7 +287,7 @@ function Save() {
                     if (id == 0) {
                         bootbox.alert({
                             title: "Thông báo",
-                            message: "Thêm mới thành công giáo viên",
+                            message: "Thêm mới thành công sinh viên",
                             buttons: {
                                 ok: {
                                     label: 'Đóng',
@@ -347,7 +300,7 @@ function Save() {
                     else {
                         bootbox.alert({
                             title: "Thông báo",
-                            message: "Cập nhật giáo viên thành công",
+                            message: "Cập nhật sinh viên thành công",
                             buttons: {
                                 ok: {
                                     label: 'Đóng',
@@ -364,7 +317,6 @@ function Save() {
             }
         });
     }
-
 }
 var idND = "";
 function Link_DeleteTT_onclick(DID) {
@@ -382,7 +334,7 @@ function deleteOne() {
         mangId.push(idND)
     }
     $.ajax({
-        url: '/dGiaoVien/Delete',
+        url: '/SinhVien/Delete',
         dataType: 'json',
         type: 'post',
         data: { ListID: JSON.stringify(mangId) },
@@ -408,7 +360,7 @@ function deleteOne() {
 function deleteAll() {
     var chuoiMangId = JSON.stringify(mangId);
     $.ajax({
-        url: '/dGiaoVien/Delete',
+        url: '/SinhVien/Delete',
         dataType: 'json',
         type: 'post',
         data: { ListID: chuoiMangId },
@@ -432,10 +384,12 @@ function deleteAll() {
 }
 
 $(document).ready(function () {
-    $("#txtSearch").on('keyup', function () {
-        var value = $(this).val().toLowerCase();
-        $("#tblUser > tbody tr").filter(function () {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) != -1)
-        });
+    $("#txtSearch").val('');
+});
+
+$("#txtSearch").on('keyup', function () {
+    var value = $(this).val().toLowerCase();
+    $("#tblUser > tbody tr").filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) != -1)
     });
 });

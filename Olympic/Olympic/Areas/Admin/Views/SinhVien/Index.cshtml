@@ -45,10 +45,8 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="col-lg-offset-6 custom-search-form">
-                        <input type="text" class="form-control" tabindex="2" value="@ViewBag.Search" name="Search" id="txtSearch" placeholder="Tìm kiếm..." />
-                        @*<span class="input-group-btn">
-                                <button class="btn btn-default" type="submit" tabindex="3" id="btnSearch"><i class="ti-search"></i></button>
-                            </span>*@
+                        <input class="form-control" value="@ViewBag.Search" name="Search" id="txtSearch" />
+                        <input type="text" class="form-control" tabindex="2" style="display:none" />
                     </div>
                 </div>
             </div>
@@ -78,19 +76,25 @@
                         <input id="id" name="id" style="display:none" value="0" />
                         <div class="col-md-6">
                             <div class="lms-input-group">
+                                <div class="input-group-title right">Mã sinh viên <span class="text-danger">(*) </span></div>
+                                <div class="input-group-content">
+                                    <input type="text" id="txtMSV" name="txtMSV" value="" class="form-control" maxlength="15" />
+                                </div>
+                                <span id="errMSV" style="display:none;" class="error-message pull-right"></span>
+                            </div>
+                            <div class="lms-input-group">
                                 <div class="input-group-title right">Họ tên <span class="text-danger">(*) </span></div>
                                 <div class="input-group-content">
-                                    <input type="text" id="NewFirstName" name="NewFirstName" value="" class="form-control" maxlength="15" />
+                                    <input type="text" id="NewFirstName" name="NewFirstName" value="" class="form-control" />
                                 </div>
                                 <span id="errTen" style="display:none;" class="error-message pull-right"></span>
                             </div>
-
                             <div class="lms-input-group">
-                                <div class="input-group-title right">Tên đăng nhập <span class="text-danger">(*) </span></div>
+                                <div class="input-group-title right">Lớp <span class="text-danger">(*) </span></div>
                                 <div class="input-group-content">
-                                    <input type="text" name="NewUserName" maxlength="32" class="form-control" id="NewUserName" />
+                                    <input type="text" id="txtLop" name="txtLop" value="" class="form-control" />
                                 </div>
-                                <span id="errUsername" style="display:none;" class="error-message pull-right"></span>
+                                <span id="errLop" style="display:none;" class="error-message pull-right"></span>
                             </div>
                             <div class="lms-input-group">
                                 <div class="input-group-title right">Email<span class="text-danger">(*) </span></div>
@@ -104,7 +108,6 @@
                                 <div class="input-group-content">
                                     <input type="text" name="NewAddress" id="NewAddress" value="" class="form-control" maxlength="255" />
                                 </div>
-
                             </div>
                             <div class="lms-input-group">
                                 <div class="input-group-title right">Giới tính</div>
@@ -130,30 +133,21 @@
                             </div>
 
                             <div class="lms-input-group">
-                                <div class="input-group-title right">Mật khẩu <span class="text-danger">(*) </span></div>
-                                <div class="input-group-content">
-                                    <input type="password" id="NewPassword" placeholder="********" style="color:#444" name="NewPassword" maxlength="8" class="form-control" />
-                                    <p class="text-muted" hidden>Mật khẩu không chứa khoảng trắng đầu và cuối.</p>
-                                </div>
-                                <span id="errPass" style="display:none;" class="error-message pull-right"></span>
-                            </div>
-
-                            <div class="lms-input-group">
                                 <div class="input-group-title right">Số điện thoại</div>
                                 <div class="input-group-content">
                                     <input type="text" name="NewPhone" id="NewPhone" value="" maxlength="20" class="form-control" />
                                 </div>
                             </div>
-
                             <div class="lms-input-group">
-                                <div class="input-group-title">Kiểu người dùng <span class="text-danger">(*) </span></div>
+                                <div class="input-group-title right">Ảnh đại diện <span class="text-danger">(*) </span></div>
                                 <div class="input-group-content">
-                                    <select id="ddlKieuND" name="ddlKieuND" class="form-control">
-                                        <option value="1" selected>Quản trị viên</option>
-                                        <option value="2">Người dùng</option>
-                                    </select>
+                                    <img id="imgAvatar" src="~/Content/Images/Avatars/images.png" width="200" height="200" />
+                                    <label for="fImage" class="a_hover">
+                                        <i class="fa fa-camera" for="imageUpload" style="position:relative; top:-70px; right:40px; font-size:30px; color:#12111175"></i>
+                                    </label>
+                                    <input type="file" id="fImage" onchange="changeIMG()" name="fImage" accept="*/image" style="display:none" />
                                 </div>
-                            </div>
+                            </div>  
                             <div class="lms-input-group">
                                 <div class="input-group-title right">Kích hoạt</div>
                                 <div class="input-group-content">
@@ -167,27 +161,20 @@
                                     </div>
                                 </div>
                             </div>
-
                         </div>
                     </div>
-
-
                 </div>
             </div>
-
 
             <div class="modal-footer" style="text-align:center">
                 <button class="btn btn-success" type="button" id="btnAddUser" onclick="Save()"><i class="ti-save" aria-hidden="true"></i><span> Lưu</span></button>
                 <button class="btn btn-primary" type="reset" data-dismiss="modal"><i class="ti-close" aria-hidden="true"></i><span> Hủy</span></button>
             </div>
         </div>
-
     </div>
 </div>
 
 
 @section scripts{
-
     <script src="~/Areas/Admin/Js/SinhVien.js"></script>
 }
-

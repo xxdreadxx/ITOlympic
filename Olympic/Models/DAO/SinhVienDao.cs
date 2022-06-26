@@ -31,11 +31,10 @@ namespace Models.DAO
             try
             {
                 var convertArray = ListID.Replace("[", "").Replace("]", "");
-                string _sqlStr = "update a_SinhVien set TrangThai = 10 where ID in (select * from dbo.SplitDelimiterString(@lstMa,','))";
-                var maTinParam1 = new SqlParameter("@lstMa", convertArray);
-                var delete = db.Database.ExecuteSqlCommand(_sqlStr, maTinParam1);
+                string _sqlStr = $"update a_SinhVien set TrangThai = 10 where ID in (select * from STRING_SPLIT('{convertArray}',','))";
+                var upd1 = db.Database.ExecuteSqlCommand(_sqlStr);
             }
-            catch (Exception)
+            catch (Exception ex)
             {
                 return 0;
             }
@@ -46,13 +45,13 @@ namespace Models.DAO
             return db.a_SinhVien.FirstOrDefault(x => x.ID == ID);
         }
 
-        public byte Add(a_SinhVien item)
+        public int Add(a_SinhVien item)
         {
             try
             {
                 db.a_SinhVien.Add(item);
                 db.SaveChanges();
-                return 1;
+                return item.ID;
             }
             catch
             {
@@ -92,7 +91,11 @@ namespace Models.DAO
                 item.SDT = result.SDT;
                 item.DiaChi = result.DiaChi;
                 item.NgaySinh = result.NgaySinh;
-                item.AnhHoSo = result.AnhHoSo;
+                item.TrangThai = result.TrangThai;
+                if (result.AnhHoSo != null)
+                {
+                    item.AnhHoSo = result.AnhHoSo;
+                }
                 db.SaveChanges();
                 return 1;
             }

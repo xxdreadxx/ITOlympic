@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -38,6 +39,7 @@ namespace Olympic.Areas.Admin.Controllers
             {
                 ViewBag.MaxPage = (maxCount / pageSize);
             }
+            ViewBag.Search = search;
             return PartialView(lstSV);
         }
 
@@ -68,6 +70,7 @@ namespace Olympic.Areas.Admin.Controllers
         [ValidateInput(false)]
         public JsonResult Save(FormCollection c)
         {
+            HttpFileCollectionBase file = Request.Files;
             int ID = int.Parse(c["ID"].ToString());
             var ngaysinh = c["NgaySinh"];
             DateTime? birth = null;
@@ -79,14 +82,14 @@ namespace Olympic.Areas.Admin.Controllers
             if (ID == 0)
             {
                 //thêm mới
-                a_GiaoVien gv = new a_GiaoVien();
+                a_SinhVien gv = new a_SinhVien();
+                gv.MaSV = c["MaSV"] != null ? c["MaSV"].Trim() : "";
                 gv.HoTen = c["HoTen"] != null ? c["HoTen"].Trim() : "";
-                gv.Username = c["TenDangNhap"] != null ? c["TenDangNhap"].Trim() : "";
-                gv.LoaiTK = byte.Parse(c["KieuNguoiDung"].ToString());
                 gv.Email = c["Email"] != null ? c["Email"].Trim() : "";
                 gv.SDT = c["SDT"] != null ? c["SDT"].Trim() : "";
+                gv.Lop = c["Lop"] != null ? c["Lop"].Trim() : "";
                 gv.DiaChi = c["DiaChi"] != null ? c["DiaChi"].Trim() : "";
-                gv.NgaySinh = birth;
+                gv.NgaySinh = birth.GetValueOrDefault().ToString("dd/MM/yyyy");
                 if (c["GioiTinh"] == "1")
                 {
                     gv.GioiTinh = true;
@@ -103,20 +106,33 @@ namespace Olympic.Areas.Admin.Controllers
                 {
                     gv.TrangThai = 2;
                 }
-                db.a_GiaoVien.Add(gv);
-                db.SaveChanges();
+                
+                if (file.Count > 0)
+                {
+                    if (file[0].ContentLength > 0)
+                    {
+                        string pathFolder = "/Content/Images/Avatars/SinhVien/";
+                        Directory.CreateDirectory(Server.MapPath(pathFolder));
+                        string nameAnh = file[0].FileName;
+                        string pathFile = Path.Combine(Server.MapPath(pathFolder), nameAnh);
+                        file[0].SaveAs(pathFile);
+                        gv.AnhHoSo = pathFolder + nameAnh;
+                    }
+                }
+                int IDNew = dao.Add(gv);
             }
             else
             {
                 //sửa
-                a_GiaoVien gv = db.a_GiaoVien.FirstOrDefault(x => x.ID == ID);
+                a_SinhVien gv = new a_SinhVien();
+                gv.ID = ID;
+                gv.MaSV = c["MaSV"] != null ? c["MaSV"].Trim() : "";
                 gv.HoTen = c["HoTen"] != null ? c["HoTen"].Trim() : "";
-                gv.Username = c["TenDangNhap"] != null ? c["TenDangNhap"].Trim() : "";
-                gv.LoaiTK = byte.Parse(c["KieuNguoiDung"].ToString());
                 gv.Email = c["Email"] != null ? c["Email"].Trim() : "";
                 gv.SDT = c["SDT"] != null ? c["SDT"].Trim() : "";
                 gv.DiaChi = c["DiaChi"] != null ? c["DiaChi"].Trim() : "";
-                gv.NgaySinh = birth;
+                gv.Lop = c["Lop"] != null ? c["Lop"].Trim() : "";
+                gv.NgaySinh = birth.GetValueOrDefault().ToString("dd/MM/yyyy");
                 if (c["GioiTinh"] == "1")
                 {
                     gv.GioiTinh = true;
@@ -133,7 +149,19 @@ namespace Olympic.Areas.Admin.Controllers
                 {
                     gv.TrangThai = 2;
                 }
-                db.SaveChanges();
+                if (file.Count > 0)
+                {
+                    if (file[0].ContentLength > 0)
+                    {
+                        string pathFolder = "/Content/Images/Avatars/SinhVien/";
+                        Directory.CreateDirectory(Server.MapPath(pathFolder));
+                        string nameAnh = file[0].FileName;
+                        string pathFile = Path.Combine(Server.MapPath(pathFolder), nameAnh);
+                        file[0].SaveAs(pathFile);
+                        gv.AnhHoSo = pathFolder + nameAnh;
+                    }
+                }
+                var kt = dao.Edit(gv);
             }
             return Json(new
             {
@@ -144,10 +172,12 @@ namespace Olympic.Areas.Admin.Controllers
         public JsonResult Edit(int id)
         {
             var data = dao.getByID(id);
+            string NgaySinh = DateTime.ParseExact(data.NgaySinh, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
             return Json(new
             {
                 status = true,
-                data = data
+                data = data,
+                NgaySinh = NgaySinh
             }, JsonRequestBehavior.AllowGet);
         }
     }
