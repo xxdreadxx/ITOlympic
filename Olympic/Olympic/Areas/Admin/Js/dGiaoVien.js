@@ -1,4 +1,6 @@
-﻿
+﻿$(document).ready(function () {
+    $('#liGiaoVien').addClass('active');
+});
 
 var mangId = [];
 $(document).on('change', '#check-all-delete-js', function () {
@@ -439,10 +441,10 @@ function Link_Status_onclick(DID, trangthai) {
     if (idBG != "")//view popup xác nhận xóa
     {
         if (status == 2) {
-            $('#noidung').text('Bạn có muốn bỏ kích hoạt tài khoản giáo viên đã chọn hay không?')
+            $('#statusNoiDung').text('Bạn có muốn bỏ kích hoạt tài khoản giáo viên đã chọn hay không?')
         }
         else {
-            $('#noidung').text('Bạn có muốn kích hoạt tài khoản giáo viên đã chọn hay không?')
+            $('#statusNoiDung').text('Bạn có muốn kích hoạt tài khoản giáo viên đã chọn hay không?')
         }
         $("#status").modal("show");
     }

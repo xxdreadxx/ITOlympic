@@ -1,5 +1,5 @@
 ﻿<div class="modal fade" id="Delete" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog" style="width:500px; top:20%">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -20,7 +20,7 @@
 
 <!-- Modal hỏi xác nhận xóa người dùng -->
 <div class="modal fade" id="DeleteND" role="dialog">
-    <div class="modal-dialog" style="top:20%">
+    <div class="modal-dialog" style="width:500px; top:20%" >
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -30,7 +30,7 @@
             </div>
             <div class="modal-body">
                 <p type="hidden" id="NDID_Popup"></p>
-                <p>Bạn có muốn xóa giáo viên đã chọn hay không?</p>
+                <p id="pnoidung">Bạn có muốn xóa giáo viên đã chọn hay không?</p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="btnSave" onclick="deleteOne()"> Đồng ý </button>
@@ -42,7 +42,7 @@
 
 <!-- Modal hỏi xác nhận kích hoạt/bỏ kích hoạt người dùng -->
 <div class="modal fade" id="status" role="dialog">
-    <div class="modal-dialog" style="top:20%">
+    <div class="modal-dialog" style="width:500px; top:20%">
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -51,7 +51,7 @@
             </div>
             <div class="modal-body">
                 <p type="hidden" id="NDID_Popup"></p>
-                <p id="noidung"></p>
+                <p id="statusNoiDung"></p>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-primary" id="btnSave" onclick="changeStatus()"> Đồng ý </button>

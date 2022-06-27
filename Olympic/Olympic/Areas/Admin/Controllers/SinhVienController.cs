@@ -141,14 +141,7 @@ namespace Olympic.Areas.Admin.Controllers
                 {
                     gv.GioiTinh = false;
                 }
-                if (c["KichHoat"] == "1")
-                {
-                    gv.TrangThai = 1;
-                }
-                else
-                {
-                    gv.TrangThai = 2;
-                }
+                gv.TrangThai = 1;
                 if (file.Count > 0)
                 {
                     if (file[0].ContentLength > 0)
@@ -172,7 +165,11 @@ namespace Olympic.Areas.Admin.Controllers
         public JsonResult Edit(int id)
         {
             var data = dao.getByID(id);
-            string NgaySinh = DateTime.ParseExact(data.NgaySinh, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+            string NgaySinh = "";
+            if (data.NgaySinh != null) {
+                NgaySinh = DateTime.ParseExact(data.NgaySinh, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
+            }
+            
             return Json(new
             {
                 status = true,

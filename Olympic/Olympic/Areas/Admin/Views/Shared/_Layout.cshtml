@@ -18,6 +18,12 @@
     <!-- Standard iPhone Touch Icon-->
     <link rel="apple-touch-icon" sizes="57x57" href="http://placehold.it/57.png/000/fff">
     <!-- Styles -->
+    <style>
+        .bootbox .modal-dialog {
+            width: 500px;
+            top: 20%
+        }
+    </style>
     <link href="~/Content/Asset/assets/fontAwesome/css/fontawesome-all.min.css" rel="stylesheet" />
     <link href="~/Content/Asset/assets/css/lib/themify-icons.css" rel="stylesheet" />
     <link href="~/Content/Asset/assets/css/lib/mmc-chat.css" rel="stylesheet" />
@@ -34,9 +40,9 @@
         <div class="nano">
             <div class="nano-content">
                 <ul>
-                    <li><a href="/Admin/dGiaoVien/Index"><i class="fa fa-users"></i> Quản lý giáo viên</a></li>
-                    <li><a href="/Admin/SinhVien/Index"><i class="ti-user"></i> Quản lý sinh viên</a></li>
-                    <li>
+                    <li id="liGiaoVien"><a href="/Admin/dGiaoVien/Index"><i class="fa fa-users"></i> Quản lý giáo viên</a></li>
+                    <li id="liSinhVien"><a href="/Admin/SinhVien/Index"><i class="ti-user"></i> Quản lý sinh viên</a></li>
+                    <li id="liCuocThi">
                         <a class="sidebar-sub-toggle"><i class="ti-layout"></i> Cuộc thi<span class="sidebar-collapse-icon ti-angle-down"></span></a>
                         <ul>
                             <li>@*<a href="ui-accordion.html">Quản lý hạng mục</a>*@</li>
@@ -46,7 +52,7 @@
                             <li><a href="ui-dropdown.html">Quản lý kết quả</a></li>
                         </ul>
                     </li>
-                    <li><a href="#"><i class="ti-bar-chart-alt"></i> Báo cáo</a></li>
+                    <li id="liBaoCao"><a href="#"><i class="ti-bar-chart-alt"></i> Báo cáo</a></li>
                 </ul>
             </div>
         </div>
@@ -56,7 +62,7 @@
         <div class="pull-left">
             <div class="logo">
                 <a href="/Admin">
-                    <img id="logoImg" src="logo/logo.png" data-logo_big="logo/logo.png" data-logo_small="logo/logoSmall.png" alt="Nixon" />
+                    <img id="logoImg" src="~/Content/Asset/_Logo.png"  />
                 </a>
             </div>
             <div class="hamburger sidebar-toggle">
@@ -347,14 +353,14 @@
     <script src="~/Content/Asset/assets/js/lib/mmc-common.js"></script>
     <script src="~/Content/Asset/assets/js/lib/mmc-chat.js"></script>
     <!--  Chart js -->
-    @*<script src="~/Content/Asset/assets/js/lib/chart-js/Chart.bundle.js"></script>
-        <script src="~/Content/Asset/assets/js/lib/chart-js/chartjs-init.js"></script>*@
-    <!-- // Chart js -->
-    <!--  Datamap -->
-    @*<script src="~/Content/Asset/assets/js/lib/datamap/d3.min.js"></script>
+    <script src="~/Content/Asset/assets/js/lib/chart-js/Chart.bundle.js"></script>
+        <script src="~/Content/Asset/assets/js/lib/chart-js/chartjs-init.js"></script>
+
+
+    <script src="~/Content/Asset/assets/js/lib/datamap/d3.min.js"></script>
         <script src="~/Content/Asset/assets/js/lib/datamap/topojson.js"></script>
         <script src="~/Content/Asset/assets/js/lib/datamap/datamap-init.js"></script>
-        <script src="~/Content/Asset/assets/js/lib/datamap/datamaps.world.min.js"></script>*@
+        <script src="~/Content/Asset/assets/js/lib/datamap/datamaps.world.min.js"></script>
     <script src="~/Content/Asset/assets/js/lib/lobi-panel/lobipanel.js"></script>
     <!-- // Datamap -->
     <script src="~/Content/Asset/assets/js/scripts.js"></script>

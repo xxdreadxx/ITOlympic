@@ -1,4 +1,7 @@
-﻿function changeIMG() {
+﻿$(document).ready(function () {
+    $('#liSinhVien').addClass('active');
+});
+function changeIMG() {
     var f = document.getElementById("fImage").files;
     if (f.length > 0) {
         var fileToLoad = f[0];
@@ -80,10 +83,10 @@ $(document).on('change', '#check-all-delete-js , #tblUser > tbody > tr  input.on
 function Add(id) {
     resetForm();
     if (id == null || id == 0) {
-        document.getElementById('tieude').innerHTML = "Thêm mới giáo viên";
+        document.getElementById('tieude').innerHTML = "Thêm mới sinh viên";
     }
     else {
-        document.getElementById('tieude').innerHTML = "Cập nhật thông tin giáo viên";
+        document.getElementById('tieude').innerHTML = "Cập nhật thông tin sinh viên";
         $.ajax({
             url: "/SinhVien/Edit",
             data: {
@@ -263,16 +266,9 @@ function Save() {
         if (nu != null && nu.checked == true) {
             gioitinh = 0;
         }
-        if (kichhoat.checked == true && kichhoat != null) {
-            ac = 1;
-        }
-        if (kokichhoat.checked == true && kokichhoat != null) {
-            ac = 0;
-        }
         formData.append("KieuNguoiDung", kieu);
         formData.append("ID", id);
         formData.append("GioiTinh", gioitinh);
-        formData.append("KichHoat", ac);
         $.ajax({
             async: false,
             type: 'POST',
@@ -323,6 +319,7 @@ function Link_DeleteTT_onclick(DID) {
     idND = DID;
     if (idND != "" || idND == 0)//view popup xác nhận xóa
     {
+        $('#pnoidung').text('Bạn có muốn xóa sinh viên đã chọn hay không?')
         $("#DeleteND").modal("show");
     }
 }
