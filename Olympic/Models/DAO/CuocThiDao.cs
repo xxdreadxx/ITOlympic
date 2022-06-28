@@ -26,9 +26,22 @@ namespace Models.DAO
                 lst = db.a_CuocThi.Where(x => x.TrangThai != 10 && x.TenCuocThi.Contains(search)).ToList();
             }
             totalCount = lst.Count();
-            return lst;
+            return lst.OrderByDescending(x=>x.ID).ToList();
         }
-
+        public int Delete(string ListID)
+        {
+            try
+            {
+                var convertArray = ListID.Replace("[", "").Replace("]", "");
+                string _sqlStr = $"update a_CuocThi set TrangThai = 10 where ID in (select * from STRING_SPLIT('{convertArray}',','))";
+                var upd1 = db.Database.ExecuteSqlCommand(_sqlStr);
+            }
+            catch (Exception ex)
+            {
+                return 0;
+            }
+            return 1;
+        }
         public a_CuocThi getByID(int id)
         {
             return db.a_CuocThi.FirstOrDefault(x => x.ID == id);
@@ -132,6 +145,19 @@ namespace Models.DAO
                 {
                     return 0;
                 }
+            }
+        }
+
+        public bool checkMa(string ma, int id)
+        {
+            var item = db.a_CuocThi.FirstOrDefault(x => x.MaCuocThi == ma && x.TrangThai != 10 && x.ID != id);
+            if (item != null)
+            {
+                return false;
+            }
+            else
+            {
+                return true;
             }
         }
     }

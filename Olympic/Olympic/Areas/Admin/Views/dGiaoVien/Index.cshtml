@@ -91,9 +91,24 @@
                             <div class="lms-input-group">
                                 <div class="input-group-title right">Tên đăng nhập <span class="text-danger">(*) </span></div>
                                 <div class="input-group-content">
-                                    <input type="text" name="NewUserName" maxlength="32" class="form-control" id="NewUserName"  />
+                                    <input type="text" name="NewUserName" maxlength="32" class="form-control" id="NewUserName" />
                                 </div>
                                 <span id="errUsername" style="display:none;" class="error-message pull-right"></span>
+                            </div>
+                            <div class="lms-input-group">
+                                <div class="input-group-title right">Mật khẩu <span class="text-danger">(*) </span></div>
+                                <div class="input-group-content">
+                                    <input type="password" id="NewPassword" placeholder="********" style="color:#444" name="NewPassword" maxlength="8" class="form-control" />
+                                    <p class="text-muted" hidden>Mật khẩu không chứa khoảng trắng đầu và cuối.</p>
+                                </div>
+                                <span id="errPass" style="display:none;" class="error-message pull-right"></span>
+                            </div>
+                            <div class="lms-input-group">
+                                <div class="input-group-title right">Ngày sinh</div>
+                                <div class="input-group-content">
+                                    <input type="date" class="form-control" name="NewBirthday" id="NewBirthday" value="" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+                                </div>
+                                <span id="errNgaySinh" style="display:none;" class="error-message pull-right"></span>
                             </div>
                             <div class="lms-input-group">
                                 <div class="input-group-title right">Email<span class="text-danger">(*) </span></div>
@@ -113,7 +128,7 @@
                                 <div class="input-group-title right">Giới tính</div>
                                 <div class="input-group-content">
                                     <div class="col-md-4">
-                                        <input type="radio" id="NewGender_1" name="NewGender" value="True" checked/>
+                                        <input type="radio" id="NewGender_1" name="NewGender" value="True" checked />
                                         <label for="radNewGenderMale" class="group-label input-label">Nam</label>
                                     </div>
                                     <div class="group">
@@ -125,21 +140,18 @@
                         </div>
                         <div class="col-md-6">
                             <div class="lms-input-group">
-                                <div class="input-group-title right">Ngày sinh</div>
+                                <div class="input-group-title right">Ảnh đại diện</div>
                                 <div class="input-group-content">
-                                    <input type="date" class="form-control" name="NewBirthday" id="NewBirthday" value="" data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="">
+                                    <img id="imgAvatar" src="~/Content/Images/Avatars/images.png" width="200" height="200" />
+                                    <label for="fImage" class="a_hover">
+                                        <i class="fa fa-camera" for="imageUpload" style="position:relative; top:-70px; right:40px; font-size:30px; color:#12111175"></i>
+                                    </label>
+                                    <input type="file" id="fImage" onchange="changeIMG()" name="fImage" accept="*/image" style="display:none" />
                                 </div>
-                                <span id="errNgaySinh" style="display:none;" class="error-message pull-right"></span>
                             </div>
+                            
 
-                            <div class="lms-input-group">
-                                <div class="input-group-title right">Mật khẩu <span class="text-danger">(*) </span></div>
-                                <div class="input-group-content">
-                                    <input type="password" id="NewPassword" placeholder="********" style="color:#444" name="NewPassword" maxlength="8" class="form-control" />
-                                    <p class="text-muted" hidden>Mật khẩu không chứa khoảng trắng đầu và cuối.</p>
-                                </div>
-                                <span id="errPass" style="display:none;" class="error-message pull-right"></span>
-                            </div>
+                            
 
                             <div class="lms-input-group">
                                 <div class="input-group-title right">Số điện thoại</div>

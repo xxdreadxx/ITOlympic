@@ -120,7 +120,7 @@ function resetForm() {
     $('#NewBirthday').val('');
     $('#NewPhone').val('');
     $('#NewAddress').val('');
-    document.getElementById("imgAvatar").src = '~/Content/Images/Avatars/images.png';
+    document.getElementById("imgAvatar").src = '/Content/Images/Avatars/images.png';
     $('#errTen').hide();
     $('#errUsername').hide();
     $('#errEmail').hide();

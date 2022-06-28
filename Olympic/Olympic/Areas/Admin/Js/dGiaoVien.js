@@ -87,7 +87,12 @@ function Add(id) {
                     $('#id').val(id);
                     $('#NewFirstName').val(result.data.HoTen);
                     $('#NewUserName').val(result.data.Username);
-                    //$('#NewPassword').val(result.data.HoTen);
+                    if (result.data.Image != null && result.data.Image != "") {
+                        document.getElementById("imgAvatar").src = result.data.Image;
+                    }
+                    else {
+                        document.getElementById("imgAvatar").src = '/Content/Images/Avatars/images.png';
+                    }
                     $('#NewEmail').val(result.data.Email);
                     $('#NewBirthday').val(result.ngaysinh);
                     $('#NewPhone').val(result.data.SDT);
@@ -100,6 +105,7 @@ function Add(id) {
 }
 
 function resetForm() {
+    document.getElementById("imgAvatar").src = '/Content/Images/Avatars/images.png';
     $('#NewFirstName').val('');
     $('#NewUserName').val('');
     $('#NewPassword').val('');
@@ -117,10 +123,10 @@ function resetForm() {
 
 function checkDate(strDate, kt) {
     if (kt == true) {
-        var comp = strDate.split('/');
-        var d = comp[0];
+        var comp = strDate.split('-');
+        var d = comp[2];
         var m = comp[1];
-        var y = comp[2];
+        var y = comp[0];
         var date = new Date(y, m - 1, d);
         if (date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d) {
             return true;
@@ -130,10 +136,10 @@ function checkDate(strDate, kt) {
     else {
         //nếu ko có dữ liệu thì ko cần kiểm tra(trường ngày tháng có thể để trống)
 
-            var comp = strDate.split('/');
-            var d = comp[0];
+            var comp = strDate.split('-');
+            var d = comp[2];
             var m = comp[1];
-            var y = comp[2];
+            var y = comp[0];
             var date = new Date(y, m - 1, d);
             if (date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d) {
                 return true;
@@ -165,16 +171,16 @@ $("#NewUserName").keyup(function () {
     }
 })
 
-//$("#NewBirthday").keyup(function () {
-//    if (checkDate($('#NewBirthday').val(), false) == false) {
-//        document.getElementById('errNgaySinh').innerHTML = "Ngày tháng năm sai định dạng.";
-//        $('#errNgaySinh').show();
-//    }
-//    else {
-//        $('#errNgaySinh').hide();
-//    }
+$("#NewBirthday").keyup(function () {
+    if (checkDate($('#NewBirthday').val(), false) == false) {
+        document.getElementById('errNgaySinh').innerHTML = "Ngày tháng năm sai định dạng.";
+        $('#errNgaySinh').show();
+    }
+    else {
+        $('#errNgaySinh').hide();
+    }
     
-//})
+})
 
 $("#NewPassword").keyup(function () {
     var ten = $('#NewPassword').val().trim();
@@ -226,6 +232,7 @@ function loadPartial() {
 
 function Save() {
     var isSave = true;
+    var Image = document.getElementById("fImage").files[0];
     var hoten = $('#NewFirstName').val().trim();
     var taikhoan = $('#NewUserName').val().trim();
     var matkhau = $('#NewPassword').val().trim();
@@ -306,6 +313,7 @@ function Save() {
         formData.append("Email", email);
         formData.append("DiaChi", $('#NewAddress').val());
         formData.append("NgaySinh", $('#NewBirthday').val());
+        formData.append("Image", Image);
         if (nam.checked == true && nam != null) {
             gioitinh = 1;
         }
@@ -500,3 +508,16 @@ $(document).ready(function () {
         });
     });
 });
+
+function changeIMG() {
+    var f = document.getElementById("fImage").files;
+    if (f.length > 0) {
+        var fileToLoad = f[0];
+        var fileReader = new FileReader();
+        fileReader.onload = function (fileLoadedEvent) {
+            var srcData = fileLoadedEvent.target.result; // <--- data: base64
+            document.getElementById("imgAvatar").src = srcData;
+        }
+        fileReader.readAsDataURL(fileToLoad);
+    }
+};

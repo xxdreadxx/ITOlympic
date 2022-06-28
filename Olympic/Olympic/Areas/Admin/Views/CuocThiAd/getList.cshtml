@@ -1,0 +1,83 @@
+﻿@model IEnumerable<Models.EF.a_CuocThi>
+@{
+    int page = int.Parse(ViewBag.page.ToString());
+    int maxpage = int.Parse(ViewBag.MaxPage.ToString());
+}
+<table class="table table-responsive table-hover " id="tblUser">
+    <thead>
+        <tr>
+            <th width="5%"><input id="check-all-delete-js" type="checkbox"></th>
+            <th width="10%">Mã cuộc thi</th>
+            <th width="25%">Tên cuộc thi</th>
+            <th width="10%" class="text-center">Cấp</th>
+            <th width="15%" class="text-center">Thời gian bắt đầu</th>
+            <th width="15%" class="text-center">Thời gian kết thúc</th>
+            <th width="10%" class="text-center">Trạng thái</th>
+            <th width="10%" style="text-align:center">Chức năng</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr data-id="@item.ID" id="idtr">
+                <td><input type="checkbox" autocomplete="off" class="one-delete-js" /></td>
+                <td>@item.MaCuocThi</td>
+                <td>@item.TenCuocThi</td>
+                @if (item.Cap == 1)
+                {
+                    <td class="text-center">Cấp trường</td>
+                }
+                else
+                {
+                    <td class="text-center">Cấp quốc gia</td>
+                }
+                <td class="text-center">@item.ThoiGianBatDau</td>
+                <td class="text-center">@item.ThoiGianKetThuc</td>
+                @if (item.TrangThai == 1)
+                {
+                    <td class="text-center">Chưa triển khai </td>
+                }
+                else if (item.TrangThai == 2)
+                {
+                    <td class="text-center">Đang triển khai</td>
+                }
+                else if (item.TrangThai == 3)
+                {
+                    <td class="text-center">Kết thúc</td>
+                }
+                <td style="text-align:center">
+                    <a href="#" title="Sửa" type="button" onclick="Add(@item.ID)"><i class="ti-pencil"></i></a>
+                    <a href="#" title="Xóa" onclick="Link_DeleteTT_onclick(@item.ID)"><i class="ti-trash"></i></a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div id="content" class="row">
+    <div class="text-right col-lg-6" style="float:right;">
+        <ul class="pagination">
+            @if (page != 1)
+            {
+                var stt = page - 1;
+                <li><a href="/Admin/CuocThiAd?page=@stt"><i class="fa fa-angle-left"></i></a></li>
+            }
+            @for (int i = 1; i <= ViewBag.MaxPage; i++)
+            {
+                if (i == page)
+                {
+                    <li class="active"><a>@i</a></li>
+                }
+                else
+                {
+                    <li><a href="/Admin/CuocThiAd?page=@i">@i</a></li>
+                }
+            }
+            @if (page != ViewBag.MaxPage && ViewBag.MaxPage != 0)
+            {
+                var stt = page + 1;
+                <li><a href="/Admin/CuocThiAd?page=@stt"><i class="fa fa-angle-right"></i></a></li>
+            }
+        </ul>
+    </div>
+</div>
+

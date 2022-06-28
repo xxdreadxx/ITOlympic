@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
@@ -73,6 +74,7 @@ namespace Olympic.Areas.Admin.Controllers
         [ValidateInput(false)]
         public JsonResult Save(FormCollection c)
         {
+            HttpFileCollectionBase file = Request.Files;
             int ID = int.Parse(c["ID"].ToString());
             var passwordEncrypted = MD5Hash(c["MatKhau"]);
             var ngaysinh = c["NgaySinh"];
@@ -110,6 +112,18 @@ namespace Olympic.Areas.Admin.Controllers
                 {
                     gv.TrangThai = 2;
                 }
+                if (file.Count > 0)
+                {
+                    if (file[0].ContentLength > 0)
+                    {
+                        string pathFolder = "/Content/Images/Avatars/GiaoVien/";
+                        Directory.CreateDirectory(Server.MapPath(pathFolder));
+                        string nameAnh = file[0].FileName;
+                        string pathFile = Path.Combine(Server.MapPath(pathFolder), nameAnh);
+                        file[0].SaveAs(pathFile);
+                        gv.Image = pathFolder + nameAnh;
+                    }
+                }
                 db.a_GiaoVien.Add(gv);
                 db.SaveChanges();
             }
@@ -140,6 +154,18 @@ namespace Olympic.Areas.Admin.Controllers
                 else
                 {
                     gv.TrangThai = 2;
+                }
+                if (file.Count > 0)
+                {
+                    if (file[0].ContentLength > 0)
+                    {
+                        string pathFolder = "/Content/Images/Avatars/GiaoVien/";
+                        Directory.CreateDirectory(Server.MapPath(pathFolder));
+                        string nameAnh = file[0].FileName;
+                        string pathFile = Path.Combine(Server.MapPath(pathFolder), nameAnh);
+                        file[0].SaveAs(pathFile);
+                        gv.Image = pathFolder + nameAnh;
+                    }
                 }
                 db.SaveChanges();
             }
@@ -181,7 +207,11 @@ namespace Olympic.Areas.Admin.Controllers
         public JsonResult Edit(int id)
         {
             var data = dao.getByID(id);
-            string ngaysinh = data.NgaySinh.GetValueOrDefault().ToString("yyyy-MM-dd");
+            string ngaysinh = "";
+            if(data.NgaySinh != null)
+            {
+                ngaysinh = data.NgaySinh.GetValueOrDefault().ToString("yyyy-MM-dd");
+            }
             return Json(new
             {
                 status = true,
