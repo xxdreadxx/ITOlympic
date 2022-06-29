@@ -72,12 +72,12 @@ function Add(id) {
     resetForm();
     $('#id').val(id);
     if (id == null || id == 0) {
-        document.getElementById('tieude').innerHTML = "Thêm mới cuộc thi";
+        document.getElementById('tieude').innerHTML = "Thêm mới hạng mục thi";
     }
     else {
-        document.getElementById('tieude').innerHTML = "Cập nhật thông tin cuộc thi";
+        document.getElementById('tieude').innerHTML = "Cập nhật thông tin hạng mục thi";
         $.ajax({
-            url: "/CuocThiAd/Edit",
+            url: "/HangMuc/Edit",
             data: {
                 id: id
             },
@@ -85,23 +85,16 @@ function Add(id) {
             success: function (result) {
                 if (result.status == true) {
                     $('#id').val(id);
-                    $('#txtMa').val(result.data.MaCuocThi);
+                    $('#txtMa').val(result.data.MaHangMuc);
+                    $('#txtTen').val(result.data.TenHangMuc);
                     $('#txtBatDau').val(result.data.ThoiGianBatDau);
-                    $('#txtBTC').val(result.data.BTC);
-                    $('#txtGiaiThuong').val(result.data.GiaiTHuong);
-                    $('#txtTen').val(result.data.TenCuocThi);
-                    $('#txtNam').val(result.data.Nam);
+                    $('#dllDoiTuong').val(result.data.DoiTuong).change();
                     $('#txtKetThuc').val(result.data.ThoiGianKetThuc);
-                    $('#txtKinhPhi').val(result.data.KinhPhi);
                     $('#txtNoiDung').val(result.data.NoiDung);
-                    if (result.data.TenFile != null && result.data.TenFile != "") {
-                        var strtenfile = result.data.TenFile.split("/").pop();
-                        if (strtenfile.length > 30) {
-                            strtenfile = strtenfile.substring(0, 20) + "...";
-                        }
-                        $('#fileName').text(strtenfile);
-                        $('#fileName').css('display', 'block');
-                    }
+                    $('#txtSoLuong').val(result.data.SoLuong);
+                    $('#txtHinhThuc').val(result.data.HinhThucThi);
+                    $('#txtGiaiThuong').val(result.data.GiaiThuong);
+                    $('#txtNoiDung').val(result.data.NoiDungThi);
                 }
             }
         });
@@ -110,53 +103,21 @@ function Add(id) {
 }
 
 function resetForm() {
+    $('#id').val(0);
     $('#txtMa').val('');
-    $('#txtBatDau').val('');
-    $('#txtBTC').val('');
-    $('#txtGiaiThuong').val('');
     $('#txtTen').val('');
-    $('#txtNam').val('');
+    $('#txtBatDau').val('');
     $('#txtKetThuc').val('');
-    $('#txtKinhPhi').val('');
+    $('#dllDoiTuong').val('1').change();
+    $('#txtSoLuong').val(0);
+    $('#txtGiaiThuong').val('');
+    $('#txtHinhThuc').val('');
     $('#txtNoiDung').val('');
     $('#errMa').hide();
     $('#errTGBD').hide();
     $('#errTen').hide();
     $('#errTGKT').hide();
-    $('#fileError').hide();
-
-    $('#btnChoose').val("");
-    $('#fileName').text("Chọn tệp đính kèm");
-}
-
-$("#btnChoose").change(function () {
-    var fileName = $(this).val().split("\\").pop();
-    if (fileName.length > 20) {
-        fileName = fileName.substring(0, 20) + "...";
-    }
-    $('#fileName').text(fileName);
-    $(this).siblings(".custom-file-label").addClass("selected").html(fileName);
-    readURL(this);
-    if (fileName != "") {
-        var extension = $(this).val().split("\\").pop().split('.').pop();
-        if (extension != "pdf") {
-            document.getElementById('fileError').innerHTML = "Vui lòng chọn file PDF";
-            $('#fileError').show();
-        } else {
-            document.getElementById('fileError').innerHTML = "";
-            $('#fileError').hide();
-        }
-    }
-    else {
-        $('#fileError').show();
-    }
-});
-
-function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
-        reader.readAsDataURL(input.files[0]);
-    }
+    $('#errSL').hide();
 }
 
 function checkDate(strDate, kt) {
@@ -193,7 +154,7 @@ $("#txtMa").keyup(function () {
         $('#errMa').hide();
     }
     else {
-        document.getElementById('errMa').innerHTML = "Chưa nhập mã cuộc thi";
+        document.getElementById('errMa').innerHTML = "Chưa nhập mã hạng mục thi";
         $('#errMa').show();
     }
 })
@@ -204,7 +165,7 @@ $("#txtTen").keyup(function () {
         $('#errUsername').hide();
     }
     else {
-        document.getElementById('errTen').innerHTML = "Chưa nhập tên cuộc thi";
+        document.getElementById('errTen').innerHTML = "Chưa nhập tên hạng mục thi";
         $('#errTen').show();
     }
 })
@@ -243,25 +204,36 @@ $("#txtBatDau").keyup(function () {
     }
 })
 
+$("#txtSoLuong").keyup(function () {
+    var ten = $('#txtSoLuong').val();
+    if (ten != "") {
+        var SL = $('#txtSoLuong').val();
+        if (SL <= 0) {
+            document.getElementById('errSL').innerHTML = "Số lượng thành viên trong đội phải >0";
+            $('#errSL').show();
+        }
+        else {
+            $('#errSL').hide();
+        }
+    }
+    else {
+        document.getElementById('errSL').innerHTML = "Chưa nhập số lượng thành viên trong đội";
+        $('#errSL').show();
+    }
+})
+
 function loadPartial() {
-    $('#tableNguoiDung').load('/Admin/CuocThiAd/getList');
+    $('#tableNguoiDung').load('/Admin/HangMuc/getList');
 }
 
 function Save() {
     var isSave = true;
     var ma = $('#txtMa').val().trim();
+    var doituong = $('#dllDoiTuong').val();
     var ten = $('#txtTen').val().trim();
     var tgbd = $('#txtBatDau').val();
     var tgkt = $('#txtKetThuc').val();
     var id = $('#id').val();
-    var file = document.getElementById('btnChoose');
-
-    var extension = $("#btnChoose").val().split('.').pop();
-    if (extension != "pdf" && extension != "") {
-        isSave = false;
-        document.getElementById('fileError').innerHTML = "Vui lòng chọn file PDF";
-        $('#fileError').show();
-    }
     if (ten == "") {
         isSave = false;
         document.getElementById('errTen').innerHTML = "Chưa nhập tên cuộc thi";
@@ -274,7 +246,7 @@ function Save() {
     }
     else {
         $.ajax({
-            url: "/CuocThiAd/checkMaCuocThi",
+            url: "/HangMuc/checkMaHangMuc",
             data: {
                 ma: ma,
                 id: id
@@ -283,18 +255,20 @@ function Save() {
             success: function (result) {
                 if (result.status == false) {
                     isSave = false;
-                    document.getElementById('errUsername').innerHTML = "Tên đăng nhập đã tồn tại trong hệ thống";
-                    $('#errUsername').show();
+                    document.getElementById('errMa').innerHTML = "Mã hạng mục thi đã tồn tại";
+                    $('#errMa').show();
                 }
             }
         });
     }
     if (tgbd == "") {
+        isSave = false;
         document.getElementById('errTGBD').innerHTML = "Chưa nhập thời gian bắt đầu";
         $('#errTGBD').show();
     }
     else {
         if (checkDate(tgkt, false) == false) {
+            isSave = false;
             document.getElementById('errTGBD').innerHTML = "Ngày tháng năm sai định dạng.";
             $('#errTGBD').show();
         }
@@ -304,11 +278,13 @@ function Save() {
     }
 
     if (tgkt == "") {
+        isSave = false;
         document.getElementById('errTGKT').innerHTML = "Chưa nhập thời gian kết thúc";
         $('#errTGKT').show();
     }
     else {
         if (checkDate(tgkt, false) == false) {
+            isSave = false;
             document.getElementById('errTGKT').innerHTML = "Ngày tháng năm sai định dạng.";
             $('#errTGKT').show();
         }
@@ -316,7 +292,25 @@ function Save() {
             $('#errTGKT').hide();
         }
     }
-
+    if (doituong == '1') {
+        var sl1 = $('#txtSoLuong').val();
+        if (sl1 != "") {
+            var SL = $('#txtSoLuong').val();
+            if (SL <= 0) {
+                isSave = false;
+                document.getElementById('errSL').innerHTML = "Số lượng thành viên trong đội phải >0";
+                $('#errSL').show();
+            }
+            else {
+                $('#errSL').hide();
+            }
+        }
+        else {
+            isSave = false;
+            document.getElementById('errSL').innerHTML = "Chưa nhập số lượng thành viên trong đội";
+            $('#errSL').show();
+        }
+    }
 
     if (isSave == true) {
         var formData = new FormData();
@@ -384,7 +378,7 @@ function Link_DeleteTT_onclick(DID) {
     idND = DID;
     if (idND != "" || idND == 0)//view popup xác nhận xóa
     {
-        $('#pnoidung').text('Bạn có muốn xóa cuộc thi đã chọn hay không?')
+        $('#pnoidung').text('Bạn có muốn xóa hạng mục thi đã chọn hay không?')
         $("#DeleteND").modal("show");
     }
 }
@@ -396,7 +390,7 @@ function deleteOne() {
         mangId.push(idND)
     }
     $.ajax({
-        url: '/CuocThiAd/Delete',
+        url: '/HangMuc/Delete',
         dataType: 'json',
         type: 'post',
         data: { ListID: JSON.stringify(mangId) },
@@ -422,7 +416,7 @@ function deleteOne() {
 function deleteAll() {
     var chuoiMangId = JSON.stringify(mangId);
     $.ajax({
-        url: '/CuocThiAd/Delete',
+        url: '/HangMuc/Delete',
         dataType: 'json',
         type: 'post',
         data: { ListID: chuoiMangId },
@@ -453,3 +447,14 @@ $(document).ready(function () {
         });
     });
 });
+
+function changeDoiTuong() {
+    var doiTuong = $('#dllDoiTuong').val();
+    if (doiTuong == 1) {
+        document.getElementById('divSoLuong').style.display = 'block';
+    }
+    else {
+        document.getElementById('divSoLuong').style.display = 'none';
+        $('#txtSoLuong').val(0);
+    }
+}

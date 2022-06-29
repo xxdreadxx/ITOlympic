@@ -13,14 +13,16 @@ namespace Models.EF
         public int? ID_CuocThi { get; set; }
 
         [StringLength(50)]
-        public string MaKhoiMuc { get; set; }
+        public string MaHangMuc { get; set; }
 
         [StringLength(250)]
-        public string TenKhoiMuc { get; set; }
+        public string TenHangMuc { get; set; }
 
-        public string ThoiGian { get; set; }
+        public string ThoiGianBatDau { get; set; }
+        public string ThoiGianKetThuc { get; set; }
 
         public byte? DoiTuong { get; set; }
+        public int SoLuong { get; set; }
 
         public string HinhThucThi { get; set; }
 
