@@ -23,6 +23,9 @@
             width: 500px;
             top: 20%
         }
+        body {
+            color: black;
+        }
     </style>
     <link href="~/Content/Asset/assets/fontAwesome/css/fontawesome-all.min.css" rel="stylesheet" />
     <link href="~/Content/Asset/assets/css/lib/themify-icons.css" rel="stylesheet" />
@@ -45,11 +48,8 @@
                     <li id="liCuocThi">
                         <a class="sidebar-sub-toggle"><i class="ti-layout"></i> Cuộc thi<span class="sidebar-collapse-icon ti-angle-down"></span></a>
                         <ul>
-                            <li>@*<a href="ui-accordion.html">Quản lý hạng mục</a>*@</li>
                             <li><a href="/Admin/CuocThiAd">Quản lý cuộc thi</a></li>
-                            <li><a href="ui-badges.html">Quản lý thi đội nhóm</a></li>
-                            <li><a href="ui-button.html">Quản lý thi cá nhân</a></li>
-                            <li><a href="ui-dropdown.html">Quản lý kết quả</a></li>
+                            <li><a href="/Admin/LichTrinh">Lịch trình</a></li>
                         </ul>
                     </li>
                     <li id="liBaoCao"><a href="#"><i class="ti-bar-chart-alt"></i> Báo cáo</a></li>
@@ -62,7 +62,7 @@
         <div class="pull-left">
             <div class="logo">
                 <a href="/Admin">
-                    <img id="logoImg" src="~/Content/Asset/_Logo.png"  />
+                    <img id="logoImg" src="~/Content/Asset/_Logo.png" />
                 </a>
             </div>
             <div class="hamburger sidebar-toggle">
@@ -338,11 +338,58 @@
         </div>
         <!-- /# main -->
     </div>
+    @Html.Partial("~/Areas/Admin/Views/HomeAd/ChonCuocThi.cshtml");
+    <script>
+       
+        //Gọi modal chọn kỳ thi
+        function ChonKyThi() {
+            $.ajax({
+                url: '/HomeAd/GetCuocThi',
+                success: function (res) {
+
+                    var selectCuocThi = $('#txtKyThi_ChonKyThi');
+                    var op = "<option value=0>Chọn cuộc thi</option>";
+                    $.each(res.data, function (i, item) {
+                        op += '<option value=' + item.ID + '>' + item.TenCuocThi + '</option>'
+                    });
+                    selectCuocThi.html(op);
+                }
+            })
+            $('#mdlChonKyThi').modal('show');
+        }
+        function Get_IDKyThi() {
+            var id = $('#txtKyThi_ChonKyThi').val();
+            $.ajax({
+                url: '/HomeAd/GetDetailCuocThi',
+                data: { id: id },
+                type: 'post',
+                success: function (result) {
+                    if (result.status == true) {
+                        $('#macuocthi').text(result.data.MaCuocThi);
+                        $('#txtMa_ChonKyThi').text(result.data.MaCuocThi);
+                        $('#txtTen_ChonKyThi').html(result.data.TenCuocThi);
+                        $('#txtNgayBD_ChonKyThi').html(result.tgbd);
+                        $('#txtNgayKT_ChonKyThi').html(result.tgkt);
+                        $('#txtIDKyThi_ChonKyThi').val(id);
+                    }
+                }
+            })
+        }
+        //function DongY_ChonKyThi() {
+        //    var idKyThi = $('#txtIDKyThi_ChonKyThi').val();
+        //    if (idKyThi != 0) {
+        //        $('#mdlChonKyThi').modal('hide')
+        //        window.location = '/Admin/LichTrinh/Index?idCuocThi=' + idKyThi;
+        //    } else {
+        //        $('#error').html('Vui lòng chọn cuộc thi');
+        //        $('#error').css('display', 'block');
+        //    }
+        //};
+    </script>
     <!-- /# content wrap -->
     <script src="~/Content/Asset/assets/js/lib/jquery.min.js"></script>
     <script src="~/Content/Asset/js/bootbox.min.js"></script>
-    <script src="~/Content/Asset/js/jquery.inputmask.js"></script>
-    <script src="~/Content/Asset/js/jquery.inputmask.date.extensions.js"></script>
+
     <!-- jquery vendor -->
     <script src="~/Content/Asset/assets/js/lib/jquery.nanoscroller.min.js"></script>
     <!-- nano scroller -->
@@ -354,19 +401,23 @@
     <script src="~/Content/Asset/assets/js/lib/mmc-chat.js"></script>
     <!--  Chart js -->
     <script src="~/Content/Asset/assets/js/lib/chart-js/Chart.bundle.js"></script>
-        <script src="~/Content/Asset/assets/js/lib/chart-js/chartjs-init.js"></script>
+    <script src="~/Content/Asset/assets/js/lib/chart-js/chartjs-init.js"></script>
 
 
     <script src="~/Content/Asset/assets/js/lib/datamap/d3.min.js"></script>
-        <script src="~/Content/Asset/assets/js/lib/datamap/topojson.js"></script>
-        <script src="~/Content/Asset/assets/js/lib/datamap/datamap-init.js"></script>
-        <script src="~/Content/Asset/assets/js/lib/datamap/datamaps.world.min.js"></script>
+    <script src="~/Content/Asset/assets/js/lib/datamap/topojson.js"></script>
+    <script src="~/Content/Asset/assets/js/lib/datamap/datamap-init.js"></script>
+    <script src="~/Content/Asset/assets/js/lib/datamap/datamaps.world.min.js"></script>
     <script src="~/Content/Asset/assets/js/lib/lobi-panel/lobipanel.js"></script>
     <!-- // Datamap -->
     <script src="~/Content/Asset/assets/js/scripts.js"></script>
     <script src="~/Scripts/toastr.min.js"></script>
     <!-- scripit init-->
+    <script src="~/Content/Asset/assets/input-mask/jquery.inputmask.js"></script>
+    <script src="~/Content/Asset/assets/input-mask/jquery.inputmask.date.extensions.js"></script>
+    <script src="~/Content/Asset/assets/input-mask/jquery.inputmask.extensions.js"></script>
     <script>
+        $('.dateformat').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' });
         $(document).ready(function () {
             $('#lobipanel-custom-control').lobiPanel({
                 reload: false,

@@ -99,12 +99,22 @@ function Add(id) {
                     $('#NewFirstName').val(result.data.HoTen);
                     $('#txtMSV').val(result.data.MaSV);
                     $('#txtLop').val(result.data.Lop);
-                    document.getElementById("imgAvatar").src = result.data.AnhHoSo;
-                    //$('#NewPassword').val(result.data.HoTen);
+                    if (result.data.Image != null && result.data.Image != "") {
+                        document.getElementById("imgAvatar").src = result.data.Image;
+                    }
+                    else {
+                        document.getElementById("imgAvatar").src = '/Content/Images/Avatars/images.png';
+                    }
                     $('#NewEmail').val(result.data.Email);
                     $('#NewBirthday').val(result.NgaySinh);
                     $('#NewPhone').val(result.data.SDT);
                     $('#NewAddress').val(result.data.DiaChi);
+                    if (result.data.GioiTinh == true) {
+                        $('#NewGender_1').attr('checked', true)
+                    }
+                    else {
+                        $('#NewGender_0').attr('checked', true)
+                    }
                 }
             }
         });
@@ -162,7 +172,7 @@ $("#txtMSV").keyup(function () {
         $('#errMSV').hide();
     }
     else {
-        document.getElementById('errMSV').innerHTML = "Chưa nhập hmã sinh viên";
+        document.getElementById('errMSV').innerHTML = "Chưa nhập mã sinh viên";
         $('#errMSV').show();
     }
 })
@@ -229,14 +239,24 @@ function Save() {
     var gioitinh = "";
     var ac = "";
     var kieu = $('#ddlKieuND').val();
+    if (MaSV == "") {
+        isSave = false;
+        document.getElementById('errMSV').innerHTML = "Chưa nhập mã sinh viên";
+        $('#errMSV').show();
+    }
+
     if (hoten == "") {
         isSave = false;
         document.getElementById('errTen').innerHTML = "Chưa nhập họ tên";
         $('#errTen').show();
     }
 
+    if (lop == "") {
+        document.getElementById('errLop').innerHTML = "Chưa nhập lớp";
+        $('#errLop').show();
+    }
     if (email == "") {
-        if (matkhau == "") {
+        if (email == "") {
             isSave = false;
             document.getElementById('errEmail').innerHTML = "Chưa nhập email";
             $('#errEmail').show();

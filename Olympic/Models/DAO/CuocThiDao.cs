@@ -160,5 +160,29 @@ namespace Models.DAO
                 return true;
             }
         }
+
+        //public List<a_CuocThi_LichTrinhView> getCuocThi_LichTrinh(ref int totalCount)
+        //{
+        //    List<a_CuocThi_LichTrinhView> lst = new List<a_CuocThi_LichTrinhView>();
+        //    using (SqlConnection _conn = new SqlConnection(ConnectionLib.ConnectString))
+        //    {
+        //        _conn.Open();
+        //        try
+        //        {
+        //            var _sqlStr = "select ct.ID, ct.MaCuocThi, ct.TenCuocThi, ct.Nam, ct.ThoiGianBatDau, ct.ThoiGianKetThuc, ct.Cap, count(cl.ID) as SL " +
+        //                "from a_CuocThi ct left join a_CuocThi_LichTrinh cl on ct.ID = cl.ID_CuocThi and cl.TrangThai = 1 " +
+        //                "where (ct.TrangThai = 1 Or ct.TrangThai = 2) " +
+        //                "group by ct.ID, ct.MaCuocThi, ct.TenCuocThi, ct.Nam, ct.ThoiGianBatDau, ct.ThoiGianKetThuc, ct.Cap";
+        //            lst = _conn.Query<a_CuocThi_LichTrinhView>(_sqlStr, null, commandType: CommandType.Text).ToList<a_CuocThi_LichTrinhView>();
+        //            totalCount = lst.Count();
+        //            return lst;
+        //        }
+        //        catch (Exception)
+        //        {
+        //            totalCount = 0;
+        //            return null;
+        //        }
+        //    }
+        //}
     }
 }
