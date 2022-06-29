@@ -97,6 +97,18 @@ function Add(id) {
                     $('#NewBirthday').val(result.ngaysinh);
                     $('#NewPhone').val(result.data.SDT);
                     $('#NewAddress').val(result.data.DiaChi);
+                    if (result.data.GioiTinh == true) {
+                        $('#NewGender_1').attr('checked', true)
+                    }
+                    else {
+                        $('#NewGender_0').attr('checked', true)
+                    }
+                    if (result.data.trangthai == 1) {
+                        $('#activeKH_1').attr('checked', true)
+                    }
+                    else {
+                        $('#activeKH_0').attr('checked', true)
+                    }
                 }
             }
         });
@@ -288,7 +300,7 @@ function Save() {
     }
 
     if (email == "") {
-        if (matkhau == "") {
+        if (email == "") {
             isSave = false;
             document.getElementById('errEmail').innerHTML = "Chưa nhập email";
             $('#errEmail').show();

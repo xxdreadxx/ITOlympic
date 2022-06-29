@@ -1,0 +1,52 @@
+﻿<div class="modal fade" id="mdlChonKyThi" data-backdrop="static" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog topicmodal" role="document" style="max-width:494px !important;top:40%">
+        <div class="modal-content">
+            <div class="modal-header">
+                <div class="row" style="padding:0px 10px">
+                    <button type="button" class="close" id="btnClose_ChonKyThi" data-dismiss="modal">&times;</button>
+                    <h4 class="modal-title modal-add pull-left" id="TieuDe">CHỌN CUỘC THI</h4>
+                </div>
+            </div>
+            <div class="modal-body">
+                <div class="row form-group" style="margin:0 0px; border:1px dashed gray;padding:10px">
+                    @{
+                        // Kỳ thi
+                        <select class="form-control" id="txtKyThi_ChonKyThi" style="width: 100%; margin: 5px 0px" onchange="Get_IDKyThi()">
+                            <option value="0" selected>Chọn cuộc thi</option>
+                        </select>
+                    }
+                    <span id="error" style="display:none; margin-bottom:5px" class="error-message pull-right"></span>
+                </div>
+                <div class="row" style="margin:10px 0 0 0px; border:1px dashed gray;padding:10px">
+                    <table class="table table-bordered">
+                        <tr style="background-color:#d1ecff">
+                            <td style="width:30%;font-weight:bold">Mã cuộc thi</td>
+                            <td id="txtMa_ChonKyThi" style="word-break: break-word"><span id="macuocthi"></span></td>
+                        </tr>
+                        <tr>
+                            <td style="width:30%;font-weight:bold">Tên cuộc thi</td>
+                            <td id="txtTen_ChonKyThi" style="word-break: break-word"></td>
+                        </tr>
+                        <tr style="background-color:#d1ecff">
+                            <td style="width:30%;font-weight:bold">Ngày bắt đầu</td>
+                            <td id="txtNgayBD_ChonKyThi" style="word-break: break-word"></td>
+                        </tr>
+                        <tr>
+                            <td style="width:30%;font-weight:bold">Ngày kết thúc</td>
+                            <td id="txtNgayKT_ChonKyThi" style="word-break: break-word"></td>
+                        </tr>
+                        <tr style="background-color:#d1ecff">
+                            <td style="width:30%;font-weight:bold">Ghi chú</td>
+                            <td id="txtGhiChu_ChonKyThi" style="word-break: break-word"></td>
+                        </tr>
+                    </table>
+                    <input type="hidden" id="txtIDKyThi_ChonKyThi" value="0" />
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button class="btn btn-warning" type="button" onclick="DongY_ChonKyThi()"> <i class="fa fa-save" aria-hidden="true"></i> <span>Đồng ý</span></button>
+                <button class="btn btn-primary" type="button" data-dismiss="modal"><i class="fa fa-close" aria-hidden="true"></i> <span>Hủy bỏ</span></button>
+            </div>
+        </div>
+    </div>
+</div>

@@ -20,6 +20,7 @@ namespace Models.EF
         public virtual DbSet<a_HangMuc_SinhVien_Diem> a_HangMuc_SinhVien_Diem { get; set; }
         public virtual DbSet<a_SinhVien> a_SinhVien { get; set; }
         public virtual DbSet<a_ThiCaNhan> a_ThiCaNhan { get; set; }
+        public virtual DbSet<a_CuocThi_LichTrinh> a_CuocThi_LichTrinh { get; set; }
 
         protected override void OnModelCreating(DbModelBuilder modelBuilder)
         {
