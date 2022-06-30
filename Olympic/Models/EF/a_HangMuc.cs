@@ -31,5 +31,9 @@ namespace Models.EF
         public string NoiDungThi { get; set; }
 
         public byte? TrangThai { get; set; }
+        public int? NguoiTao { get; set; }
+        public int? NguoiSua { get; set; }
+        public DateTime? NgayTao { get; set; }
+        public DateTime? NgaySua { get; set; }
     }
 }

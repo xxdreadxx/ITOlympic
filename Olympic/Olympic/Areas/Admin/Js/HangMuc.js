@@ -120,34 +120,6 @@ function resetForm() {
     $('#errSL').hide();
 }
 
-function checkDate(strDate, kt) {
-    if (kt == true) {
-        var comp = strDate.split('-');
-        var d = comp[2];
-        var m = comp[1];
-        var y = comp[0];
-        var date = new Date(y, m - 1, d);
-        if (date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d) {
-            return true;
-        }
-        return false;
-    }
-    else {
-        //nếu ko có dữ liệu thì ko cần kiểm tra(trường ngày tháng có thể để trống)
-
-        var comp = strDate.split('-');
-        var d = comp[2];
-        var m = comp[1];
-        var y = comp[0];
-        var date = new Date(y, m - 1, d);
-        if (date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d) {
-            return true;
-        }
-        return false;
-
-    }
-}
-
 $("#txtMa").keyup(function () {
     var ten = $('#txtMa').val().trim();
     if (ten != "") {
@@ -162,7 +134,7 @@ $("#txtMa").keyup(function () {
 $("#txtTen").keyup(function () {
     var ten = $('#txtTen').val().trim();
     if (ten != "") {
-        $('#errUsername').hide();
+        $('#errTen').hide();
     }
     else {
         document.getElementById('errTen').innerHTML = "Chưa nhập tên hạng mục thi";
@@ -177,7 +149,7 @@ $("#txtKetThuc").keyup(function () {
         $('#errTGKT').show();
     }
     else {
-        if (checkDate(tgkt, false) == false) {
+        if (tgkt.length < 10) {
             document.getElementById('errTGKT').innerHTML = "Ngày tháng năm sai định dạng.";
             $('#errTGKT').show();
         }
@@ -194,7 +166,7 @@ $("#txtBatDau").keyup(function () {
         $('#errTGBD').show();
     }
     else {
-        if (checkDate(tgkt, false) == false) {
+        if (tgkt.length < 10) {
             document.getElementById('errTGBD').innerHTML = "Ngày tháng năm sai định dạng.";
             $('#errTGBD').show();
         }
@@ -227,7 +199,7 @@ function loadPartial() {
 }
 
 function Save() {
-    var isSave = true;
+    var isSave = false;
     var ma = $('#txtMa').val().trim();
     var doituong = $('#dllDoiTuong').val();
     var ten = $('#txtTen').val().trim();
@@ -267,112 +239,141 @@ function Save() {
         $('#errTGBD').show();
     }
     else {
-        if (checkDate(tgkt, false) == false) {
-            isSave = false;
-            document.getElementById('errTGBD').innerHTML = "Ngày tháng năm sai định dạng.";
-            $('#errTGBD').show();
-        }
-        else {
-            $('#errTGBD').hide();
-        }
-    }
-
-    if (tgkt == "") {
-        isSave = false;
-        document.getElementById('errTGKT').innerHTML = "Chưa nhập thời gian kết thúc";
-        $('#errTGKT').show();
-    }
-    else {
-        if (checkDate(tgkt, false) == false) {
-            isSave = false;
-            document.getElementById('errTGKT').innerHTML = "Ngày tháng năm sai định dạng.";
-            $('#errTGKT').show();
-        }
-        else {
-            $('#errTGKT').hide();
-        }
-    }
-    if (doituong == '1') {
-        var sl1 = $('#txtSoLuong').val();
-        if (sl1 != "") {
-            var SL = $('#txtSoLuong').val();
-            if (SL <= 0) {
-                isSave = false;
-                document.getElementById('errSL').innerHTML = "Số lượng thành viên trong đội phải >0";
-                $('#errSL').show();
-            }
-            else {
-                $('#errSL').hide();
-            }
-        }
-        else {
-            isSave = false;
-            document.getElementById('errSL').innerHTML = "Chưa nhập số lượng thành viên trong đội";
-            $('#errSL').show();
-        }
-    }
-
-    if (isSave == true) {
-        var formData = new FormData();
-        formData.append("Ma", ma);
-        formData.append("Ten", ten);
-        formData.append("BTC", $('#txtBTC').val());
-        formData.append("Cap", $('#dllCap').val());
-        formData.append("GiaiThuong", $('#txtGiaiThuong').val());
-        formData.append("KinhPhi", $('#txtKinhPhi').val());
-        formData.append("NamHoc", $('#txtNam').val());
-        var file = document.getElementById("btnChoose").files[0];
-        formData.append("File", file);
-        formData.append("NoiDung", $('#txtNoiDung').val());
-        formData.append("TGBD", tgbd);
-        formData.append("ID", id);
-        formData.append("TGKT", tgkt);
         $.ajax({
-            async: false,
-            type: 'POST',
-            url: "/CuocThiAd/Save",
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function (response) {
-                if (response.status == true) {
-                    $('#addNewUser').modal('hide');
-                    if (id == 0) {
-                        bootbox.alert({
-                            title: "Thông báo",
-                            message: "Thêm mới thành công cuộc thi",
-                            buttons: {
-                                ok: {
-                                    label: 'Đóng',
-                                    className: "btn btn-default",
-                                }
-                            },
-                            callback: function () { loadPartial(); }
-                        })
+            url: "/HangMuc/checkTG",
+            data: {
+                tg: tgbd
+            },
+            type: 'post',
+            success: function (result) {
+                if (result.status == true) {
+                    $('#errTGBD').hide();
+                    if (tgkt == "") {
+                        isSave = false;
+                        document.getElementById('errTGKT').innerHTML = "Chưa nhập thời gian kết thúc";
+                        $('#errTGKT').show();
                     }
                     else {
-                        bootbox.alert({
-                            title: "Thông báo",
-                            message: "Cập nhật cuộc thi thành công",
-                            buttons: {
-                                ok: {
-                                    label: 'Đóng',
-                                    className: "btn btn-default",
-                                }
+                        $.ajax({
+                            url: "/HangMuc/checkTG",
+                            data: {
+                                tg: tgkt
                             },
-                            callback: function () { loadPartial(); }
-                        })
+                            type: 'post',
+                            success: function (result) {
+                                if (result.status == true) {
+                                    $('#errTGKT').hide();
+                                    if (doituong == '1') {
+                                        var sl1 = $('#txtSoLuong').val();
+                                        if (sl1 != "") {
+                                            var SL = $('#txtSoLuong').val();
+                                            if (SL <= 0) {
+                                                isSave = false;
+                                                document.getElementById('errSL').innerHTML = "Số lượng thành viên trong đội phải >0";
+                                                $('#errSL').show();
+                                            }
+                                            else {
+                                                $('#errSL').hide();
+                                                isSave = true;
+                                            }
+                                        }
+                                        else {
+                                            isSave = false;
+                                            document.getElementById('errSL').innerHTML = "Chưa nhập số lượng thành viên trong đội";
+                                            $('#errSL').show();
+                                        }
+                                    }
+                                    else {
+                                        isSave = true;
+                                    }
+                                }
+                                else {
+                                    isSave = false;
+                                    document.getElementById('errTGKT').innerHTML = "Thời gian kết thúc phải nhỏ hơn hoặc bằng thời gian kết thúc thi trong lịch trình";
+                                    $('#errTGKT').show();
+                                }
+                            }
+                        });
                     }
                 }
-            },
-            error: function (err) {
-                console.log(err);
+                else {
+                    isSave = false;
+                    document.getElementById('errTGBD').innerHTML = "Thời gian bắt đầu phải lớn hơn hoặc bằng thời gian bắt đầu thi trong lịch trình";
+                    $('#errTGBD').show();
+                }
             }
         });
     }
 
+    setTimeout(function () {
+        if (isSave == true) {
+            SaveN();
+        }
+    }, 1500);
 }
+
+function SaveN() {
+    var ma = $('#txtMa').val().trim();
+    var doituong = $('#dllDoiTuong').val();
+    var ten = $('#txtTen').val().trim();
+    var tgbd = $('#txtBatDau').val();
+    var tgkt = $('#txtKetThuc').val();
+    var formData = new FormData();
+    formData.append("Ma", ma);
+    formData.append("Ten", ten);
+    formData.append("DoiTuong", doituong);
+    formData.append("GiaiThuong", $('#txtGiaiThuong').val());
+    formData.append("HinhThuc", $('#txtHinhThuc').val());
+    formData.append("NoiDung", $('#txtNoiDung').val());
+    formData.append("SoLuong", $('#txtSoLuong').val());
+    formData.append("TGBD", tgbd);
+    formData.append("ID", id);
+    formData.append("TGKT", tgkt);
+    $.ajax({
+        async: false,
+        type: 'POST',
+        url: "/HangMuc/Save",
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            if (response.status == true) {
+                $('#addNewUser').modal('hide');
+                if (id == 0) {
+                    bootbox.alert({
+                        title: "Thông báo",
+                        message: "Thêm mới thành công hạng mục thi",
+                        buttons: {
+                            ok: {
+                                label: 'Đóng',
+                                className: "btn btn-default",
+                            }
+                        },
+                        callback: function () { loadPartial(); }
+                    })
+                }
+                else {
+                    bootbox.alert({
+                        title: "Thông báo",
+                        message: "Cập nhật hạng mục thi thành công",
+                        buttons: {
+                            ok: {
+                                label: 'Đóng',
+                                className: "btn btn-default",
+                            }
+                        },
+                        callback: function () { loadPartial(); }
+                    })
+                }
+            }
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+}
+
 var idND = "";
 function Link_DeleteTT_onclick(DID) {
     idND = DID;

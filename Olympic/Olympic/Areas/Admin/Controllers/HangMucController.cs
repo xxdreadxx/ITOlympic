@@ -45,13 +45,14 @@ namespace Olympic.Areas.Admin.Controllers
         [HttpPost]
         public JsonResult Delete(string ListID)
         {
+            int user = int.Parse(Session["UserID"].ToString());
             if (ListID == null || ListID.Length < 0)
                 return Json(new
                 {
                     status = false
                 }, JsonRequestBehavior.AllowGet);
 
-            int CountDelete = hmDao.Delete(ListID);
+            int CountDelete = hmDao.Delete(ListID, user);
 
             if (CountDelete <= 0)
             {
@@ -89,13 +90,59 @@ namespace Olympic.Areas.Admin.Controllers
         [ValidateInput(false)]
         public JsonResult Save(FormCollection c)
         {
-            HttpFileCollectionBase file = Request.Files;
-            int ID = int.Parse(c["ID"].ToString());
             int user = int.Parse(Session["UserID"].ToString());
+            int IDCuocThi = int.Parse(Session["ID_CuocThi"].ToString());
+            int ID = int.Parse(c["ID"].ToString());
+            if (ID == 0)
+            {
+                a_HangMuc item = new a_HangMuc();
+                item.MaHangMuc = c["Ma"].ToString().Trim();
+                item.ID_CuocThi = IDCuocThi;
+                item.TenHangMuc = c["Ten"].ToString().Trim();
+                item.DoiTuong = byte.Parse(c["DoiTuong"].ToString());
+                item.GiaiThuong = c["GiaiThuong"].ToString().Trim();
+                item.HinhThucThi = c["HinhThuc"].ToString().Trim();
+                item.NoiDungThi = c["NoiDung"].ToString().Trim();
+                item.SoLuong = int.Parse(c["SoLuong"].ToString());
+                item.ThoiGianBatDau = c["TGBD"].ToString().Trim();
+                item.ThoiGianKetThuc = c["TGKT"].ToString().Trim();
+                item.ThoiGianKetThuc = c["TGKT"].ToString().Trim();
+                item.NguoiTao = user;
+                item.NgayTao = DateTime.Now;
+                item.TrangThai = 1;
+                var idHM = hmDao.Add(item);
+            }
+            else
+            {
+                var item = hmDao.getByID(ID);
+                item.MaHangMuc = c["Ma"].ToString().Trim();
+                item.TenHangMuc = c["Ten"].ToString().Trim();
+                item.DoiTuong = byte.Parse(c["DoiTuong"].ToString());
+                item.GiaiThuong = c["GiaiThuong"].ToString().Trim();
+                item.HinhThucThi = c["HinhThuc"].ToString().Trim();
+                item.NoiDungThi = c["NoiDung"].ToString().Trim();
+                item.SoLuong = int.Parse(c["SoLuong"].ToString());
+                item.ThoiGianBatDau = c["TGBD"].ToString().Trim();
+                item.ThoiGianKetThuc = c["TGKT"].ToString().Trim();
+                item.ThoiGianKetThuc = c["TGKT"].ToString().Trim();
+                item.NguoiSua = user;
+                item.NgaySua = DateTime.Now;
+                var kt = hmDao.Edit(item);
+            }
             
             return Json(new
             {
                 status = true
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult checkTG(string tg)
+        {
+            int IDCuocThi = int.Parse(Session["ID_CuocThi"].ToString());
+            bool kt = hmDao.checkLichTrinh(IDCuocThi, tg);
+            return Json(new
+            {
+                status = kt
             }, JsonRequestBehavior.AllowGet);
         }
     }

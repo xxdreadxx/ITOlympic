@@ -31,19 +31,15 @@
                 {
                     <td class="text-center"><span class="badge badge-info">Cá nhân</span></td>
                 }
-                <td class="text-center">@String.Format("{0}/{1}/{2}", item.ThoiGianBatDau.Substring(6, 2), item.ThoiGianBatDau.Substring(4, 2), item.ThoiGianBatDau.Substring(0, 4))</td>
-                <td class="text-center">@String.Format("{0}/{1}/{2}", item.ThoiGianKetThuc.Substring(6, 2), item.ThoiGianKetThuc.Substring(4, 2), item.ThoiGianKetThuc.Substring(0, 4))</td>
+                <td class="text-center">@item.ThoiGianBatDau</td>
+                <td class="text-center">@item.ThoiGianKetThuc</td>
                 @if (item.TrangThai == 1)
                 {
-                    <td class="text-center color-primary">Chưa triển khai </td>
+                    <td class="text-center color-success">Sẵn sàng </td>
                 }
                 else if (item.TrangThai == 2)
                 {
-                    <td class="text-center color-success">Đang triển khai</td>
-                }
-                else if (item.TrangThai == 3)
-                {
-                    <td class="text-center color-danger">Kết thúc</td>
+                    <td class="text-center color-danger">Dừng sử dụng</td>
                 }
                 <td style="text-align:center">
                     <a href="#" title="Chi tiết" type="button" onclick="Info(@item.ID)"><i class="ti-info-alt color-info"></i></a>

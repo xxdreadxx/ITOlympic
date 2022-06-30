@@ -45,8 +45,8 @@ namespace Models.EF
         public int? NguoiSua { get; set; }
     }
 
-    //public class a_CuocThi_LichTrinhView : a_CuocThi
-    //{
-    //    public int SL { get; set; }
-    //}
+    public class a_CuocThiAdView : a_CuocThi
+    {
+        public int SLHangMuc { get; set; }
+    }
 }

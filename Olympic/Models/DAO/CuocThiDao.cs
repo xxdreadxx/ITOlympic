@@ -121,10 +121,10 @@ namespace Models.DAO
 
         public void updateStatusAuto()
         {
-            string dateNow = DateTime.Now.Year.ToString() + DateTime.Now.Month.ToString() + DateTime.Now.Day.ToString();
-            string _sqlStr = $"update a_CuocThi set TrangThai = 2 where ThoiGianBatDau <= {dateNow} and {dateNow} <= ThoiGianKetThuc and TrangThai = 1";
+            string dateNow = DateTime.Now.ToString("dd/MM/yyyy");
+            string _sqlStr = $"update a_CuocThi set TrangThai = 2 where (CONVERT(DATE, ThoiGianBatDau, 103)) <= (CONVERT(DATE, '{dateNow}', 103)) and (CONVERT(DATE, '{dateNow}', 103)) <= (CONVERT(DATE, ThoiGianKetThuc, 103)) and TrangThai = 1";
             var upd = db.Database.ExecuteSqlCommand(_sqlStr);
-            string _sqlStr1 = $"update a_CuocThi set TrangThai = 3 where ThoiGianBatDau < {dateNow} and {dateNow} > ThoiGianKetThuc and TrangThai = 2";
+            string _sqlStr1 = $"update a_CuocThi set TrangThai = 3 where (CONVERT(DATE, ThoiGianBatDau, 103)) < (CONVERT(DATE, '{dateNow}', 103)) and (CONVERT(DATE, '{dateNow}', 103)) > (CONVERT(DATE, ThoiGianKetThuc, 103)) and TrangThai = 2";
             var upd1 = db.Database.ExecuteSqlCommand(_sqlStr);
         }
 
@@ -161,28 +161,33 @@ namespace Models.DAO
             }
         }
 
-        //public List<a_CuocThi_LichTrinhView> getCuocThi_LichTrinh(ref int totalCount)
+        public List<a_CuocThiAdView> getCuocThiAd(string search, ref int totalCount)
+        {
+            List<a_CuocThiAdView> lst = new List<a_CuocThiAdView>();
+            using (SqlConnection _conn = new SqlConnection(ConnectionLib.ConnectString))
+            {
+                _conn.Open();
+                try
+                {
+                    var _sqlStr = "select ct.ID, ct.MaCuocThi, ct.TenCuocThi, ct.Nam, ct.ThoiGianBatDau, ct.ThoiGianKetThuc, ct.Cap, count(hm.ID) as SLHangMuc, ct.TrangThai " +
+                        "from a_CuocThi ct left join a_HangMuc hm on ct.ID = hm.ID_CuocThi and hm.TrangThai <> 10 " +
+                        $"where ct.TrangThai <> 10 and (ct.TenCuocThi like N'%{search}%' and '{search}' = '') " +
+                        "group by ct.ID, ct.MaCuocThi, ct.TenCuocThi, ct.Nam, ct.ThoiGianBatDau, ct.ThoiGianKetThuc, ct.Cap, ct.TrangThai ";
+                    lst = _conn.Query<a_CuocThiAdView>(_sqlStr, null, commandType: CommandType.Text).ToList<a_CuocThiAdView>();
+                    totalCount = lst.Count();
+                    return lst;
+                }
+                catch (Exception)
+                {
+                    totalCount = 0;
+                    return null;
+                }
+            }
+        }
+
+        //public bool CheckDate(string date, int id)
         //{
-        //    List<a_CuocThi_LichTrinhView> lst = new List<a_CuocThi_LichTrinhView>();
-        //    using (SqlConnection _conn = new SqlConnection(ConnectionLib.ConnectString))
-        //    {
-        //        _conn.Open();
-        //        try
-        //        {
-        //            var _sqlStr = "select ct.ID, ct.MaCuocThi, ct.TenCuocThi, ct.Nam, ct.ThoiGianBatDau, ct.ThoiGianKetThuc, ct.Cap, count(cl.ID) as SL " +
-        //                "from a_CuocThi ct left join a_CuocThi_LichTrinh cl on ct.ID = cl.ID_CuocThi and cl.TrangThai = 1 " +
-        //                "where (ct.TrangThai = 1 Or ct.TrangThai = 2) " +
-        //                "group by ct.ID, ct.MaCuocThi, ct.TenCuocThi, ct.Nam, ct.ThoiGianBatDau, ct.ThoiGianKetThuc, ct.Cap";
-        //            lst = _conn.Query<a_CuocThi_LichTrinhView>(_sqlStr, null, commandType: CommandType.Text).ToList<a_CuocThi_LichTrinhView>();
-        //            totalCount = lst.Count();
-        //            return lst;
-        //        }
-        //        catch (Exception)
-        //        {
-        //            totalCount = 0;
-        //            return null;
-        //        }
-        //    }
+
         //}
     }
 }

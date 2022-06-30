@@ -27,8 +27,8 @@ namespace Olympic.Areas.Admin.Controllers
             int pageSize = 15;
             int pageno = 0;
             pageno = page == null ? 1 : int.Parse(page.ToString());
-            List<a_CuocThi> lstGV = new List<a_CuocThi>();
-            var getdata = ctDao.getAll(search, ref totalCount);
+            List<a_CuocThiAdView> lstGV = new List<a_CuocThiAdView>();
+            var getdata = ctDao.getCuocThiAd(search, ref totalCount);
             lstGV = getdata.Skip((pageno - 1) * pageSize).Take(pageSize).ToList();
             ViewBag.Page = page;
             int maxCount = totalCount;

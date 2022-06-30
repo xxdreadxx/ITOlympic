@@ -17,5 +17,9 @@ namespace Models.EF
         public double? Diem { get; set; }
 
         public byte? KetQua { get; set; }
+        public DateTime? NgayTao { get; set; }
+        public DateTime? NgaySua { get; set; }
+        public int? NguoiTao { get; set; }
+        public int? NguoiSua { get; set; }
     }
 }

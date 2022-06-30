@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dapper;
 using Models;
 using Models.EF;
 
@@ -25,15 +27,15 @@ namespace Models.DAO
                 lst = db.a_HangMuc.Where(x => x.TrangThai != 10).ToList();
             }
             totalCount = lst.Count();
-            return lst.OrderByDescending(x => x.ID).ToList();
+            return lst.OrderBy(x => x.ID).ToList();
         }
 
-        public int Delete(string ListID)
+        public int Delete(string ListID, int ID)
         {
             try
             {
                 var convertArray = ListID.Replace("[", "").Replace("]", "");
-                string _sqlStr = $"update a_HangMuc set TrangThai = 10 where ID in (select * from STRING_SPLIT('{convertArray}',','))";
+                string _sqlStr = $"update a_HangMuc set TrangThai = 10, NguoiSua={ID}, NgaySua='{DateTime.Now}' where ID in (select * from STRING_SPLIT('{convertArray}',','))";
                 var upd1 = db.Database.ExecuteSqlCommand(_sqlStr);
             }
             catch (Exception ex)
@@ -79,12 +81,14 @@ namespace Models.DAO
                 item.DoiTuong = result.DoiTuong;
                 item.HinhThucThi = result.HinhThucThi;
                 item.NoiDungThi = result.NoiDungThi;
+                item.NguoiSua = result.NguoiSua;
+                item.NgaySua = result.NgaySua;
                 db.SaveChanges();
                 return 1;
             }
         }
 
-        public byte ChangeStatus(int ID, byte status)
+        public byte ChangeStatus(int ID, byte status, int IDNguoiSua)
         {
             var item = db.a_HangMuc.FirstOrDefault(x => x.ID == ID);
             if (item == null)
@@ -94,17 +98,19 @@ namespace Models.DAO
             else
             {
                 item.TrangThai = status;
+                item.NguoiSua = IDNguoiSua;
+                item.NgaySua = DateTime.Now;
                 db.SaveChanges();
                 return 1;
             }
         }
 
-        public int ChangeStatusMore(string ListID, byte status)
+        public int ChangeStatusMore(string ListID, byte status, int ID)
         {
             try
             {
                 var convertArray = ListID.Replace("[", "").Replace("]", "");
-                string _sqlStr = $"update a_HangMuc set TrangThai = {status} where ID in (select * from dbo.SplitDelimiterString('{convertArray}',','))";
+                string _sqlStr = $"update a_HangMuc set TrangThai = {status}, NguoiSua={ID}, NgaySua='{DateTime.Now}' where ID in (select * from dbo.SplitDelimiterString('{convertArray}',','))";
                 var upd = db.Database.ExecuteSqlCommand(_sqlStr);
             }
             catch (Exception)
@@ -126,6 +132,39 @@ namespace Models.DAO
                 return true;
             }
         }
+
+        public bool checkLichTrinh(int id, string date)
+        {
+            using (SqlConnection _conn = new SqlConnection(ConnectionLib.ConnectString))
+            {
+                _conn.Open();
+                try
+                {
+                    var _sqlStr = "select ct.* " +
+                        "from a_CuocThi_LichTrinh ct " +
+                        $"where ct.TrangThai <> 10 and (CONVERT(DATE, ThoiGianBatDauThi, 103)) <= (CONVERT(DATE, '{date}', 103)) and (CONVERT(DATE, '{date}', 103)) <= (CONVERT(DATE, ThoiGianKetThucThi, 103))";
+                    var lst = _conn.Query<a_CuocThi>(_sqlStr, null, commandType: CommandType.Text).ToList<a_CuocThi>();
+                    int totalCount = lst.Count();
+                    if (totalCount > 0)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+        }
+
+        //public checkThoiGian(string tg, int IDCuocThi)
+        //{
+
+        //}
 
     }
 }

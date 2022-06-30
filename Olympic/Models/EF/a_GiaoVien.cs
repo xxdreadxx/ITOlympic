@@ -36,5 +36,9 @@ namespace Models.EF
         public DateTime? NgaySinh { get; set; }
 
         public byte? TrangThai { get; set; }
+        public DateTime? NgayTao { get; set; }
+        public DateTime? NgaySua { get; set; }
+        public int? NguoiTao { get; set; }
+        public int? NguoiSua { get; set; }
     }
 }
