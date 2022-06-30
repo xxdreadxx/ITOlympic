@@ -27,7 +27,7 @@ namespace Models.EF
         public int ID { get; set; }
         public string MaCuocThi { get; set; }
         public string TenCuocThi { get; set; }
-        public int Cap { get; set; }
+        public byte Cap { get; set; }
         public byte? TrangThai { get; set; }
     }
 }

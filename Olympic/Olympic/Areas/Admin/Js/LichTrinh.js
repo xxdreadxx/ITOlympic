@@ -2,6 +2,15 @@
     $('#liCuocThi').addClass('active');
 });
 
+$(document).ready(function () {
+    $("#txtSearch").on('keyup', function () {
+        var value = $(this).val().toLowerCase();
+        $("#tblUser > tbody tr").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) != -1)
+        });
+    });
+});
+
 var mangId = [];
 $(document).on('change', '#check-all-delete-js', function () {
     var status = $(this).is(':checked');
@@ -101,7 +110,7 @@ function DongY_ChonKyThi() {
     var idKyThi = $('#txtIDKyThi_ChonKyThi').val();
     if (idKyThi != 0) {
         $('#mdlChonKyThi').modal('hide')
-        $('#modal_ThemSua_LichTrinh').modal('show')
+        Add();
 
     } else {
         $('#error').html('Vui lòng chọn cuộc thi');
@@ -112,12 +121,12 @@ function DongY_ChonKyThi() {
 function Add(id) {
     resetForm();
     if (id == null || id == 0) {
-        document.getElementById('tieude').innerHTML = "Thêm mới giáo viên";
+        document.getElementById('tieude').innerHTML = "Thêm mới lịch trình";
     }
     else {
-        document.getElementById('tieude').innerHTML = "Cập nhật thông tin giáo viên";
+        document.getElementById('tieude').innerHTML = "Cập nhật thông tin lịch trình";
         $.ajax({
-            url: "/dGiaoVien/Edit",
+            url: "/LichTrinh/Edit",
             data: {
                 id: id
             },
@@ -125,35 +134,17 @@ function Add(id) {
             success: function (result) {
                 if (result.status == true) {
                     $('#id').val(id);
-                    $('#NewFirstName').val(result.data.HoTen);
-                    $('#NewUserName').val(result.data.Username);
-                    if (result.data.Image != null && result.data.Image != "") {
-                        document.getElementById("imgAvatar").src = result.data.Image;
-                    }
-                    else {
-                        document.getElementById("imgAvatar").src = '/Content/Images/Avatars/images.png';
-                    }
-                    $('#NewEmail').val(result.data.Email);
-                    $('#NewBirthday').val(result.ngaysinh);
-                    $('#NewPhone').val(result.data.SDT);
-                    $('#NewAddress').val(result.data.DiaChi);
-                    if (result.data.GioiTinh == true) {
-                        $('#NewGender_1').attr('checked', true)
-                    }
-                    else {
-                        $('#NewGender_0').attr('checked', true)
-                    }
-                    if (result.data.trangthai == 1) {
-                        $('#activeKH_1').attr('checked', true)
-                    }
-                    else {
-                        $('#activeKH_0').attr('checked', true)
-                    }
+                    $('#txtBatDauNhanHS').val(result.data.ThoiGianBatDauNhanHoSo);
+                    $('#txtBatDauNhanTHi').val(result.data.ThoiGianBatDauThi);
+                    $('#txtDiaDiem').val(result.data.DiaDiemThi);
+                    $('#txtKetThucNhanHS').val(result.data.ThoiGianKetThucNhanHoSo);
+                    $('#txtKetThucThi').val(result.data.ThoiGianKetThucThi);
+                    $('#txtCongBo').val(result.data.ThoiGianCongBoKetQua);
                 }
             }
         });
     }
-    $('#addNewUser').modal('show');
+    $('#modal_ThemSua_LichTrinh').modal('show');
 }
 
 function resetForm() {
@@ -202,7 +193,7 @@ $("#txtBatDauNhanTHi").keyup(function () {
     }
 })
 $("#txtDiaDiem").keyup(function () {
-    if ($('#txtDiaDiem').val() != "" && $('#txtDiaDiem').val() != null) {
+    if ($('#txtDiaDiem').val().trim() != "" && $('#txtDiaDiem').val().trim() != null) {
         
         $('#errDiaDiem').hide();
         
@@ -242,3 +233,225 @@ $("#txtKetThucThi").keyup(function () {
         $('#errTGKTThi').show();
     }
 })
+$("#txtCongBo").keyup(function () {
+    if ($('#txtCongBo').val() != "" && $('#txtCongBo').val() != null) {
+        if (checkDate($('#txtCongBo').val(), false) == false) {
+            document.getElementById('errCongBo').innerHTML = "Ngày tháng năm sai định dạng.";
+            $('#errCongBo').show();
+        }
+        else {
+            $('#errCongBo').hide();
+        }
+    }
+    else {
+        document.getElementById('errCongBo').innerHTML = "Chưa nhập ngày công bố kết quả";
+        $('#errCongBo').show();
+    }
+})
+
+function loadPartial() {
+    $('#tableNguoiDung').load('/Admin/LichTrinh/getList');
+}
+
+function Save() {
+    var isSave = true;
+    var bdhs = $('#txtBatDauNhanHS').val();
+    var kths = $('#txtKetThucNhanHS').val();
+    var bdthi = $('#txtBatDauNhanTHi').val();
+    var ktthi = $('#txtKetThucThi').val();
+    var diadiem = $('#txtDiaDiem').val().trim();
+    var tgcongbo = $('#txtCongBo').val();
+    var id = $('#id').val();
+    var idCuocThi = $('#txtIDKyThi_ChonKyThi').val();
+
+    if (bdhs == "") {
+        isSave = false;
+        document.getElementById('errTGBDHS').innerHTML = "Chưa nhập ngày bắt đầu nhận hồ sơ";
+        $('#errTGBDHS').show();
+    }
+    else {
+        if (checkDate(bdhs, false) == false) {
+            document.getElementById('errTGBDHS').innerHTML = "Ngày tháng năm sai định dạng.";
+            $('#errTGBDHS').show();
+            isSave = false;
+        }
+    }
+
+    if (kths == "") {
+        isSave = false;
+        document.getElementById('errTGKTHS').innerHTML = "Chưa nhập ngày kết thúc nhận hồ sơ";
+        $('#errTGKTHS').show();
+    }
+    else {
+        if (checkDate(kths, false) == false) {
+            document.getElementById('errTGKTHS').innerHTML = "Ngày tháng năm sai định dạng.";
+            $('#errTGKTHS').show();
+            isSave = false;
+        }
+    }
+
+    if (bdthi == "") {
+        isSave = false;
+        document.getElementById('errTGBDThi').innerHTML = "Chưa nhập ngày bắt đầu thi";
+        $('#errTGBDThi').show();
+    }
+    else {
+        if (checkDate(bdhs, false) == false) {
+            document.getElementById('errTGBDThi').innerHTML = "Ngày tháng năm sai định dạng.";
+            $('#errTGBDThi').show();
+            isSave = false;
+        }
+    }
+
+    if (ktthi == "") {
+        isSave = false;
+        document.getElementById('errTGKTThi').innerHTML = "Chưa nhập ngày kết thúc thi";
+        $('#errTGKTThi').show();
+    }
+    else {
+        if (checkDate(ktthi, false) == false) {
+            document.getElementById('errTGKTThi').innerHTML = "Ngày tháng năm sai định dạng.";
+            $('#errTGKTThi').show();
+            isSave = false;
+        }
+    }
+
+    if (tgcongbo == "") {
+        isSave = false;
+        document.getElementById('errCongBo').innerHTML = "Chưa nhập ngày công bố kết quả";
+        $('#errCongBo').show();
+    }
+    else {
+        if (checkDate(tgcongbo, false) == false) {
+            document.getElementById('errCongBo').innerHTML = "Ngày tháng năm sai định dạng.";
+            $('#errCongBo').show();
+            isSave = false;
+        }
+    }
+
+    if (diadiem == "") {
+        document.getElementById('errDiaDiem').innerHTML = "Chưa nhập địa điểm thi";
+        $('#errDiaDiem').show();
+    }
+
+    if (isSave == true) {
+        var formData = new FormData();
+        formData.append("TGBDNhanHoSo", bdhs);
+        formData.append("TGBDKTNhanHoSo", kths);
+        formData.append("TGBDThi", bdthi);
+        formData.append("TGKTThi", ktthi);
+        formData.append("DiaDiem", diadiem);
+        formData.append("TGCongBo", tgcongbo);
+        formData.append("ID", id);
+        formData.append("IDCuocThi", idCuocThi);
+
+        $.ajax({
+            async: false,
+            type: 'POST',
+            url: "/LichTrinh/Save",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function (response) {
+                if (response.status == true) {
+                    $('#modal_ThemSua_LichTrinh').modal('hide');
+                    if (id == 0) {
+                        bootbox.alert({
+                            title: "Thông báo",
+                            message: "Thêm mới thành công lịch trình",
+                            buttons: {
+                                ok: {
+                                    label: 'Đóng',
+                                    className: "btn btn-default",
+                                }
+                            },
+                            callback: function () { loadPartial(); }
+                        })
+                    }
+                    else {
+                        bootbox.alert({
+                            title: "Thông báo",
+                            message: "Cập nhật thành công lịch trình",
+                            buttons: {
+                                ok: {
+                                    label: 'Đóng',
+                                    className: "btn btn-default",
+                                }
+                            },
+                            callback: function () { loadPartial(); }
+                        })
+                    }
+                }
+            },
+            error: function (err) {
+                console.log(err);
+            }
+        });
+    }
+}
+var idND = "";
+function Link_DeleteTT_onclick(DID) {
+    idND = DID;
+    if (idND != "" || idND == 0)//view popup xác nhận xóa
+    {
+        $('#pnoidung').text('Bạn có muốn xóa lịch trình đã chọn hay không?')
+        $("#DeleteND").modal("show");
+    }
+}
+
+function deleteOne() {
+
+    if (idND != 0) {
+        mangId = [];
+        mangId.push(idND)
+    }
+    $.ajax({
+        url: '/LichTrinh/Delete',
+        dataType: 'json',
+        type: 'post',
+        data: { ListID: JSON.stringify(mangId) },
+        success: function (rs) {
+            if (rs.status == true) {
+                $("#DeleteND").modal("hide");
+                bootbox.alert({
+                    title: "Thông báo",
+                    message: "Xóa thành công bản ghi",
+                    buttons: {
+                        ok: {
+                            label: 'Đóng',
+                            className: "btn btn-default",
+                        }
+                    },
+                    callback: function () { loadPartial(); }
+                })
+            }
+        }
+    })
+}
+
+function deleteAll() {
+    var chuoiMangId = JSON.stringify(mangId);
+    $.ajax({
+        url: '/LichTrinh/Delete',
+        dataType: 'json',
+        type: 'post',
+        data: { ListID: chuoiMangId },
+        success: function (rs) {
+            $('#check-all-delete-js').prop('checked', false);
+            if (rs.status == true) {
+                bootbox.alert({
+                    title: "Thông báo",
+                    message: "Xóa thành công bản ghi",
+                    buttons: {
+                        ok: {
+                            label: 'Đóng',
+                            className: "btn btn-default",
+                        }
+                    },
+                    callback: function () { loadPartial(); }
+                })
+            }
+        }
+    })
+}

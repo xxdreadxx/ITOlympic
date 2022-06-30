@@ -13,7 +13,7 @@ namespace Models.DAO
         public List<LichTrinhView> lstAll()
         {
             List<LichTrinhView> lst = new List<LichTrinhView>();
-            var sql = @"select ct.ID, ct.MaCuocThi, ct.TenCuocThi, ct.TrangThai, ct.Cap from a_CuocThi_LichTrinh lt 
+            var sql = @"select lt.ID, ct.MaCuocThi, ct.TenCuocThi, ct.TrangThai, ct.Cap from a_CuocThi_LichTrinh lt 
                         join a_CuocThi ct on ct.ID =lt.IDCuocThi
                         where lt.TrangThai <> 10 order by ct.ID desc";
             lst = db.Database.SqlQuery<LichTrinhView>(sql).ToList();
@@ -33,6 +33,11 @@ namespace Models.DAO
                 return 0;
             }
             return 1;
+        }
+
+        public a_CuocThi_LichTrinh getByID(int ID)
+        {
+            return db.a_CuocThi_LichTrinh.FirstOrDefault(x => x.ID == ID);
         }
     }
 }

@@ -17,35 +17,35 @@
     <tbody>
         @foreach (var item in Model)
         {
-            <tr data-id="@item.ID" id="idtr">
-                <td><input type="checkbox" autocomplete="off" class="one-delete-js" /></td>
-                <td>@item.MaCuocThi</td>
-                <td>@item.TenCuocThi</td>
-                @if (item.Cap == 1)
-                {
-                    <td class="text-center">Cấp trường</td>
-                }
-                else
-                {
-                    <td class="text-center">Cấp quốc gia</td>
-                }
-                @if (item.TrangThai == 1)
-                {
-                    <td class="text-center">Chưa triển khai </td>
-                }
-                else if (item.TrangThai == 2)
-                {
-                    <td class="text-center">Đang triển khai</td>
-                }
-                else if (item.TrangThai == 3)
-                {
-                    <td class="text-center">Kết thúc</td>
-                }
-                <td style="text-align:center">
-                    <a href="#" title="Sửa" type="button" onclick="Add(@item.ID)"><i class="ti-pencil"></i></a>
-                    <a href="#" title="Xóa" onclick="Link_DeleteTT_onclick(@item.ID)"><i class="ti-trash"></i></a>
-                </td>
-            </tr>
+        <tr data-id="@item.ID" id="idtr">
+            <td><input type="checkbox" autocomplete="off" class="one-delete-js" /></td>
+            <td>@item.MaCuocThi</td>
+            <td>@item.TenCuocThi</td>
+            @if (item.Cap == 1)
+            {
+                <td class="text-center"><span class="badge badge-success">Cấp trường</span></td>
+            }
+            else
+            {
+                <td class="text-center"><span class="badge badge-primary">Cấp quốc gia</span></td>
+            }
+            @if (item.TrangThai == 1)
+            {
+                <td class="text-center color-primary">Chưa triển khai </td>
+            }
+            else if (item.TrangThai == 2)
+            {
+                <td class="text-center color-success">Đang triển khai</td>
+            }
+            else if (item.TrangThai == 3)
+            {
+                <td class="text-center color-danger">Kết thúc</td>
+            }
+            <td style="text-align:center">
+                <a href="#" title="Sửa" type="button" onclick="Add(@item.ID)"><i class="ti-pencil"></i></a>
+                <a href="#" title="Xóa" onclick="Link_DeleteTT_onclick(@item.ID)"><i class="ti-trash"></i></a>
+            </td>
+        </tr>
         }
     </tbody>
 </table>
