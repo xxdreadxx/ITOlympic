@@ -10,12 +10,14 @@ namespace Models.EF
     {
         public int ID { get; set; }
         public int IDCuocThi { get; set; }
-        public string ThoiGianBatDauNhanHoSo { get; set; }
-        public string ThoiGianKetThucNhanHoSo { get; set; }
+        public string ThoiGianBatDauNhanHS { get; set; }
+        public string ThoiGianKetThucNhanHS { get; set; }
         public string ThoiGianBatDauThi { get; set; }
         public string ThoiGianKetThucThi { get; set; }
-        public string ThoiGianCongBoKetQua { get; set; }
-        public string DiaDiemThi{ get; set; }
+        public string ThoiGianBatDauChamDiem { get; set; }
+        public string ThoiGianKetThucChamDiem { get; set; }
+        public string ThoiGianCongBoDiem { get; set; }
+        public string DiaDiem{ get; set; }
         public byte? TrangThai{ get; set; }
         public DateTime? NgayTao { get; set; }
         public DateTime? NgaySua { get; set; }

@@ -75,12 +75,12 @@ namespace Olympic.Areas.Admin.Controllers
                 //thêm mới
                 a_CuocThi_LichTrinh gv = new a_CuocThi_LichTrinh();
                 gv.IDCuocThi = int.Parse(c["IDCuocThi"]);
-                gv.ThoiGianBatDauNhanHoSo = c["TGBDNhanHoSo"];
-                gv.ThoiGianKetThucNhanHoSo = c["TGBDKTNhanHoSo"];
+                gv.ThoiGianBatDauNhanHS = c["TGBDNhanHoSo"];
+                gv.ThoiGianKetThucNhanHS = c["TGBDKTNhanHoSo"];
                 gv.ThoiGianBatDauThi = c["TGBDThi"];
                 gv.ThoiGianKetThucThi = c["TGKTThi"];
-                gv.DiaDiemThi = c["DiaDiem"];
-                gv.ThoiGianCongBoKetQua = c["TGCongBo"] ;
+                gv.DiaDiem = c["DiaDiem"];
+                gv.ThoiGianCongBoDiem = c["TGCongBo"] ;
                 gv.NgayTao = DateTime.Now;
                 gv.NguoiTao = user;
                 db.a_CuocThi_LichTrinh.Add(gv);
@@ -90,12 +90,12 @@ namespace Olympic.Areas.Admin.Controllers
             {
                 //sửa
                 a_CuocThi_LichTrinh gv = db.a_CuocThi_LichTrinh.FirstOrDefault(x => x.ID == ID);
-                gv.ThoiGianBatDauNhanHoSo = c["TGBDNhanHoSo"];
-                gv.ThoiGianKetThucNhanHoSo = c["TGBDKTNhanHoSo"];
+                gv.ThoiGianBatDauNhanHS = c["TGBDNhanHoSo"];
+                gv.ThoiGianKetThucNhanHS = c["TGBDKTNhanHoSo"];
                 gv.ThoiGianBatDauThi = c["TGBDThi"];
                 gv.ThoiGianKetThucThi = c["TGKTThi"];
-                gv.DiaDiemThi = c["DiaDiem"];
-                gv.ThoiGianCongBoKetQua = c["TGCongBo"];
+                gv.DiaDiem = c["DiaDiem"];
+                gv.ThoiGianCongBoDiem = c["TGCongBo"];
                 gv.NgaySua = DateTime.Now;
                 gv.NguoiSua = user;
                 db.SaveChanges();
