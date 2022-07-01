@@ -50,6 +50,7 @@
                         <ul>
                             <li><a href="/Admin/CuocThiAd">Quản lý cuộc thi</a></li>
                             <li><a href="/Admin/LichTrinh">Lịch trình</a></li>
+                            <li><a href="#" onclick="ChonKyThi()">Thiết lập thi</a></li>
                         </ul>
                     </li>
                     <li id="liBaoCao"><a href="#"><i class="ti-bar-chart-alt"></i> Báo cáo</a></li>
@@ -359,21 +360,34 @@
         }
         function Get_IDKyThi() {
             var id = $('#txtKyThi_ChonKyThi').val();
-            $.ajax({
-                url: '/HomeAd/GetDetailCuocThi',
-                data: { id: id },
-                type: 'post',
-                success: function (result) {
-                    if (result.status == true) {
-                        $('#macuocthi').text(result.data.MaCuocThi);
-                        $('#txtMa_ChonKyThi').text(result.data.MaCuocThi);
-                        $('#txtTen_ChonKyThi').html(result.data.TenCuocThi);
-                        $('#txtNgayBD_ChonKyThi').html(result.tgbd);
-                        $('#txtNgayKT_ChonKyThi').html(result.tgkt);
-                        $('#txtIDKyThi_ChonKyThi').val(id);
+            if (id == 0) {
+                $('#macuocthi').text('');
+                $('#txtMa_ChonKyThi').text('');
+                $('#txtTen_ChonKyThi').html('');
+                $('#txtNgayBD_ChonKyThi').html('');
+                $('#txtNgayKT_ChonKyThi').html('');
+                $('#txtIDKyThi_ChonKyThi').val(0);
+                document.getElementById("btnChonCuocThi_DongY").disabled = true;
+            }
+            else {
+                $.ajax({
+                    url: '/HomeAd/GetDetailCuocThi',
+                    data: { id: id },
+                    type: 'post',
+                    success: function (result) {
+                        if (result.status == true) {
+                            $('#macuocthi').text(result.data.MaCuocThi);
+                            $('#txtMa_ChonKyThi').text(result.data.MaCuocThi);
+                            $('#txtTen_ChonKyThi').html(result.data.TenCuocThi);
+                            $('#txtNgayBD_ChonKyThi').html(result.data.ThoiGianBatDau);
+                            $('#txtNgayKT_ChonKyThi').html(result.data.ThoiGianKetThuc);
+                            $('#txtIDKyThi_ChonKyThi').val(id);
+                            document.getElementById("btnChonCuocThi_DongY").disabled = false;
+                        }
                     }
-                }
-            })
+                })
+            }
+            
         }
         //function DongY_ChonKyThi() {
         //    var idKyThi = $('#txtIDKyThi_ChonKyThi').val();

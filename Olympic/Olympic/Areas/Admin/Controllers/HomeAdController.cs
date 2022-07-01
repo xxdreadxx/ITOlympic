@@ -38,14 +38,10 @@ namespace Olympic.Areas.Admin.Controllers
         public JsonResult GetDetailCuocThi(int id)
         {
             var data = db.a_CuocThi.Where(x => x.ID == id).FirstOrDefault();
-            var tgiankt = String.Format("{0}/{1}/{2}", data.ThoiGianKetThuc.Substring(6, 2), data.ThoiGianKetThuc.Substring(4, 2), data.ThoiGianKetThuc.Substring(0, 4));
-            var tgianbd = String.Format("{0}/{1}/{2}", data.ThoiGianBatDau.Substring(6, 2), data.ThoiGianBatDau.Substring(4, 2), data.ThoiGianBatDau.Substring(0, 4));
             return Json(new
             {
                 status = true,
-                data = data,
-                tgbd= tgianbd,
-                tgkt=tgiankt
+                data = data
             }, JsonRequestBehavior.AllowGet);
         }
     }
