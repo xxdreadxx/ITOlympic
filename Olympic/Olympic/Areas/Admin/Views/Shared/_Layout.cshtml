@@ -347,7 +347,6 @@
             $.ajax({
                 url: '/HomeAd/GetCuocThi',
                 success: function (res) {
-
                     var selectCuocThi = $('#txtKyThi_ChonKyThi');
                     var op = "<option value=0>Chọn cuộc thi</option>";
                     $.each(res.data, function (i, item) {
@@ -387,18 +386,23 @@
                     }
                 })
             }
-            
         }
-        //function DongY_ChonKyThi() {
-        //    var idKyThi = $('#txtIDKyThi_ChonKyThi').val();
-        //    if (idKyThi != 0) {
-        //        $('#mdlChonKyThi').modal('hide')
-        //        window.location = '/Admin/LichTrinh/Index?idCuocThi=' + idKyThi;
-        //    } else {
-        //        $('#error').html('Vui lòng chọn cuộc thi');
-        //        $('#error').css('display', 'block');
-        //    }
-        //};
+        function DongY_ChonKyThi() {
+            var idKyThi = $('#txtIDKyThi_ChonKyThi').val();
+            var idLoai = $('#ddlChonHinhThuc').val();
+            if (idKyThi != 0) {
+                $('#mdlChonKyThi').modal('hide');
+                if (idLoai == 1) {
+                    window.location = '/Admin/NguoiThi/DSDoiThi?idCuocThi=' + idKyThi;
+                }
+                else {
+                    window.location = '/Admin/NguoiThi/DSThiCaNhan?idCuocThi=' + idKyThi;
+                }
+            } else {
+                $('#error').html('Vui lòng chọn cuộc thi');
+                $('#error').css('display', 'block');
+            }
+        };
     </script>
     <!-- /# content wrap -->
     <script src="~/Content/Asset/assets/js/lib/jquery.min.js"></script>

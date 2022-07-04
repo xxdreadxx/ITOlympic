@@ -1,11 +1,12 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
+using System.Data.Entity.Spatial;
+
 namespace Models.EF
 {
-    using System;
-    using System.Collections.Generic;
-    using System.ComponentModel.DataAnnotations;
-    using System.ComponentModel.DataAnnotations.Schema;
-    using System.Data.Entity.Spatial;
-
+    [Table("a_CuocThi")]
     public partial class a_CuocThi
     {
         public int ID { get; set; }
@@ -45,6 +46,7 @@ namespace Models.EF
         public int? NguoiSua { get; set; }
     }
 
+    [NotMapped]
     public class a_CuocThiAdView : a_CuocThi
     {
         public int SLHangMuc { get; set; }

@@ -6,6 +6,7 @@ namespace Models.EF
     using System.ComponentModel.DataAnnotations.Schema;
     using System.Data.Entity.Spatial;
 
+    [Table("a_DoiTuyen")]
     public partial class a_DoiTuyen
     {
         public int ID { get; set; }
@@ -27,5 +28,14 @@ namespace Models.EF
         public DateTime? NgaySua { get; set; }
         public int? NguoiTao { get; set; }
         public int? NguoiSua { get; set; }
+    }
+
+    [NotMapped]
+    public class a_DoiTuyenView : a_DoiTuyen
+    {
+        public string TenHangMuc { get; set; }
+        public string TenCuocThi { get; set; }
+        public int SoLuong { get; set; }
+        public string HLV { get; set; }
     }
 }
