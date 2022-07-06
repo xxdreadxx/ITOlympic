@@ -36,6 +36,7 @@ namespace Models.EF
         public string TenHangMuc { get; set; }
         public string TenCuocThi { get; set; }
         public int SoLuong { get; set; }
+        public int SoLuongHM { get; set; }
         public string HLV { get; set; }
     }
 }

@@ -307,12 +307,12 @@ function Save() {
 
     setTimeout(function () {
         if (isSave == true) {
-            SaveN();
+            SaveN(id);
         }
     }, 1500);
 }
 
-function SaveN() {
+function SaveN(id) {
     var ma = $('#txtMa').val().trim();
     var doituong = $('#dllDoiTuong').val();
     var ten = $('#txtTen').val().trim();

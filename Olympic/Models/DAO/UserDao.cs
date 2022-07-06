@@ -167,5 +167,10 @@ namespace Models.DAO
             }
         }
 
+        public List<a_GiaoVien> lstHLV()
+        {
+            return db.a_GiaoVien.Where(x => x.TrangThai == 1 && x.LoaiTK == 2).ToList();
+        }
+
     }
 }

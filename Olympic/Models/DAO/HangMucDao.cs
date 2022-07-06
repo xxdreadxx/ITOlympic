@@ -20,11 +20,11 @@ namespace Models.DAO
             List<a_HangMuc> lst = new List<a_HangMuc>();
             if (type != 0)
             {
-                lst = db.a_HangMuc.Where(x => x.TrangThai != 10 && x.DoiTuong == type).ToList();
+                lst = db.a_HangMuc.Where(x => x.TrangThai != 10 && x.DoiTuong == type && x.ID_CuocThi ==ID).ToList();
             }
             else
             {
-                lst = db.a_HangMuc.Where(x => x.TrangThai != 10).ToList();
+                lst = db.a_HangMuc.Where(x => x.TrangThai != 10 && x.ID_CuocThi == ID).ToList();
             }
             totalCount = lst.Count();
             return lst.OrderBy(x => x.ID).ToList();
