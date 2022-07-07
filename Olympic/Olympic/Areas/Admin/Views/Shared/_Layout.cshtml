@@ -50,7 +50,7 @@
                         <ul>
                             <li><a href="/Admin/CuocThiAd">Quản lý cuộc thi</a></li>
                             <li><a href="/Admin/LichTrinh">Lịch trình</a></li>
-                            <li><a href="#" onclick="ChonKyThi()">Thiết lập thi</a></li>
+                            <li><a href="#" onclick="ChonKyThi(0)">Thiết lập thi</a></li>
                         </ul>
                     </li>
                     <li id="liBaoCao"><a href="#"><i class="ti-bar-chart-alt"></i> Báo cáo</a></li>
@@ -343,7 +343,13 @@
     <script>
        
         //Gọi modal chọn kỳ thi
-        function ChonKyThi() {
+        function ChonKyThi(type) {
+            if (type == 0) {
+                document.getElementById("divHinhThucThi").style.display = 'block';
+            }
+            else {
+                document.getElementById("divHinhThucThi").style.display = 'none';
+            }
             $.ajax({
                 url: '/HomeAd/GetCuocThi',
                 success: function (res) {
@@ -354,7 +360,7 @@
                     });
                     selectCuocThi.html(op);
                 }
-            })
+            });
             $('#mdlChonKyThi').modal('show');
         }
         function Get_IDKyThi() {

@@ -185,9 +185,25 @@ namespace Models.DAO
             }
         }
 
-        //public bool CheckDate(string date, int id)
-        //{
-
-        //}
+        public List<a_CuocThi> GetCuocThiChuaTaoLichTrinh()
+        {
+            List<a_CuocThi> lst = new List<a_CuocThi>();
+            using (SqlConnection _conn = new SqlConnection(ConnectionLib.ConnectString))
+            {
+                _conn.Open();
+                try
+                {
+                    var _sqlStr = "select ct.* from a_CuocThi ct " +
+                        "left join a_CuocThi_LichTrinh lt on lt.IDCuocThi = ct.ID " +
+                        "where ct.TrangThai <> 10 and lt.ID is null";
+                    lst = _conn.Query<a_CuocThi>(_sqlStr, null, commandType: CommandType.Text).ToList<a_CuocThi>();
+                    return lst;
+                }
+                catch (Exception)
+                {
+                    return null;
+                }
+            }
+        }
     }
 }

@@ -35,6 +35,17 @@ namespace Olympic.Areas.Admin.Controllers
                 data = data
             }, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult GetCuocThiChuaTaoLichTrinh()
+        {
+            var data = db.a_CuocThi.Where(x => x.TrangThai != 10 && x.TrangThai != 3).ToList();
+            return Json(new
+            {
+                status = true,
+                data = data
+            }, JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult GetDetailCuocThi(int id)
         {
             var data = db.a_CuocThi.Where(x => x.ID == id).FirstOrDefault();

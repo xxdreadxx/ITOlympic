@@ -110,7 +110,7 @@ function DongY_ChonKyThi() {
     var idKyThi = $('#txtIDKyThi_ChonKyThi').val();
     if (idKyThi != 0) {
         $('#mdlChonKyThi').modal('hide')
-        Add();
+        Add(0, idKyThi);
 
     } else {
         $('#error').html('Vui lòng chọn cuộc thi');
@@ -118,10 +118,23 @@ function DongY_ChonKyThi() {
     }
 }
 
-function Add(id) {
+function Add(id, idKyThi) {
     resetForm();
     if (id == null || id == 0) {
         document.getElementById('tieude').innerHTML = "Thêm mới lịch trình";
+        $.ajax({
+            url: "/LichTrinh/getDataCuocThi",
+            data: {
+                id: idKyThi
+            },
+            type: 'get',
+            success: function (result) {
+                if (result.status == true) {
+                    $('#txtBatDauNhanHS').val(result.data.ThoiGianBatDauNhanHS);
+                    $('#txtCongBo').val(result.data.ThoiGianCongBoDiem);
+                }
+            }
+        });
     }
     else {
         document.getElementById('tieude').innerHTML = "Cập nhật thông tin lịch trình";
@@ -139,6 +152,8 @@ function Add(id) {
                     $('#txtDiaDiem').val(result.data.DiaDiemThi);
                     $('#txtKetThucNhanHS').val(result.data.ThoiGianKetThucNhanHoSo);
                     $('#txtKetThucThi').val(result.data.ThoiGianKetThucThi);
+                    $('#txtBatDauChamDiem').val(result.data.ThoiGianBatDauChamDiem);
+                    $('#txtKetThuChamDiem').val(result.data.ThoiGianKetThucChamDiem);
                     $('#txtCongBo').val(result.data.ThoiGianCongBoKetQua);
                 }
             }
@@ -153,9 +168,13 @@ function resetForm() {
     $('#txtDiaDiem').val('');
     $('#txtKetThucNhanHS').val('');
     $('#txtKetThucThi').val('');
+    $('#txtBatDauChamDiem').val('');
+    $('#txtKetThuChamDiem').val('');
     $('#txtCongBo').val('');
     $('#errCongBo').hide();
     $('#errTGKTThi').hide();
+    $('#errTGBDChamDiem').hide();
+    $('#errTGKTChamDiem').hide();
     $('#errTGKTHS').hide();
     $('#errDiaDiem').hide();
     $('#errTGBDThi').hide();
@@ -254,11 +273,13 @@ function loadPartial() {
 }
 
 function Save() {
-    var isSave = true;
+    var isSave = false;
     var bdhs = $('#txtBatDauNhanHS').val();
     var kths = $('#txtKetThucNhanHS').val();
     var bdthi = $('#txtBatDauNhanTHi').val();
     var ktthi = $('#txtKetThucThi').val();
+    var btcd = $('#txtBatDauChamDiem').val();
+    var ktcd = $('#txtKetThuChamDiem').val();
     var diadiem = $('#txtDiaDiem').val().trim();
     var tgcongbo = $('#txtCongBo').val();
     var id = $('#id').val();
@@ -316,6 +337,32 @@ function Save() {
         }
     }
 
+    if (btcd == "") {
+        isSave = false;
+        document.getElementById('errTGBDBChamDiem').innerHTML = "Chưa nhập ngày bắt đầu chấm điểm";
+        $('#errTGBDBChamDiem').show();
+    }
+    else {
+        if (checkDate(btcd, false) == false) {
+            document.getElementById('errTGBDHS').innerHTML = "Ngày tháng năm sai định dạng.";
+            $('#errTGBDHS').show();
+            isSave = false;
+        }
+    }
+
+    if (ktcd == "") {
+        isSave = false;
+        document.getElementById('errTGKTChamDiem').innerHTML = "Chưa nhập ngày kết thúc chấm điểm";
+        $('#errTGKTChamDiem').show();
+    }
+    else {
+        if (checkDate(ktcd, false) == false) {
+            document.getElementById('errTGKTChamDiem').innerHTML = "Ngày tháng năm sai định dạng.";
+            $('#errTGKTChamDiem').show();
+            isSave = false;
+        }
+    }
+
     if (tgcongbo == "") {
         isSave = false;
         document.getElementById('errCongBo').innerHTML = "Chưa nhập ngày công bố kết quả";
@@ -340,6 +387,8 @@ function Save() {
         formData.append("TGBDKTNhanHoSo", kths);
         formData.append("TGBDThi", bdthi);
         formData.append("TGKTThi", ktthi);
+        formData.append("TGBDChamDiem", btcd);
+        formData.append("TGKTChamDiem", ktcd);
         formData.append("DiaDiem", diadiem);
         formData.append("TGCongBo", tgcongbo);
         formData.append("ID", id);
@@ -454,4 +503,19 @@ function deleteAll() {
             }
         }
     })
+}
+
+function ChonKyThi_LichTrinh() {
+    $.ajax({
+        url: '/HomeAd/GetCuocThiChuaTaoLichTrinh',
+        success: function (res) {
+            var selectCuocThi = $('#txtKyThi_ChonKyThi');
+            var op = "<option value=0>Chọn cuộc thi</option>";
+            $.each(res.data, function (i, item) {
+                op += '<option value=' + item.ID + '>' + item.TenCuocThi + '</option>'
+            });
+            selectCuocThi.html(op);
+        }
+    });
+    $('#mdlChonKyThi').modal('show');
 }

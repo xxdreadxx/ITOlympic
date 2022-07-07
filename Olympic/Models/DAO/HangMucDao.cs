@@ -161,10 +161,5 @@ namespace Models.DAO
             }
         }
 
-        //public checkThoiGian(string tg, int IDCuocThi)
-        //{
-
-        //}
-
     }
 }

@@ -12,6 +12,7 @@ namespace Olympic.Areas.Admin.Controllers
     {
         private OlympicDbContext db = new OlympicDbContext();
         private LichTrinhDao dao = new LichTrinhDao();
+        private CuocThiDao ctdao = new CuocThiDao();
         // GET: Admin/LichTrinh
         public ActionResult Index()
         {
@@ -70,35 +71,38 @@ namespace Olympic.Areas.Admin.Controllers
             HttpFileCollectionBase file = Request.Files;
             int ID = int.Parse(c["ID"].ToString());
             int user = int.Parse(Session["UserID"].ToString());
+            a_CuocThi_LichTrinh gv = new a_CuocThi_LichTrinh();
             if (ID == 0)
             {
                 //thêm mới
-                a_CuocThi_LichTrinh gv = new a_CuocThi_LichTrinh();
                 gv.IDCuocThi = int.Parse(c["IDCuocThi"]);
                 gv.ThoiGianBatDauNhanHS = c["TGBDNhanHoSo"];
                 gv.ThoiGianKetThucNhanHS = c["TGBDKTNhanHoSo"];
                 gv.ThoiGianBatDauThi = c["TGBDThi"];
                 gv.ThoiGianKetThucThi = c["TGKTThi"];
+                gv.ThoiGianBatDauChamDiem = c["TGBDChamDiem"];
+                gv.ThoiGianKetThucChamDiem = c["TGKTChamDiem"];
                 gv.DiaDiem = c["DiaDiem"];
                 gv.ThoiGianCongBoDiem = c["TGCongBo"] ;
                 gv.NgayTao = DateTime.Now;
                 gv.NguoiTao = user;
-                db.a_CuocThi_LichTrinh.Add(gv);
-                db.SaveChanges();
+                var kt = dao.Add(gv);
             }
             else
             {
                 //sửa
-                a_CuocThi_LichTrinh gv = db.a_CuocThi_LichTrinh.FirstOrDefault(x => x.ID == ID);
+                gv.ID = ID;
                 gv.ThoiGianBatDauNhanHS = c["TGBDNhanHoSo"];
                 gv.ThoiGianKetThucNhanHS = c["TGBDKTNhanHoSo"];
                 gv.ThoiGianBatDauThi = c["TGBDThi"];
                 gv.ThoiGianKetThucThi = c["TGKTThi"];
+                gv.ThoiGianBatDauChamDiem = c["TGBDChamDiem"];
+                gv.ThoiGianKetThucChamDiem = c["TGKTChamDiem"];
                 gv.DiaDiem = c["DiaDiem"];
                 gv.ThoiGianCongBoDiem = c["TGCongBo"];
-                gv.NgaySua = DateTime.Now;
                 gv.NguoiSua = user;
-                db.SaveChanges();
+                gv.NgaySua = DateTime.Now;
+                var kt = dao.Edit(gv);
             }
             return Json(new
             {
@@ -113,6 +117,26 @@ namespace Olympic.Areas.Admin.Controllers
             {
                 status = true,
                 data = data
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult getDataCuocThi(int id)
+        {
+            var data = ctdao.getByID(id);
+            return Json(new
+            {
+                status = true,
+                data = data
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult checkTG(string tg)
+        {
+            int IDCuocThi = int.Parse(Session["ID_CuocThi"].ToString());
+            bool kt = dao.checkLichTrinh(IDCuocThi, tg);
+            return Json(new
+            {
+                status = kt
             }, JsonRequestBehavior.AllowGet);
         }
 

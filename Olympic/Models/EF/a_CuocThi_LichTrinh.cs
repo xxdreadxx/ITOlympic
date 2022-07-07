@@ -27,6 +27,7 @@ namespace Models.EF
     public class LichTrinhView
     {
         public int ID { get; set; }
+        public int IDCuocThi { get; set; }
         public string MaCuocThi { get; set; }
         public string TenCuocThi { get; set; }
         public byte Cap { get; set; }

@@ -43,7 +43,7 @@
             <div class="card-header">
                 <div class="col-lg-6" style="padding-left:0px">
                     <div class="button-list">
-                        <button type="button" class="btn btn-success  btn-flat btn-addon m-b-10 m-l-5" onclick="ChonKyThi()"><i class="ti-plus"></i> Thêm mới</button>
+                        <button type="button" class="btn btn-success  btn-flat btn-addon m-b-10 m-l-5" onclick="ChonKyThi(1)"><i class="ti-plus"></i> Thêm mới</button>
                         <button type="button" disabled class="btn btn-danger btn-flat btn-addon m-b-10 m-l-5 " id="btn-delete-all" onclick="Link_DeleteTT_onclick(0)"><i class="ti-trash"></i> Xóa bỏ</button>
                     </div>
                 </div>
@@ -56,7 +56,6 @@
             <div class="card-body" id="tableNguoiDung">
                 @Html.Action("getList", "LichTrinh")
             </div>
-
         </div><!-- /# card -->
     </div>
 </div>
@@ -94,6 +93,13 @@
                                 <span id="errTGBDThi" style="display:none;" class="error-message pull-right"></span>
                             </div>
                             <div class="lms-input-group">
+                                <div class="input-group-title right">Thời gian bắt đầu chấm điểm <span class="text-danger">(*) </span></div>
+                                <div class="input-group-content">
+                                    <input type="text" class="form-control dateformat" name="txtBatDauChamDiem" id="txtBatDauChamDiem">
+                                </div>
+                                <span id="errTGBDBChamDiem" style="display:none;" class="error-message pull-right"></span>
+                            </div>
+                            <div class="lms-input-group">
                                 <div class="input-group-title right">Địa điểm thi <span class="text-danger">(*) </span></div>
                                 <div class="input-group-content">
                                     <input type="text" class="form-control" name="txtDiaDiem" id="txtDiaDiem">
@@ -115,6 +121,13 @@
                                     <input type="text" class="form-control dateformat" name="txtKetThucThi" id="txtKetThucThi">
                                 </div>
                                 <span id="errTGKTThi" style="display:none;" class="error-message pull-right"></span>
+                            </div>
+                            <div class="lms-input-group">
+                                <div class="input-group-title right">Thời gian kết thúc chấm điểm <span class="text-danger">(*) </span></div>
+                                <div class="input-group-content">
+                                    <input type="text" class="form-control dateformat" name="txtKetThuChamDiem" id="txtKetThuChamDiem">
+                                </div>
+                                <span id="errTGKTChamDiem" style="display:none;" class="error-message pull-right"></span>
                             </div>
                             <div class="lms-input-group">
                                 <div class="input-group-title right">Thời gian công bố kết quả <span class="text-danger">(*) </span></div>
@@ -139,5 +152,3 @@
 @section scripts{
     <script src="~/Areas/Admin/Js/LichTrinh.js"></script>
 }
-
-
