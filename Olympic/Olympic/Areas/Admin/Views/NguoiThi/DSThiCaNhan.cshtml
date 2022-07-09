@@ -1,9 +1,9 @@
 ﻿@using Models.EF;
 @{
-    ViewBag.Title = "DSDoiThi";
+    ViewBag.Title = "DSThiCaNhan";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
     List<a_HangMuc> lstHangMuc = ViewBag.HangMuc;
-    List<a_GiaoVien>lstHLV = ViewBag.lstHLV;
+    List<a_GiaoVien> lstHLV = ViewBag.lstHLV;
 }
 
 <style>
@@ -23,7 +23,7 @@
     <div class="col-lg-8 p-0">
         <div class="page-header">
             <div class="page-title">
-                <h1>Quản lý đội tuyển</h1>
+                <h1>Quản lý thi cá nhân</h1>
             </div>
         </div>
     </div>
@@ -34,7 +34,7 @@
                 <ol class="breadcrumb text-right">
                     <li><a href="/Admin/HomeAd/Index">Trang chủ</a></li>
                     <li>Trang chủ</li>
-                    <li class="active">Đội tuyển</li>
+                    <li class="active">Thi cá nhân</li>
                 </ol>
             </div>
         </div>
@@ -72,7 +72,7 @@
             <div class="card-body" id="tableNguoiDung">
                 @Html.Action("getListDoiThi", "NguoiThi")
             </div>
-        </div><!-- /# card -->
+        </div>
     </div>
 </div>
 <!-- Modal xóa -->
@@ -134,92 +134,6 @@
                                 <span id="errTenHLV" style="display:none;" class="error-message pull-right"></span>
                             </div>
                         </div>
-                    </div>
-                </div>
-            </div>
-            <div class="modal-footer" style="text-align:center">
-                <button class="btn btn-success" type="button" id="btnAddUser" onclick="Save()"><i class="ti-save" aria-hidden="true"></i><span> Lưu</span></button>
-                <button class="btn btn-primary" type="reset" data-dismiss="modal"><i class="ti-close" aria-hidden="true"></i><span> Hủy</span></button>
-            </div>
-        </div>
-    </div>
-</div>
-
-<div id="divMember" class="modal fade" role="dialog">
-    <div class="modal-dialog" style="top:30%">
-        <!-- Modal content-->
-        <div class="modal-content">
-            <div class="modal-header">
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
-            </div>
-            <div class="modal-body">
-                <div class="row">
-                    <div class="col-md-12">
-                        <input type="hidden" id="idHM" />
-                        <input type="hidden" id="HM_SL" />
-                        <div class="col-md-6">
-                            <div class="lms-input-group">
-                                <div class="input-group-title right">Mã hạng mục</div>
-                                <div class="input-group-content">
-                                    <input type="text" id="txtMaHM" name="txtMaHM" value="" class="form-control" disabled />
-                                </div>
-                            </div>
-                            <div class="lms-input-group">
-                                <div class="input-group-title right">Thời gian bắt đầu</div>
-                                <div class="input-group-content">
-                                    <input type="text" id="txtHMTGBD" name="txtHMTGBD" value="" class="form-control dateformat" disabled data-inputmask="'alias': 'dd/mm/yyyy'" data-mask=""/>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="lms-input-group">
-                                <div class="input-group-title right">Tên hạng mục</div>
-                                <div class="input-group-content">
-                                    <input type="text" name="txtTenHM" class="form-control" id="txtTenHM" />
-                                </div>
-                                <span id="errTen" style="display:none;" class="error-message pull-right"></span>
-                            </div>
-                            <div class="lms-input-group">
-                                <div class="input-group-title right">Thời gian kết thúc</div>
-                                <div class="input-group-content">
-                                    <input type="text" id="txtHMTGKT" name="txtHMTGKT" value="" class="form-control dateformat" disabled data-inputmask="'alias': 'dd/mm/yyyy'" data-mask="" />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <div class="col-md-12">
-                        <div class="col-md-6">
-                            <div class="lms-input-group">
-                                <div class="input-group-content">
-                                    Danh sách thành viên
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-6">
-                            <div class="lms-input-group">
-                                <div class="input-group-content">
-                                    <a class="btn btn-success" id="btnAddSV">Thêm sinh viên</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-12">
-                        <table class="table table-responsive table-hover">
-                            <thead>
-                                <tr>
-                                    @*<th class="text-center" width="5%"><input id="check-all-delete-js" type="checkbox"></th>*@
-                                    <th class="text-center" width="10%">STT</th>
-                                    <th class="text-center" width="25%">Mã sinh viên</th>
-                                    <th class="text-center" width="35%">Tên sinh viên</th>
-                                    <th class="text-center" width="20%">Lớp</th>
-                                    <th class="text-center" width="10%"><i class="ti-help"></i></th>
-                                </tr>
-                            </thead>
-                            <tbody id="tblMember">
-                            </tbody>
-                        </table>
                     </div>
                 </div>
             </div>

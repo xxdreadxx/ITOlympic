@@ -28,6 +28,7 @@ namespace Models.EF
     [NotMapped]
     public class a_HangMuc_SinhVien_Diem_View: a_HangMuc_SinhVien_Diem
     {
+        public string MaSV { get; set; }
         public string TenSV { get; set; }
         public string Lop { get; set; }
         public string TenHangMuc { get; set; }

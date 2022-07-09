@@ -88,19 +88,19 @@ namespace Models.DAO
             }
         }
 
-        public List<a_HangMuc_SinhVien_Diem> getListSVInDoiTuyen(int ID, ref int totalCount)
+        public List<a_HangMuc_SinhVien_Diem_View> getListSVInDoiTuyen(int ID, ref int totalCount)
         {
-            List<a_HangMuc_SinhVien_Diem> lst = new List<a_HangMuc_SinhVien_Diem>();
+            List<a_HangMuc_SinhVien_Diem_View> lst = new List<a_HangMuc_SinhVien_Diem_View>();
             using (SqlConnection _conn = new SqlConnection(ConnectionLib.ConnectString))
             {
                 _conn.Open();
                 try
                 {
-                    var _sqlStr = "select hs.*, hm.TenHangMuc, ct.TenCuocThi, sv.HoTen as TenSV , sv.Lop, hm.ThoiGianBatDau, hm.ThoiGianKetThuc " +
+                    var _sqlStr = "select hs.*, hm.TenHangMuc, ct.TenCuocThi, sv.HoTen as TenSV , sv.MaSV, sv.Lop, hm.ThoiGianBatDau, hm.ThoiGianKetThuc " +
                         "from a_DoiTuyen_SV ds join a_SinhVien sv on sv.ID = ds.ID_SV join a_DoiTuyen dt on dt.ID = ds.ID_Doi " +
                         "join a_HangMuc hm on hm.ID = dt.ID_HangMuc join a_HangMuc_SinhVien_Diem hs on hs.ID_HangMuc = hm.ID and ds.ID_SV = hs.ID_SV join a_CuocThi ct on ct.ID = hm.ID_CuocThi " +
-                        $"where ds.ID_Doi = {ID} ";
-                    lst = _conn.Query<a_HangMuc_SinhVien_Diem>(_sqlStr, null, commandType: CommandType.Text).ToList<a_HangMuc_SinhVien_Diem>();
+                        $"where ds.ID_Doi = {ID} and ds.TrangThai <> 10";
+                    lst = _conn.Query<a_HangMuc_SinhVien_Diem_View>(_sqlStr, null, commandType: CommandType.Text).ToList<a_HangMuc_SinhVien_Diem_View>();
                     totalCount = lst.Count();
                     return lst;
                 }
@@ -112,20 +112,20 @@ namespace Models.DAO
             }
         }
 
-        public List<a_HangMuc_SinhVien_Diem> getListSVCNInHangMuc(int ID, ref int totalCount)
+        public List<a_HangMuc_SinhVien_Diem_View> getListSVCNInHangMuc(int ID, ref int totalCount)
         {
-            List<a_HangMuc_SinhVien_Diem> lst = new List<a_HangMuc_SinhVien_Diem>();
+            List<a_HangMuc_SinhVien_Diem_View> lst = new List<a_HangMuc_SinhVien_Diem_View>();
             using (SqlConnection _conn = new SqlConnection(ConnectionLib.ConnectString))
             {
                 _conn.Open();
                 try
                 {
-                    var _sqlStr = "select hs.*, hm.TenHangMuc, ct.TenCuocThi, sv.HoTen as TenSV , sv.Lop, hm.ThoiGianBatDau, hm.ThoiGianKetThuc " +
+                    var _sqlStr = "select hs.*, hm.TenHangMuc, ct.TenCuocThi, sv.HoTen as TenSV , sv.MaSV, sv.Lop, hm.ThoiGianBatDau, hm.ThoiGianKetThuc " +
                         "from a_HangMuc_SinhVien_Diem hs join a_HangMuc hm on hm.ID = hs.ID_HangMuc and hm.TrangThai <>10 " +
                         "join a_CuocThi ct on ct.ID = hm.ID_CuocThi join a_SinhVien sv on sv.ID = hs.ID_SV and hs.TrangThai <> 10 " +
                         $"where hm.ID = {ID} " +
-                        "group by dt.ID, dt.ID_HangMuc, dt.ID_HLV, dt.KetQua, dt.MaDoi, dt.TenDoi, dt.TrangThai, hm.TenHangMuc, ct.TenCuocThi, gv.HoTen";
-                    lst = _conn.Query<a_HangMuc_SinhVien_Diem>(_sqlStr, null, commandType: CommandType.Text).ToList<a_HangMuc_SinhVien_Diem>();
+                        "group by dt.ID, dt.ID_HangMuc, dt.ID_HLV, dt.KetQua, dt.MaDoi, dt.TenDoi, sv.MaSV, dt.TrangThai, hm.TenHangMuc, ct.TenCuocThi, gv.HoTen";
+                    lst = _conn.Query<a_HangMuc_SinhVien_Diem_View>(_sqlStr, null, commandType: CommandType.Text).ToList<a_HangMuc_SinhVien_Diem_View>();
                     totalCount = lst.Count();
                     return lst;
                 }
@@ -215,6 +215,25 @@ namespace Models.DAO
                 return 0;
             }
             return 1;
+        }
+
+        public List<a_SinhVien> getListSVChuaDK(int ID)
+        {
+            List<a_SinhVien> lst = new List<a_SinhVien>();
+            using (SqlConnection _conn = new SqlConnection(ConnectionLib.ConnectString))
+            {
+                _conn.Open();
+                try
+                {
+                    var _sqlStr = $"select * from a_SinhVien where TrangThai = 1 and ID not in (select ID_SV from a_DoiTuyen_SV where ID_Doi = {ID} and TrangThai <> 10) ";
+                    lst = _conn.Query<a_SinhVien>(_sqlStr, null, commandType: CommandType.Text).ToList<a_SinhVien>();
+                    return lst;
+                }
+                catch (Exception)
+                {
+                    return lst;
+                }
+            }
         }
     }
 }

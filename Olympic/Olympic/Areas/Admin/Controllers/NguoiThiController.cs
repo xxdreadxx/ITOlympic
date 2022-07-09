@@ -31,7 +31,7 @@ namespace Olympic.Areas.Admin.Controllers
             return View();
         }
 
-        public ActionResult getListDoiTuyen(string search = "", int page = 1)
+        public ActionResult getListDoiThi(string search = "", int page = 1)
         {
             int IDCuocThi = int.Parse(Session["IDCuocThi"].ToString());
             int totalCount = 0;
@@ -136,6 +136,63 @@ namespace Olympic.Areas.Admin.Controllers
             return Json(new
             {
                 status = true
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public ActionResult DSThiCaNhan(int idCuocThi = 0)
+        {
+            int sl = 0;
+            ViewBag.CuocThi = ctDao.getByID(idCuocThi);
+            ViewBag.HangMuc = hmDao.getByIDCuocThi(idCuocThi, 1, ref sl);
+            ViewBag.lstHLV = uDao.lstHLV();
+            Session["IDCuocThi"] = idCuocThi;
+            return View();
+        }
+
+        public ActionResult getListThiSinhThiCaNhan(string search = "", int page = 1)
+        {
+            int IDCuocThi = int.Parse(Session["IDCuocThi"].ToString());
+            int totalCount = 0;
+            int pageSize = 15;
+            int pageno = 0;
+            pageno = page == null ? 1 : int.Parse(page.ToString());
+            List<a_DoiTuyenView> lstGV = new List<a_DoiTuyenView>();
+            var getdata = dtDao.getListDoiTuyenByIDCuocThi(IDCuocThi, search, ref totalCount);
+            lstGV = getdata.Skip((pageno - 1) * pageSize).Take(pageSize).ToList();
+            ViewBag.Page = page;
+            int maxCount = totalCount;
+            if (maxCount % pageSize > 0)
+            {
+                ViewBag.MaxPage = (maxCount / pageSize + 1);
+            }
+            else
+            {
+                ViewBag.MaxPage = (maxCount / pageSize);
+            }
+            return PartialView(lstGV);
+        }
+
+        public JsonResult getDSSVTrongDoiThi(int ID)
+        {
+            int totalcount = 0;
+            var data = dtDao.getListSVInDoiTuyen(ID, ref totalcount);
+            var dataHM = hmDao.getByID(ID);
+            return Json(new
+            {
+                status = true,
+                data = data,
+                dataHM = dataHM,
+                totalCount = totalcount
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult getDSSVChuaDKThi(int ID)
+        {
+            var data = dtDao.getListSVChuaDK(ID);
+            return Json(new
+            {
+                status = true,
+                data = data
             }, JsonRequestBehavior.AllowGet);
         }
     }

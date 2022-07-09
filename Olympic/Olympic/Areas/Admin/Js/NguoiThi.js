@@ -293,3 +293,31 @@ $(document).ready(function () {
         });
     });
 });
+
+function DSTV(id) {
+    $.ajax({
+        url: "/NguoiThi/getDSSVTrongDoiThi",
+        data: {
+            id: id
+        },
+        type: 'post',
+        success: function (result) {
+            if (result.status == true) {
+                $('#txtMaHM').val(result.dataHM.MaHangMuc);
+                $('#idHM').val(result.dataHM.ID);
+                $('#HM_SL').val(result.dataHM.SoLuong);
+                $('#txtHMTGBD').val(result.dataHM.ThoiGianBatDau);
+                $('#txtTenHM').val(result.dataHM.TenHangMuc);
+                $('#txtHMTGKT').val(result.dataHM.ThoiGianKetThuc);
+                var html = '';
+                var stt = 0;
+                $.each(result.data, function (i, item) {
+                    stt++;
+                    html += '<tr><td>' + stt + '</td><td>' + item.MaSV + '</td><td>' + TenSV + '</td><td>' + Lop + '</td><td><a href=\"#\" title=\"Xóa\" type="button" onclick=\"DelTT('+item.ID+')\"><i class=\"ti-trash\"></i></a></td></tr>';
+                });
+                $('#tblMember').html(html);
+            }
+        }
+    });
+    $('#divMember').modal('show');
+}
