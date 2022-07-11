@@ -305,6 +305,7 @@ function DSTV(id) {
             if (result.status == true) {
                 $('#txtMaHM').val(result.dataHM.MaHangMuc);
                 $('#idHM').val(result.dataHM.ID);
+                $('#hdID_DoiThi').val(id);
                 $('#HM_SL').val(result.dataHM.SoLuong);
                 $('#txtHMTGBD').val(result.dataHM.ThoiGianBatDau);
                 $('#txtTenHM').val(result.dataHM.TenHangMuc);
@@ -321,3 +322,26 @@ function DSTV(id) {
     });
     $('#divMember').modal('show');
 }
+
+$('#btnAddSV').on('click', function () {
+    var idDoiThi = $('#hdID_DoiThi').val();
+    $.ajax({
+        url: "/NguoiThi/getDSSVChuaDKThi",
+        data: {
+            id: idDoiThi
+        },
+        type: 'post',
+        success: function (result) {
+            if (result.status == true) {
+                var html = '';
+                var stt = 0;
+                $.each(result.data, function (i, item) {
+                    stt++;
+                    html += '<tr><td>' + stt + '</td><td>' + item.MaSV + '</td><td>' + TenSV + '</td><td>' + Lop + '</td><td><a href=\"#\" title=\"Xóa\" type="button" onclick=\"DelTT(' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
+                });
+                $('#tbllstSV').html(html);
+            }
+        }
+    });
+    $('#divLSTSV').modal('show');
+});
