@@ -314,7 +314,7 @@ function DSTV(id) {
                 var stt = 0;
                 $.each(result.data, function (i, item) {
                     stt++;
-                    html += '<tr><td>' + stt + '</td><td>' + item.MaSV + '</td><td>' + TenSV + '</td><td>' + Lop + '</td><td><a href=\"#\" title=\"Xóa\" type="button" onclick=\"DelTT('+item.ID+')\"><i class=\"ti-trash\"></i></a></td></tr>';
+                    html += '<tr><td>' + stt + '</td><td>' + item.MaSV + '</td><td>' + item.TenSV + '</td><td>' + item.Lop + '</td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelTT(' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
                 });
                 $('#tblMember').html(html);
             }
@@ -337,8 +337,9 @@ $('#btnAddSV').on('click', function () {
                 var stt = 0;
                 $.each(result.data, function (i, item) {
                     stt++;
-                    html += '<tr><td>' + stt + '</td><td>' + item.MaSV + '</td><td>' + TenSV + '</td><td>' + Lop + '</td><td><a href=\"#\" title=\"Xóa\" type="button" onclick=\"DelTT(' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
+                    html += '<tr><td>' + stt + '</td><td>' + item.MaSV + '</td><td>' + item.HoTen + '</td><td>' + item.Lop + '</td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelTT(' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
                 });
+
                 $('#tbllstSV').html(html);
             }
         }
