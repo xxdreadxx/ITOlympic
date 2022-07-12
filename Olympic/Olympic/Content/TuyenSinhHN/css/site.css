@@ -1,0 +1,716 @@
+﻿/*Font*/
+@font-face {
+    font-family: "Open Sans";
+    src: url(../font/OpenSans-Regular.ttf);
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Open Sans";
+    src: url(../font/OpenSans-Bold.ttf);
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Open Sans";
+    src: url(../font/OpenSans-BoldItalic.ttf);
+    font-weight: 700;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Open Sans";
+    src: url(../font/OpenSans-ExtraBold.ttf);
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Open Sans";
+    src: url(../font/OpenSans-ExtraBoldItalic.ttf);
+    font-weight: 900;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Open Sans";
+    src: url(../font/OpenSans-Italic.ttf);
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Open Sans";
+    src: url(../font/OpenSans-Light.ttf);
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Open Sans";
+    src: url(../font/OpenSans-LightItalic.ttf);
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Open Sans";
+    src: url(../font/OpenSans-Regular.ttf);
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Open Sans";
+    src: url(../font/OpenSans-SemiBold.ttf);
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "Open Sans";
+    src: url(../font/OpenSans-SemiBoldItalic.ttf);
+    font-weight: 600;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: "Open Sans";
+    src: url(../font/OpenSans-Regular.ttf);
+    font-weight: 500;
+    font-style: normal;
+}
+/*site style*/
+p {
+    margin: 0
+}
+
+body {
+    font-family: "Open Sans";
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.text-muted {
+    color: inherit !important;
+}
+/*Header*/
+.header {
+    position: relative;
+    color: #fff
+}
+
+.hd-img-bg-wrapper {
+    max-height: 100vh;
+    overflow: hidden;
+    text-align: center;
+}
+
+.hd-top-block {
+    position: absolute;
+    /*top: 25px;*/
+    width: 100%;
+}
+
+.hd-hotline .btn-hotline-custom {
+    padding-top: 6px;
+    font-size: 14px;
+    padding-bottom: 6px;
+    padding-left: 8px;
+    padding-right: 6px;
+}
+
+    .hd-hotline .btn-hotline-custom:hover {
+        background: none;
+        border-color: rgb(4, 134, 210);
+    }
+
+.hd-app-name {
+    text-transform: uppercase;
+    font-weight: 600;
+}
+
+.hd-hotline {
+    font-size: 20px;
+    padding: 6px 0;
+}
+
+.img-hotline {
+    margin-right: 8px;
+    max-width: 24px;
+}
+
+.hd-center-block {
+    position: absolute;
+    top: 10%;
+    width: 100%;
+    background-color: #343a4080;
+}
+
+
+.hd-center-block_dangky {
+    position: absolute;
+    top: 30%;
+    width: 100%;
+}
+
+.hd-info-text {
+    font-size: 22px;
+    color: #ffffff;
+    font-family: "Open Sans";
+    font-weight: 500;
+    filter: drop-shadow(0px 2px 1.5px rgba(2,52,81,0.61));
+}
+
+.btn-register {
+    margin-top: 35px;
+    border-radius: 8px;
+    filter: drop-shadow(0px 3px 3.5px rgba(0,0,0,0.29));
+    background-color: #0486d2;
+    padding: 10px 45px;
+    font-size: 19px
+}
+
+    .btn-register:hover {
+        background-color: #0169a7;
+    }
+
+.hd-bottom-block {
+    /*position: absolute;*/
+    width: 100%;
+}
+
+    .hd-bottom-block .row.custom-margin {
+        margin: 0 -35px;
+    }
+
+    .hd-bottom-block .col .nav-custom {
+        display: block;
+        color: #0486d2;
+        background: #fff;
+        border-radius: 8px;
+        padding: 10px 0;
+        margin: 23px 14px 22px 20px;
+    }
+
+        .hd-bottom-block .col .nav-custom:hover {
+            background: #0486d2;
+            color: #fff;
+        }
+
+    .hd-bottom-block .hd-bottom-text-title {
+        margin-top: 10px
+    }
+
+    .hd-bottom-block .img-fluid-custom {
+        height: 44px;
+        width: auto
+    }
+/*Main*/
+.main-title {
+    margin-top: 45px;
+    font-size: 24px;
+    color: #3b3b3b;
+    font-weight: 700;
+    position: relative;
+    padding-bottom: 5px;
+    margin-bottom: 35px;
+}
+
+    .main-title::before {
+        width: 146px;
+        height: 3px;
+        content: "";
+        position: absolute;
+        bottom: 0;
+        background: #77d4f6;
+        left: calc(50% - 73px)
+    }
+
+    .main-title::after {
+        width: 146px;
+        height: 1px;
+        content: "";
+        position: absolute;
+        bottom: 1px;
+        background: #00afef;
+        left: calc(50% - 73px)
+    }
+
+.index-wrapper {
+    margin-bottom: 180px
+}
+/*Slide*/
+.slider-for {
+    margin: 25px 0 0
+}
+
+.slick-slide > p {
+    border-radius: 8px;
+    background-color: #e1e1e1;
+    padding: 8px 32px;
+    margin: 0 8px;
+}
+
+    .slick-slide:focus, .slick-slide > p:focus {
+        outline: none
+    }
+
+.slick-slide.slick-current > p {
+    background-color: #00afef;
+    color: #fff;
+}
+
+.slider-txt-count {
+    font-size: 50px;
+    font-family: "Open Sans";
+    font-weight: 600;
+    text-align: center;
+    position: relative;
+    line-height: 2;
+}
+
+.slider-txt-total {
+    color: #f26d07;
+    background: url(../images/Bg-number1-ico.png) center center no-repeat;
+    background-size: auto
+}
+
+.slider-txt-enrolled {
+    color: #f6901b;
+    background: url(../images/Bg-number2-ico.png) center center no-repeat;
+    background-size: auto
+}
+
+.slider-txt-offline {
+    color: #2293e5;
+    background: url(../images/Bg-number3-ico.png) center center no-repeat;
+    background-size: auto
+}
+
+.slider-txt-online {
+    color: #44cdff;
+    background: url(../images/Bg-number4-ico.png) center center no-repeat;
+    background-size: auto
+}
+
+.slider-txt-title {
+    font-size: 20px;
+    color: #333333;
+    font-family: "Open Sans";
+    font-weight: 500;
+    text-align: center;
+}
+
+.slick-slide:hover {
+    cursor: pointer
+}
+/*Footer*/
+.footer {
+    width: 100%;
+    align-items: center;
+    color: #fff;
+    /*height: 80px;*/
+    /*background-color: rgb(0, 70, 122);*/
+    /*padding: 10px 0 10px;*/
+    position: absolute;
+    bottom: 0;
+    border: none !important;
+}
+
+    .footer .container {
+        height: 100%;
+    }
+
+    .footer .ft-row {
+    }
+
+.ft-app-name {
+    text-transform: uppercase;
+    font-size: 12px;
+    font-family: "Open Sans";
+    font-weight: 500;
+}
+
+.ft-icon {
+    font-size: 17px !important;
+}
+
+.ft-text {
+    font-size: 12px;
+}
+
+    .ft-text.ft-text-padding-left {
+        padding-left: 5px
+    }
+
+/*Feedback*/
+.feedback {
+    position: fixed;
+    right: 0;
+    top: 60%;
+    border-radius: 10px 0 0 10px;
+    filter: drop-shadow(0px 3px 3.5px rgba(0,0,0,0.16));
+    background-color: #00afef;
+    padding: 15px 10px 20px;
+}
+
+.feedback-text {
+    font-size: 20px;
+    color: #ffffff;
+    text-align: center;
+}
+
+/*Hotline*/
+.hotline-mobile {
+    position: fixed;
+    right: 0;
+    top: 70%;
+    border-radius: 50%;
+    filter: drop-shadow(0px 3px 3.5px rgba(0,0,0,0.16));
+    background-color: #00afef;
+    padding: 10px;
+    display: none;
+}
+
+
+/*Responsive*/
+@media(max-width:1199px) {
+    .ft-app-name {
+        font-size: 15px;
+    }
+
+    .ft-icon {
+        font-size: 15px !important
+    }
+
+    .ft-text {
+        font-size: 15px;
+    }
+
+    .hd-bottom-block .row.custom-margin {
+        margin: 0 -30px
+    }
+
+    .hd-bottom-block .col .nav-custom {
+        margin: 0 30px
+    }
+}
+
+@media(max-width:991px) {
+    .slider-txt-count {
+        font-size: 40px;
+    }
+
+    .ft-app-name {
+        font-size: 11px;
+    }
+
+    .ft-icon {
+        font-size: 12px !important
+    }
+
+    .ft-text {
+        font-size: 10px;
+    }
+
+    .hd-info-text {
+        font-size: 18px !important;
+    }
+
+    .btn-register {
+        margin-top: 25px;
+        padding: 10px 40px;
+        font-size: 17px;
+    }
+
+    .feedback {
+        width: 50px;
+        top: 75%;
+    }
+
+    .feedback-text {
+        display: none
+    }
+
+    .index-wrapper {
+        margin-bottom: 150px;
+    }
+
+    .hd-bottom-block .row.custom-margin {
+        margin: 0 -25px
+    }
+
+    .hd-bottom-block .col .nav-custom {
+        margin: 0 25px
+    }
+}
+
+@media(max-width:1174px) {
+    .footer {
+        position: relative;
+        bottom: 0;
+        left: 0;
+        right: 0
+    }
+}
+
+@media(max-width:950px) {
+    #headerTitle {
+        display: block !important;
+        padding-bottom:5px
+    }
+    #title_TrangChu_1 {
+        /*display: none !important;*/
+        font-size:9px
+    }
+
+    .title_TrangChu_2 a {
+        /*display: inherit !important;*/
+        font-size: 8px !important
+    }
+    .title_TrangChu_2 {
+        font-size: 8px !important
+    }
+    #divHeader_TrangChu{
+        display:block
+    }
+    #icon_TrangChu_1 {
+        float: left !important;
+    }
+    #_icon_TrangChu_1 {
+        height: 50px;
+        margin-right: 5px;
+    }
+    /* #icon_TrangChu_2 {
+        display: inherit !important;
+    }*/
+    .hd-top-block {
+        top: 0!important;
+        padding: 4px 0 0 0 !important;
+        background: rgba(255,255,255,.8) !important; 
+    }
+}
+
+@media(max-width:768px) {
+    .hd-info-text {
+        font-size: 15px !important;
+    }
+
+    .btn-register {
+        margin-top: 18px;
+        padding: 5px 35px;
+        font-size: 12px;
+    }
+
+    .hd-bottom-block {
+        position: relative;
+        bottom: unset;
+        background: #142b50;
+    }
+
+        .hd-bottom-block .row .col {
+            flex-basis: unset;
+            padding: 20px 10px;
+        }
+
+            .hd-bottom-block .row .col a {
+                padding: 10px 0 20px;
+            }
+
+                .hd-bottom-block .row .col a img {
+                }
+
+    .footer {
+        height: auto;
+        position: relative;
+        bottom: 0;
+        left: 0;
+        right: 0
+    }
+
+    .ft-app-name {
+        font-size: 12px
+    }
+
+    .ft-icon {
+        font-size: 12px !important
+    }
+
+    .ft-text {
+        font-size: 10px;
+    }
+
+        .ft-text.ft-text-padding-left {
+            padding-left: 0
+        }
+
+    .hotline-mobile {
+        display: block;
+        top: 90%;
+    }
+
+    .index-wrapper {
+        margin-bottom: 120px;
+    }
+
+    .hd-bottom-text-desc {
+        font-size: 14px;
+        color: #6da4e3;
+    }
+
+    .hd-bottom-block .row.custom-margin {
+        margin: 0 -15px
+    }
+
+    .hd-bottom-block .col .nav-custom {
+        margin: 0 30%;
+    }
+}
+
+@media(max-width:575px) {
+    .hd-top-block {
+        top: 15px;
+    }
+
+        .hd-top-block .col-custom-xs-2 {
+            -ms-flex: 0 0 10%;
+            flex: 0 0 10%;
+            max-width: 10%;
+        }
+
+        .hd-top-block .col-custom-xs-10 {
+            -ms-flex: 0 0 90%;
+            flex: 0 0 90%;
+            max-width: 90%;
+        }
+
+    .hd-app-name {
+        font-size: 13px;
+    }
+
+    .hd-center-block {
+        top: 10% !important;
+    }
+
+    .hd-info-text {
+        font-size: 14px !important;
+    }
+
+    .main-title {
+        font-size: 22px;
+    }
+
+    .slider-txt-count {
+        font-size: 40px;
+    }
+
+    .index-wrapper {
+        margin-bottom: 90px;
+    }
+
+    .slider-txt-title {
+        font-size: 18px
+    }
+
+    .hd-bottom-block .col .nav-custom {
+        margin: 0 15%;
+    }
+}
+
+@media(max-width : 500px) {
+    #_title_TrangChu_2 {
+        font-size: 20px !important;
+    }
+}
+
+@media(max-width:375px) {
+
+    .hd-top-block {
+        top: 15px;
+    }
+
+        .hd-top-block .col-custom-xs-2 {
+            -ms-flex: 0 0 10%;
+            flex: 0 0 10%;
+            max-width: 10%;
+        }
+
+        .hd-top-block .col-custom-xs-10 {
+            -ms-flex: 0 0 90%;
+            flex: 0 0 90%;
+            max-width: 90%;
+        }
+
+    .hd-app-name {
+        font-size: 10px;
+    }
+
+    .hd-center-block {
+        top: 7% !important;
+    }
+
+    .btn-register {
+        margin-top: 14px;
+        padding: 5px 30px;
+        font-size: 10px;
+    }
+
+    .hd-info-text {
+        font-size: 12px !important;
+    }
+
+    .main-title {
+        font-size: 19px
+    }
+
+    .slider-txt-count {
+        font-size: 35px;
+        line-height: 84px;
+    }
+
+    .index-wrapper {
+        margin-bottom: 80px;
+    }
+
+    .slider-txt-title {
+        font-size: 16px
+    }
+
+    .hd-bottom-block .col .nav-custom {
+        margin: 0;
+    }
+}
+
+@media (max-width: 319px) {
+    .hd-info-text {
+        font-size: 10px !important;
+    }
+
+    #_title_TrangChu_2 {
+        display: none !important;
+    }
+}
+
+
+@media (min-width: 2560px) {
+    .container {
+        max-width: 1600px;
+    }
+}
+
+
+
+.bg-primary, .btn-primary {
+    background-color: #00afef !important;
+}
+
+.btn-primary {
+    border-color: #00afef !important;
+}
+
+.ft-text.ft-text-padding-left {
+    padding-left: 5px;
+}

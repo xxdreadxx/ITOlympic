@@ -1,0 +1,279 @@
+﻿/*detail css*/
+.page-wrapper div.register-form-wrapper {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    position: relative;
+    padding: 60px;
+    background: #fff;
+    box-shadow: 1px -1px 12px rgba(51, 51, 51, 0.3);
+}
+
+.form-control {
+    font-size: 14px
+}
+
+.page-wrapper .register-form-wrapper::before {
+    content: "";
+    background: url('../images/trong-dong.png') center center no-repeat;
+    background-size: cover;
+    opacity: 0.1;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+    left: 0;
+    top: 0;
+}
+
+.page-wrapper .register-form-wrapper > .row, .page-wrapper .register-form-wrapper #pnStudentInfo > .row {
+}
+
+    .page-wrapper .register-form-wrapper > .row > [class*="col"], .page-wrapper .register-form-wrapper #pnStudentInfo > .row [class*="col"] {
+        padding: 0 30px;
+    }
+
+        .page-wrapper .register-form-wrapper > .row [class*="col"]:first-child, .page-wrapper .register-form-wrapper #pnStudentInfo > .row [class*="col"]:first-child {
+            padding-left: 15px
+        }
+
+        .page-wrapper .register-form-wrapper > .row [class*="col"]:last-child, .page-wrapper .register-form-wrapper #pnStudentInfo > .row [class*="col"]:last-child {
+            padding-right: 15px
+        }
+
+
+label.lb-title {
+    font-weight: 600;
+    margin-top: 10px;
+    margin-bottom: 0;
+}
+
+ul.list-passed-school {
+    list-style: none;
+    padding: 0;
+    margin: 0
+}
+
+    ul.list-passed-school p.p-note {
+        padding-left: 13px;
+        font-style: italic;
+        font-size: 13px;
+        margin-bottom: 10px
+    }
+
+    ul.list-passed-school span.s-schoolname {
+        font-weight: 500;
+        font-size: 15px;
+        line-height: 24px;
+    }
+
+h5.h5-profile {
+    margin: 15px 0 10px;
+    font-weight: 600;
+}
+
+/*index css*/
+.admission-wrapper {
+    margin: 30px 0 45px
+}
+
+    .admission-wrapper .row {
+        margin-bottom: 20px;
+    }
+
+    .admission-wrapper .admission-title {
+        text-align: center;
+        padding: 10px 0;
+        margin-bottom: 40px;
+    }
+
+        .admission-wrapper .admission-title span {
+            position: relative;
+            padding: 0 10px
+        }
+
+            .admission-wrapper .admission-title span::after {
+                content: "";
+                width: 100%;
+                position: absolute;
+                bottom: -6px;
+                left: 0;
+                height: 3px;
+                background: #00afef
+            }
+
+    .admission-wrapper .admission-name {
+        font-weight: 600;
+        font-size: 14px;
+    }
+
+    .admission-wrapper .btn-admission {
+        padding: 6px 0;
+        display: block;
+        font-size: 14px;
+    }
+
+        .admission-wrapper .btn-admission.btn-expired {
+            border: 1px solid #e1e1e1;
+        }
+
+    .admission-wrapper .admission-icon {
+        display: flex;
+        align-items: center;
+        height: 100%;
+        justify-content: center;
+        background: #4270ee;
+        color: #fff;
+        border-radius: 10px;
+        font-size: 20px;
+        margin: 0 auto;
+        width: 50px;
+        height: 50px;
+    }
+
+        .admission-wrapper .admission-icon.admission-6 {
+            background: #f3c442;
+        }
+
+        .admission-wrapper .admission-icon.admission-mn {
+            background: #28c417;
+        }
+
+        .admission-wrapper .admission-icon.admission-10 {
+            background: #f5811c;
+        }
+
+.test-period-notification {
+    background: #f5811c;
+    padding: 15px 30px;
+    color: #fff;
+    border-radius: 8px;
+    box-shadow: 1px -1px 12px rgba(51, 51, 51, 0.3);
+    margin: 45px auto;
+    max-width: 600px;
+}
+
+    .test-period-notification h6 {
+        font-size: 18px;
+        margin: 0
+    }
+
+.p-reminder {
+    margin-bottom: 10px;
+    font-weight: 600;
+}
+/**select 2 readonly*/
+select[readonly].select2-hidden-accessible + .select2-container {
+    pointer-events: none;
+    touch-action: none;
+}
+
+    select[readonly].select2-hidden-accessible + .select2-container .select2-selection {
+        background: #eee;
+        box-shadow: none;
+    }
+
+    select[readonly].select2-hidden-accessible + .select2-container .select2-selection__arrow, select[readonly].select2-hidden-accessible + .select2-container .select2-selection__clear {
+        display: none;
+    }
+
+@media (max-width:767px) {
+
+    .admission-info-wrapper {
+        display: flex;
+        margin: 0 7%
+    }
+
+    body {
+        font-size: 12px
+    }
+
+    .admission-wrapper .btn-admission {
+        margin: 15px 7% 0;
+        padding: 6px 12px;
+    }
+
+    .admission-wrapper .row {
+        margin-bottom: 60px;
+    }
+
+    .page-wrapper div.register-form-wrapper {
+        padding: 45px 30px;
+    }
+
+    .h2, h2 {
+        font-size: 1.5rem;
+    }
+
+    .h5, h5 {
+        font-size: 1rem;
+    }
+
+    .h6, h6 {
+        font-size: .85rem;
+    }
+
+    .page-wrapper .register-form-wrapper::before {
+        background-size: auto;
+    }
+
+    .c-navbar .nav-item .nav-link {
+        text-align: left;
+        padding-left: 15px;
+    }
+
+    .btn-reset-captcha {
+        font-size: 12px
+    }
+
+    .admission-wrapper .admission-name, .admission-wrapper .admission-time {
+        padding-left: 5px
+    }
+
+    .admission-wrapper .admission-time {
+        font-size: 12px
+    }
+
+    .page-wrapper .register-form-wrapper > .row > [class*="col"]:first-child {
+        padding-left: 30px
+    }
+
+    .page-wrapper .register-form-wrapper > .row > [class*="col"]:last-child {
+        padding-right: 30px
+    }
+
+    .p-reminder {
+        margin-top: 20px;
+    }
+
+        .p-reminder.has-padding {
+            padding: 0 15px;
+        }
+}
+
+/*body.smart-city .page-wrapper div.register-form-wrapper{border: none; box-shadow:none;padding: 0}*/
+body.smart-city .page-wrapper .register-form-wrapper::before {
+    background: none;
+}
+
+body.smart-city .page-wrapper .register-form-wrapper > .row > [class*="col"], body.smart-city .page-wrapper .register-form-wrapper #pnStudentInfo > .row [class*="col"] {
+    padding: 0 15px
+}
+
+body.smart-city #registerStudentInfoForm > div.row {
+    margin-top: 0 !important
+}
+
+body.smart-city .admission-wrapper {
+    margin: 20px 0 0
+}
+
+body.smart-city .admission-info-wrapper {
+    margin: 0 !important
+}
+
+body.smart-city .admission-wrapper .btn-admission {
+    margin: 15px 0 0 !important
+}
+
+body.smart-city .p-reminder {
+    display:none
+}

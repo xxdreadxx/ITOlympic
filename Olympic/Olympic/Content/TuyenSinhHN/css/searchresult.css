@@ -1,0 +1,75 @@
+﻿.error-text {
+    color: red;
+}
+
+#btn_Search {
+    margin-top: 28px !important;
+}
+
+.content {
+    border: 1px solid #bdbdbd;
+    padding: 20px;
+    box-shadow: 1px -1px 12px rgba(51, 51, 51, 0.3);
+    background: #fff;
+    border-radius: 8px
+}
+
+#img-captcha,#img-captcha-10 {
+    width: auto;
+    border: 1px solid #ced4da;
+    border-left: none;
+    max-height: 35px;
+}
+
+
+
+.form-control {
+    padding: 2px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+}
+
+.btn {
+    padding: 4px 12px;
+    font-size: 15px;
+    line-height: 1.42857143;
+}
+
+label{margin:.25rem 0}
+
+
+.hide {
+    display: none
+}
+
+.panel-search .search {
+    box-shadow: 1px -1px 12px rgba(51, 51, 51, 0.3);
+    background: #fff;
+    border-radius: 8px
+}
+h2.page-title {
+    margin-top: 10px
+}
+
+body.smart-city .panel-search .search {
+    box-shadow: none;
+    background: #fff;
+    border-radius: 8px
+}
+body.smart-city hr {
+    margin-top: 8px;
+    margin-bottom: 0px;
+}
+body.smart-city hr {
+    margin-top: 8px;
+    margin-bottom: 0px;
+}
+
+body.smart-city .nav-search {
+    margin-top: 20px;
+}
+
+body.smart-city .btn-primary {
+    display: block;
+    width: 100%;
+}
