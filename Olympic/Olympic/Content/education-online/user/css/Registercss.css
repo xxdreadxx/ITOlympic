@@ -1,0 +1,383 @@
+﻿.status-register {
+    display: table;
+    width: 80%;
+    height: 610px;
+    padding: 20px;
+    margin: 0 auto;
+}
+
+    .status-register .titlestatus {
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+    }
+
+        .status-register .titlestatus span {
+            font-size: 25px;
+            font-weight: bold;
+            color: #50ad4e;
+            text-transform: uppercase;
+        }
+
+.status-content {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    height: 400px;
+}
+
+    .status-content .item-status {
+        position: relative;
+        display: inline-block;
+        float: left;
+        width: calc( 100% / 3);
+        height: 100%;
+    }
+
+        .status-content .item-status .item-status-content {
+            position: absolute;
+            left: 50%;
+            bottom: 50%;
+            transform: translate(-50%, -50%);
+            display: inline-block;
+            width: 100%;
+            height: 5px;
+            border-radius: 4px;
+            transition: background-color 1s;
+        }
+
+        .status-content .item-status .status-finish-background {
+            background-color: #3fa813;
+        }
+
+        .status-content .item-status .status-nofinish-background {
+            background-color: rgb(121, 124, 119);
+        }
+
+        .status-content .item-status .item-icon {
+            position: absolute;
+            /* left: 0; */
+            bottom: 50%;
+            transform: translate(-50%, 35%);
+            display: flex;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-color: blue;
+            align-items: center;
+            justify-content: center;
+        }
+
+            .status-content .item-status .item-icon i {
+                font-size: 30px;
+                font-weight: bold;
+                color: white;
+            }
+
+        .status-content .item-status .item-text {
+            position: absolute;
+            /* left: 50%; */
+            bottom: 50%;
+            transform: translate(-50%, -60%);
+            display: inline-block;
+            /*width: calc( 100% - 50px);*/
+            height: 50px;
+            text-align: center;
+        }
+
+        .status-content .item-status .bottom-register {
+            position: absolute;
+            /* left: 50%; */
+            top: 50%;
+            transform: translate(-50%, 100%);
+            display: inline-block;
+            min-width: 100px;
+            text-align: center;
+            background-color: #3fa813;
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 1s;
+        }
+
+            .status-content .item-status .bottom-register:hover {
+                background-color: #45b815;
+            }
+
+            .status-content .item-status .bottom-register span {
+                font-size: 15px;
+                font-weight: bold;
+                color: white;
+            }
+
+        .status-content .item-status .status-info {
+            position: absolute;
+            right: 50%;
+            top: 62%;
+            /* transform: translate(-50%, 50%); */
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            /* background-color: #3fa813; */
+            padding: 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 1s;
+        }
+
+        .status-content .item-status .list-input-guestregister {
+            display: inline-block;
+            width: 100%;
+        }
+
+        .status-content .item-status .btn-return {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+        }
+
+        .status-content .item-status .list-input-guestregister .btn-return {
+            display: none;
+            width: 100%;
+            text-align: center;
+        }
+
+        .status-content .item-status .btn-guestregister {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+        }
+
+        .status-content .item-status .btn-return button {
+            text-align: center;
+            background: #50ad4e;
+            color: #fff;
+            border-bottom: 2px solid #489b46;
+            border-top: none;
+            border-right: none;
+            border-left: none;
+            padding: 10px 35px;
+            display: inline-block;
+            border-radius: 3px;
+            transition: background-color 100ms ease-in-out, color 100ms ease-in-out, border-color 100ms ease-in-out;
+            border-radius: 40px;
+            outline: none;
+            margin-top: 10px;
+        }
+
+        .status-content .item-status .btn-guestregister button {
+            text-align: center;
+            background: #50ad4e;
+            color: #fff;
+            border-bottom: 2px solid #489b46;
+            border-top: none;
+            border-right: none;
+            border-left: none;
+            padding: 10px 35px;
+            display: inline-block;
+            border-radius: 3px;
+            transition: background-color 100ms ease-in-out, color 100ms ease-in-out, border-color 100ms ease-in-out;
+            border-radius: 40px;
+            outline: none;
+            margin-top: 10px;
+        }
+
+        .status-content .item-status .status-info .info-text {
+            min-height: 160px;
+        }
+
+        .status-content .item-status .status-info span {
+            font-size: 15px;
+            font-weight: inherit;
+            color: #aaa6a6;
+            transition: color 1s;
+        }
+
+        .status-content .item-status .status-finish-background {
+            background-color: #3fa813;
+        }
+
+        /* .status-content .item-status .status-finish-background  i{
+        color: blue;
+    } */
+
+        .status-content .item-status .status-nofinish-background {
+            background-color: rgb(121, 124, 119);
+        }
+
+        /* .status-content .item-status  .status-nofinish-background i{
+       color: rgb(126, 126, 126);
+    } */
+
+        .status-content .item-status .item-text span {
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .status-content .item-status .status-finish-text span {
+            color: #3fa813;
+        }
+
+        .status-content .item-status .status-nofinish-text span {
+            color: rgb(121, 124, 119);
+        }
+
+@media only screen and (min-width: 768px) and (max-width: 1023px) {
+    .status-register {
+        width: 100%;
+    }
+}
+
+@media only screen and (min-width: 600px) and (max-width: 768px) {
+    .status-register {
+        width: 100%;
+    }
+
+    .status-content .item-status .status-info span {
+        display: none;
+    }
+
+    .status-content .item-status .status-info {
+        position: absolute;
+        right: 0;
+        top: 50%;
+        right: 100px;
+    }
+
+    .status-content .item-status .btn-return {
+        display: none;
+        width: 210px;
+        margin: 10px auto;
+    }
+
+    .status-content .item-status .list-input-guestregister .btn-return {
+        display: inline-block;
+        width: 210px;
+        margin: 10px auto;
+    }
+
+    .status-content .item-status .list-input-guestregister {
+        position: absolute;
+        left: 75%;
+        width: 300px;
+        top: 40px;
+    }
+
+    .status-content .item-status .btn-guestregister button {
+        margin-top: 0px;
+    }
+}
+
+@media only screen and (min-width: 480px) and (max-width: 600px) {
+    .status-content .item-status .status-info span {
+        display: none;
+    }
+
+    .status-content .item-status .status-info {
+        /* position: fixed; */
+        /* right: 0; */
+        /* top: 45%; */
+        right: 0;
+        top: 50%;
+        right: 100px;
+    }
+
+    .status-content .item-status .btn-return {
+        display: none;
+        width: 210px;
+        margin: 10px auto;
+    }
+
+    .status-content .item-status .list-input-guestregister .btn-return {
+        display: inline-block;
+        width: 210px;
+        margin: 10px auto;
+    }
+
+    .status-content .item-status .list-input-guestregister {
+        position: absolute;
+        width: 300px;
+        top: 40px;
+    }
+
+    .status-register {
+        padding: unset;
+    }
+
+    .status-content .item-status .btn-guestregister button {
+        margin-top: 0px;
+    }
+}
+
+@media only screen and (min-width: 320px) and (max-width: 480px) {
+    .status-content .item-status .status-info span {
+        display: none;
+    }
+
+    .status-content .item-status .status-info {
+        /* position: fixed; */
+        /* right: 0; */
+        /* top: 45%; */
+        position: absolute;
+        right: 0;
+        top: 50%;
+        right: 100px;
+        /* width: 149px; */
+    }
+
+    .status-content .item-status .btn-return {
+        display: none;
+        width: 210px;
+        margin: 10px auto;
+    }
+
+    .status-content .item-status .list-input-guestregister .btn-return {
+        display: inline-block;
+        width: 210px;
+        margin: 10px auto;
+    }
+
+    .status-content .item-status .list-input-guestregister {
+        position: absolute;
+        width: 300px;
+        top: 40px;
+    }
+
+    .status-register {
+        width: 95%;
+        padding: unset;
+    }
+
+    .status-content .item-status .btn-return button {
+        margin-top: 27px;
+    }
+
+    .status-content .item-status .btn-guestregister button {
+        margin-top: 0px;
+    }
+}
+
+.item-infouser-register {
+    display: inline-block;
+    width: 100%;
+}
+
+    .item-infouser-register input {
+        outline: 0;
+        margin-bottom: 20px;
+        width: 90%;
+        border-radius: 5px;
+        border: 1px solid #ccc;
+        padding: 5px 5px 5px 15px;
+        transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    }
+
+        .item-infouser-register input:focus {
+            border-color: #66afe9;
+            -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+            box-shadow: inset 0 1px 1px rgba(0,0,0,.075), 0 0 8px rgba(102,175,233,.6);
+        }
+
+.errorinput {
+    border-color: #e97e66 !important;
+}

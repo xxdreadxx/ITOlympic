@@ -1,42 +1,149 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
+    <title>@ViewBag.Title</title>
+    <link rel="icon" href="/Content/Based/images/vicls-favicon.png" />
+
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>@ViewBag.Title - My ASP.NET Application</title>
-    @Styles.Render("~/Content/css")
-    @Scripts.Render("~/bundles/modernizr")
+    <link href="~/Content/TuyenSinhHN/lib/font-awesome/4.7/font-awesome.min.css" rel="stylesheet" />
+    <link href="~/Content/TuyenSinhHN/css/site.css" rel="stylesheet" />
+    <link href="~/Content/TuyenSinhHN/province-asset/HaNoi/css/site.css" rel="stylesheet" />
+    <link href="~/Content/TuyenSinhHN/province-asset/HaNoi/css/detail-site.css" rel="stylesheet" />
+    <link href="~/Content/TuyenSinhHN/css/admission-rule.css" rel="stylesheet" />
+    <link href="~/Content/TuyenSinhHN/css/AdmissionInfo/index.css" rel="stylesheet" />
+    <link href="~/Content/TuyenSinhHN/css/plugin/select2-bootstrap4.css" rel="stylesheet" />
+    <link href="~/Content/TuyenSinhHN/css/plugin/select2.min.css" rel="stylesheet" />
+    <link href="~/Content/TuyenSinhHN/lib/font-awesome/css/all.min.css" rel="stylesheet" />
+    <link href="~/Content/TuyenSinhHN/css/searchresult.css" rel="stylesheet" />
+    <link href="~/Content/TuyenSinhHN/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+
+
+
+    @*<link rel="stylesheet" href="~/Content/Templates/education-online/tuyensinh/css/style.css">
+    <link rel="stylesheet" href="~/Content/Templates/education-online/tuyensinh/css/font-awesome.min.css">
+    <link rel="stylesheet" href="~/Content/Templates/education-online/tuyensinh/css/line-awesome.css">*@
+
+
+    <style>
+        #headerTitle a:hover {
+            color: white !important;
+        }
+    </style>
 </head>
 <body>
-    <div class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
-            </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
-                </ul>
+    <header class="header">
+        <div class="header-menu-fluid">
+            <div class="hd-top-block">
+                <div class="container-fluid">
+                    <div id="divHeader_TrangChu" class="row align-items-center">
+                        <div class="col-lg-2 col-md-2" style="padding-bottom:5px">
+                            <a id="icon_TrangChu_1" href="/" title="Hệ thống tuyển sinh trực tuyến" style="float:right">
+                                <img id="_icon_TrangChu_1" style="object-fit: scale-down" src="/Content/Based/images/vicls-logo-wb.png" class="img-fluid img-logo" alt="Hệ thống tuyển sinh trực tuyến" />
+                            </a>
+                        </div>
+                        <div id="headerTitle" class="col-lg-8 col-md-8 d-none d-md-block" style="text-align: left; padding-bottom: 5px">
+                            <b id="" class="hd-hotline text-lg-center mt-md-2 mt-lg-0 btn btn-hotline-custom btn-outline-info title_TrangChu_2">
+                                <a href="/HomeTuyenSinh/HuongDan" class="text-decoration-none text-info" title="Hệ thống tuyển sinh trực tuyến Lạng Sơn)"
+                                   style="padding: 0px 5px; font-weight:bold; font-size:25px">
+                                    HỆ THỐNG TỔ CHỨC THI OLYMPIC KHOA CÔNG NGHỆ THÔNG TIN
+                                </a>
+                            </b>
+                        </div>
+                        <div class="col-lg-2 col-md-2 d-flex justify-content-end" id="div_DangNhap">
+                            <ul class="user-action d-flex align-items-center">
+                                <li>
+                                    <a class="fa fa-sign-in btn btn-sm btn-outline-success" id="btn_DangNhap" href="Admin/Login/Index" accesskey="n" style="font-size: 30px; color: white; background-color: #17a2b8; border-radius: 6px;" title="Đăng nhập vào hệ thống"></a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                <div class="row" style="margin-top:10px; margin:unset" id="navMenu">
+                    <div class="col-lg-12 col-md-12" style="padding:unset; padding-top:5px">
+                        <nav class="navbar-expand-sm navbar-toggleable-sm navbar-dark bg-custom border-bottom box-shadow">
+                            <div class="container">
+                                <div class="header-menu-content navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
+                                    <ul class="navbar-nav flex-grow-1 c-navbar justify-content-center">
+                                        <li class="nav-item">
+                                            <a class="nav-link text-white" id="navHuongDan" href="#">Tiện ích</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link text-white" id="navThongTin" href="#">Thông tin tuyển sinh</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link text-white" id="navLichTrinh" href="#">Lịch trình tuyển sinh</a>
+                                        </li>
+                                        <li class="nav-item _btnDangKy">
+                                            <a class="nav-link text-white" id="navDangKy" href="#">Đăng ký tuyển sinh</a>
+                                        </li>
+                                        <li class="nav-item">
+                                            <a class="nav-link text-white" id="navTraCuu" href="#">Tra cứu</a>
+                                        </li>
+                                    </ul>
+                                </div>
+                            </div>
+                        </nav>
+                    </div>
+                </div>
             </div>
         </div>
-    </div>
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>
-        </footer>
-    </div>
+    </header>
+    @RenderBody()
 
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
+    <footer class="border-top footer" style="border-top:unset!important; height:unset!important;">
+        @if (IsSectionDefined("BOTTOM"))
+        {
+            @RenderSection("BOTTOM", false)
+        }
+        <div class="row col-md-12" style="background-color:rgb(0, 70, 122); margin-right:0px; margin-left:0px; padding-top: 10px;">
+            <div class="container">
+                <div class="row ft-row">
+                    <div class="col-sm-4 col-12">
+                        <div class="row no-gutters">
+                            <div class="col-1 text-center ft-col-icon"><i class="fa fa-envelope ft-ico-bluen" aria-hidden="true"></i></div>
+                            <div class="col-11 ft-col-text">
+                                <div class="ft-text ft-text-padding-left">Email: nguyenmen1798@gmail.com</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-sm-2 col-12">
+                        <div class="row no-gutters">
+                            <div class="col-1 text-center ft-col-icon"><i class="fa fa-phone ft-ico-bluen" aria-hidden="true"></i></div>
+                            <div class="col-11 ft-col-text">
+                                <div class="ft-text ft-text-padding-left">Điện thoại: 0136596852</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </footer>
+
+    <script src="~/Content/education-online/js/jquery.min.js"></script>
+    <script src="~/Content/TuyenSinhHN/js/plugin/jquery-ui.js"></script>
+    <script src="~/Content/TuyenSinhHN/js/plugin/print.min.js"></script>
+    <script src="~/Content/TuyenSinhHN/js/plugin/select2.min.js"></script>
+    <script src="~/Content/TuyenSinhHN/js/admission-infor.js"></script>
+    <script src="~/Content/TuyenSinhHN/js/admission-list.js"></script>
+    <script src="~/Content/TuyenSinhHN/js/admission-rule.js"></script>
+    <script src="~/Content/TuyenSinhHN/js/searchresult.js"></script>
+    <script src="~/Content/TuyenSinhHN/js/sitef993.js"></script>
+    <script src="~/Content/TuyenSinhHN/js/walkthrough.js"></script>
+    <script src="~/Content/education-online/tuyensinh/js/owl.carousel.min.js"></script>
+    <script src="~/Content/education-online/tuyensinh/js/jquery.counterup.min.js"></script>
+    <script src="~/Content/education-online/tuyensinh/js/magnific-popup.min.js"></script>
+    <script src="~/Content/education-online/tuyensinh/js/waypoint.min.js"></script>
+    <script src="~/Content/education-online/tuyensinh/js/isotope.js"></script>
+    <script src="~/Content/education-online/tuyensinh/js/fancybox.js"></script>
+    <script src="~/Content/education-online/tuyensinh/js/bootstrap.min.js"></script>
+    <script src="~/Content/education-online/tuyensinh/js/popper.min.js"></script>
+    <script src="~/Content/education-online/tuyensinh/js/main.js"></script>
+    <script src="~/Content/education-online/tuyensinh/js/wow.js"></script>
+    <script src="~/Content/education-online/tuyensinh/js/smooth-scrolling.js"></script>
+
     @RenderSection("scripts", required: false)
 </body>
 </html>

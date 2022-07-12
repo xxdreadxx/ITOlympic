@@ -4,5 +4,74 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>Index</h2>
+<div class="container d-none">
+    <main role="main" class="pb-3">
+    </main>
+</div>
+<div class="hd-img-bg-wrapper">
+    <img src="~/Content/education-online/images/BG_4.JPG" class="img-fluid img-banner" alt="Hệ thống tuyển sinh trực tuyến th&#xE0;nh ph&#x1ED1; H&#xE0; N&#x1ED9;i" />
+    <div class="title_TrangChu_2" style="position: absolute; top: 125px; text-align: center; background: rgba(255,255,255,0.7); width: auto; display: none">
+        <h1 id="_title_TrangChu_2" style="font-weight: bold; text-align: center; color: #4240a0;">
+            Hệ thống tuyển sinh trực tuyến vào lớp mầm non, lớp 1 và lớp 6
+        </h1>
+    </div>
+</div>
+<div class="hd-center-block">
+    <div class="container">
+        <div class="row" style="padding:20px" hidden>
+            <div class="col-lg-3 col-md-3" style="max-width: 10% !important">
+                <a href="/" title="Hệ thống tuyển sinh trực tuyến">
+                    <img style="object-fit: scale-down" src="/Content/Based/images/vicls-logo-wb.png" class="img-fluid img-logo" alt="Hệ thống tuyển sinh trực tuyến">
+                </a>
+            </div>
+            <p class="col-md-9 col-12 text-center" style="color:#fff;font-size:29px;line-height:29px;/* align-self: baseline; */padding: 5px;align-self: center;">
+                Hệ thống tuyển sinh trực tuyến vào lớp mầm non, lớp 1 và lớp 6
+            </p>
+            <div class="col">
+                <a class="fa fa-sign-in" href="/account/login" style="font-size: 30px;" title="Đăng nhập vào hệ thống"></a>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@section BOTTOM{
+    <div class="hd-bottom-block" style="background: rgb(49 64 75 / 80%) !important">
+        <div class="container">
+            <div class="row no-gutters custom-margin">
+                <div class="col text-center">
+                    <a class="text-decoration-none nav-custom nav-hd" style="margin:0 20px 0 20px!important" title="Hướng dẫn đăng ký" href="/HomeTuyenSinh/HuongDan">
+                        <i class="fas fa-question-circle img-fluid-custom" style="font-size:40px"></i>
+                        <p class="hd-bottom-text-title">Tiện ích</p>
+                    </a>
+                </div>
+                <div class="col text-center">
+                    <a class="text-decoration-none nav-custom nav-tt" style="margin:0 20px 0 20px!important" title="Thông tin tuyển sinh" href="/HomeTuyenSinh/ThongTinTuyenSinh">
+                        <i class="far fa-newspaper img-fluid-custom" style="font-size:40px"></i>
+                        <p class="hd-bottom-text-title">Thông tin tuyển sinh</p>
+                    </a>
+                </div>
+                <div class="col text-center">
+                    <a class="text-decoration-none nav-custom nav-lt" style="margin:0 20px 0 20px!important" title="Lịch trình tuyển sinh" href="/HomeTuyenSinh/LichTrinhTuyenSinh">
+                        <i class="far fa-calendar-alt img-fluid-custom" style="font-size:40px"></i>
+                        <p class="hd-bottom-text-title">Lịch trình tuyển sinh</p>
+                    </a>
+                </div>
+                <div class="col text-center">
+                    <a class="text-decoration-none nav-custom nav-dk" style="margin:0 20px 0 20px!important" title="Đăng ký tuyển sinh" href="/HomeTuyenSinh/DanhSachKyThi">
+                        <i class="fas fa-file-invoice img-fluid-custom" style="font-size:40px"></i>
+                        <p class="hd-bottom-text-title">Đăng ký tuyển sinh</p>
+                    </a>
+                </div>
+                <div class="col text-center">
+                    <a class="text-decoration-none nav-custom nav-kq" style="margin:0 20px 0 20px!important" title="Kết quả tuyển sinh" href="/HomeTuyenSinh/TraCuuThongTinHoSo">
+                        <i class="fas fa-address-card img-fluid-custom" style="font-size:40px"></i>
+                        <p class="hd-bottom-text-title">Tra cứu kết quả</p>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
 

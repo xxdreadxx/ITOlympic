@@ -1,0 +1,120 @@
+﻿.footer {
+    height: 50px;
+    /*background-color: rgb(0, 70, 122);*/
+    /*padding: 10px 0 10px;*/
+    position: absolute;
+    bottom: 0;
+    border: none !important;
+}
+
+.ft-app-name, .ft-text {
+    font-size: 12px
+}
+
+.hd-top-block {
+    top: 0;
+    padding: 4px 0 0 0;
+    /*background: rgba(255,255,255,.8);*/
+    background-image: url('../../../../education-online/images/banner_1.jpg');
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+    .hd-top-block .img-logo {
+        height: 90px; 
+    }
+
+.hd-hotline {
+    font-size: 14px;
+    padding: 0;
+}
+
+.hd-center-block {
+    position: absolute;
+    
+    width: 100%;
+}
+
+.btn-register {
+    margin-top: 15px
+}
+
+.hd-info-text {
+    font-size: 18px
+}
+
+.hd-bottom-block {
+    /*position: absolute;*/
+    /*bottom: 50px;*/
+    width: 100%;
+    padding: 15px 0;
+    background: rgba(3, 103, 176, .8);
+}
+
+body {
+    position: relative;
+}
+
+    .hd-bottom-block .col .nav-custom:hover {
+        color: #f6901b;
+        background: #fff;
+    }
+
+.hd-bottom-block .nav-qd.nav-custom:hover img {
+    content: url(../images/QuyDinhTuyenSinh-ico.png)
+}
+
+.hd-bottom-block .nav-tt.nav-custom:hover img {
+    content: url(../images/ThongTinTuyenSinh-ico.png)
+}
+
+.hd-bottom-block .nav-dk.nav-custom:hover img {
+    content: url(../images/DangKyTuyenSinh-ico.png)
+}
+
+.hd-bottom-block .nav-kq.nav-custom:hover img {
+    content: url(../images/KQTuyenSinh-ico.png)
+}
+
+.hd-bottom-block .nav-hd.nav-custom:hover img {
+    content: url(../images/HuongDanDangKy-ico.png)
+}
+
+.hd-bottom-block .img-fluid-custom {
+    height: 35px;
+    width: auto;
+}
+
+@media(max-width:768px){
+    .footer{
+        height:auto;
+        position:relative;
+
+    }
+    .hd-bottom-block{
+        position:relative;
+        bottom:unset;
+    }
+}
+
+@media(min-width:1921px){
+    .hd-info-text{
+        font-size:30px
+    }
+}
+
+/*30/7/2020 anhdn*/
+.hot-module {
+    position: relative;
+}
+
+    .hot-module::before {
+        content: "";
+        position: absolute;
+        top: -15px;
+        right: -20px;
+        background: url(../images/hot.png) center center no-repeat;
+        background-size: contain;
+        width: 60px;
+        height: 40px;
+    }

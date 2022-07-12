@@ -1,0 +1,941 @@
+﻿body {
+    font-family: Roboto, Tahoma, Verdana, Arial, sans-serif;
+    font-size: 14px;
+    margin: 0;
+    padding: 81px 0 0 0;
+    background-color: #f3f3f3;
+    color: #333;
+}
+
+@media screen and (max-width: 767px) {
+    body {
+        padding-top: 51px;
+    }
+}
+
+.modal {
+    color: #333 !important;
+}
+
+header {
+    width: 100%;
+    background: #fff;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 999;
+    border-bottom: 1px solid #ccc;
+}
+
+header .brand {
+    width: 200px;
+    max-width: 30%;
+    height: 80px;
+    padding: 15px;
+    text-align: left;
+    float: left;
+}
+
+header .brand a {
+    text-decoration: none;
+}
+
+header .brand a img {
+    max-width: 100%;
+    height: 100%;
+}
+
+header .user-action-group {
+    max-width: 70%;
+    height: 80px;
+    line-height: 30px;
+    padding: 0 15px;
+    float: right;
+}
+
+header .message-action, header .user-action {
+    height: 80px;
+    line-height: 30px;
+    padding: 25px 0;
+    position: relative;
+    text-align: right;
+    float: left;
+}
+
+header .message-action a, header .user-action a {
+    text-decoration: none;
+    color: inherit;
+}
+
+header .message-action > ul, header .user-action > ul {
+    display: none; 
+}
+
+header .message-action:hover > ul, header .user-action:hover > ul {
+    display: block;
+    width: 200px;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    background: #fff;
+    line-height: 30px;
+    text-align: left;
+    z-index: 900;
+}
+
+header .message-action:hover > ul {
+    left: 0;
+}
+
+header .message-action:hover > ul li, header .user-action:hover > ul li {
+    position: relative;
+    height: 40px;
+}
+
+header .message-action:hover > ul li .icon, header .user-action:hover > ul li .icon {
+    color: #aaa;
+    margin-right: 10px;
+    margin-left: 5px;
+    width: 20px;
+    text-align: center;
+}
+
+header .message-action:hover > ul li:first-child, header .user-action:hover > ul li:first-child {
+    border-top: 1px solid #ddd;
+    line-height: 28px;
+}
+
+header .message-action:hover > ul li:last-child, header .user-action:hover > ul li:last-child {
+    border-bottom: 1px solid #ddd;
+}
+
+header .message-action:hover > ul > li, header .user-action:hover > ul > li {
+    border-left: 1px solid #ddd;
+    border-right: 1px solid #ddd;
+}
+
+header .message-action:hover > ul li > a, header .user-action:hover > ul li > a {
+    display: block;
+    width: 100%;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 5px 15px;
+    color: #000;
+    text-decoration: none;
+}
+
+header .message-action:hover > ul > li:hover, header .user-action:hover > ul > li:hover {
+    border: none;
+}
+
+header .message-action:hover > ul > li > a:hover,
+header .message-action:hover > ul > li:hover > a,
+header .user-action:hover > ul > li > a:hover,
+header .user-action:hover > ul > li:hover > a {
+    background: #a8ce54;
+    color: #fff;
+}
+
+header .message-action:hover > ul > li > a:hover .icon,
+header .message-action:hover > ul > li:hover > a .icon,
+header .user-action:hover > ul > li > a:hover .icon,
+header .user-action:hover > ul > li:hover > a .icon {
+    color: #fff;
+}
+
+header .message-action {
+    width: 30px;
+    text-align: left;
+    margin-right: 20px;
+}
+
+header .message-action .message {
+    position: relative;
+}
+
+header .message-action .message .badge {
+    position: absolute;
+    top: 0;
+    left: 12px;
+    font-size: 8px;
+    background: red;
+    padding: 2px 3px;
+}
+
+@media screen and (max-width: 767px) {
+    header .brand, header .user-action-group {
+        height: 50px;
+        padding-left: 0;
+        padding-right: 5px;
+    }
+
+    header .brand {
+        padding: 10px 15px;
+    }
+
+    .banner .banner-text {
+        font-size: 16px;
+    }
+
+    header .message-action, header .user-action {
+        padding: 10px 0;
+        height: 50px;
+        position: initial;
+    }
+
+    header .message-action:hover > ul, header .user-action:hover > ul {
+        right: 0;
+        left: auto;
+        width: 224px;
+    }
+
+    header .message-action {
+        margin-right: 12px;
+    }
+}
+
+.banner {
+    width: 100%;
+    padding-top: 38%;
+    background-size: 100% 100%;
+    background-position: center bottom;
+    background-repeat: no-repeat;
+    position: relative;
+    font-family: "Proxima Nova";
+}
+
+.banner .gradient-header {
+    width: 100%;
+    height: 150px;
+    background: linear-gradient(#ffffff, transparent);
+    opacity: 0.8;
+}
+
+.banner .banner-text {
+    position: absolute;
+    width: 70%;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -30%);
+    font-size: 40px;
+    letter-spacing: 4px;
+    font-weight: bold;
+    text-transform: uppercase;
+    text-align: center;
+    color: #fff;
+    text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.banner .mouse-scroll {
+    width: 20px;
+    height: 150px;
+    background: linear-gradient(#ffffff, transparent);
+    opacity: 0.8;
+}
+
+@media screen and (max-width: 767px) {
+    .banner .container {
+        width: 100%;
+    }
+
+    .banner .banner-text {
+        font-size: 16px;
+    }
+}
+
+.body-content {
+    padding: 30px 0;
+    min-height: calc(100vh - 201px);
+}
+
+@media screen and (max-width: 767px) {
+    .body-content {
+        padding: 15px 0;
+    }
+}
+
+.homepage-index .announcement {
+    padding-bottom: 30px;
+}
+
+.homepage-index .field-row {
+    position: relative;
+    font-family: "Proxima Nova";
+    margin-bottom: 100px;
+    margin-top: 50px;
+}
+
+.homepage-index .field-row:last-child {
+    margin-bottom: 50px;
+}
+
+.homepage-index .field-row .counter {
+    position: absolute;
+    top: 70%;
+    right: 100%;
+    transform: translateY(-70%);
+    font-size: 36px;
+    font-weight: bold;
+}
+
+.homepage-index .field-row .field-content, .homepage-index .field-row .field-image {
+    padding: 0 15px;
+    float: right;
+}
+
+.homepage-index .field-row .field-content {
+    width: 50%;
+    text-align: justify;
+}
+
+.homepage-index .field-row .field-content .title {
+    font-size: 36px;
+    font-weight: bold;
+    margin-top: 80px;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+}
+
+.homepage-index .field-row .field-content .content {
+    line-height: 30px;
+}
+
+.homepage-index .field-row .field-image {
+    width: 50%;
+    text-align: right;
+}
+
+.homepage-index .field-row .field-image img {
+    width: 70%;
+}
+
+.homepage-index .field-row.even .field-content, .homepage-index .field-row.even .field-image {
+    float: left;
+}
+
+.homepage-index .field-row.even .field-content .title {
+    text-align: left;
+}
+
+.homepage-index .field-row.even .field-image {
+    text-align: left;
+}
+
+.homepage-index .field-row.even .counter {
+    left: 100%;
+}
+
+@media screen and (max-width: 767px) {
+    .homepage-index .field-row .field-content, .homepage-index .field-row .field-image {
+        width: 100%;
+    }
+
+    .homepage-index .field-row .field-content .title, .homepage-index .field-row .field-image,
+    .homepage-index .field-row.even .field-content .title, .homepage-index .field-row.even .field-image {
+        text-align: center;
+        margin-top: 0;
+        margin-bottom: 15px;
+    }
+}
+
+#moduleWrapper {
+    background: #fff;
+    color: #333;
+    width: 100%;
+    border: 1px solid #ccc;
+}
+
+#navigator {
+    background: #ddd;
+    width: 100%;
+    height: 50px;
+    padding: 15px;
+    font-size: 12px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+#navigator a {
+    color: inherit;
+}
+
+#navigator a.active {
+    font-weight: bold;
+    line-height: 18px;
+}
+
+#navigator .home {
+    font-size: 14px;
+}
+
+@media screen and (max-width: 767px) {
+    #navigator {
+        height: auto;
+        max-height: 70px;
+        font-size: 12px;
+        white-space: normal;
+    }
+}
+
+#moduleContent {
+    width: 100%;
+    display: table;
+    padding: 15px;
+}
+
+footer {
+    width: 100%;
+    background: #e1e1e1;
+    color: #333;
+}
+
+footer .site-info {
+    padding: 30px;
+}
+
+footer .company-info {
+    padding: 30px;
+    background: rgba(0, 0, 0, 0.8);
+    color: #fff;
+    font-size: 12px;
+}
+
+footer .site-info .brand {
+    width: 100%;
+    height: 75px;
+    padding: 0 0 25px 0;
+}
+
+footer .site-info .brand a {
+    text-decoration: none;
+}
+
+footer .site-info .brand a img {
+    max-width: 100%;
+    height: 100%;
+}
+
+footer .site-info .site-description {
+    text-align: justify;
+}
+
+footer .site-info .title {
+    padding-right: 30px;
+    padding-bottom: 5px;
+    margin-bottom: 20px;
+    display: table;
+    font-weight: bold;
+    border-bottom: #a8ce54 solid 2px;
+}
+
+footer .site-info .content {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+footer .site-info .content > * {
+    padding: 2px 0;
+}
+
+footer .site-info .content a {
+    color: inherit;
+}
+
+footer .site-info .content .separator {
+    border-bottom-color: #aaa;
+    margin-left: 0;
+    padding: 0;
+    width: 100px;
+}
+
+footer .site-info .facebook-link,
+footer .site-info .youtube-link {
+    width: 24px;
+    height: 24px;
+    display: inline-block;
+    margin-left: 5px;
+    background-size: 100%;
+}
+
+footer .site-info .facebook-link {
+    background-image: url(../images/fb.png);
+}
+
+footer .site-info .facebook-link:hover {
+    background-image: url(../images/fb_hover.png);
+}
+
+footer .site-info .youtube-link {
+    background-image: url(../images/youtube.png);
+}
+
+footer .site-info .youtube-link:hover {
+    background-image: url(../images/youtube_hover.png);
+}
+
+footer .company-info .title {
+    font-weight: bold;
+    font-size: 14px;
+    text-transform: uppercase;
+}
+
+footer .company-info .content {
+    line-height: 20px;
+    display: inline;
+}
+
+footer .company-info .icon {
+    margin-right: 10px;
+    min-width: 12px;
+    text-align: center;
+}
+
+footer .company-info .development-info {
+    text-align: right;
+}
+
+@media screen and (max-width: 767px) {
+    footer .company-info .title, footer .company-info .content {
+        display: block;
+        text-align: center;
+    }
+
+    footer .company-info .development-info {
+        text-align: center;
+        margin-top: 15px;
+        padding-top: 15px;
+        border-top: 1px solid #888;
+    }
+}
+
+
+/* Management index */
+.management-index {
+    display: table;
+    width: 100%;
+    color: #333;
+}
+
+.management-index .feature-list {
+    width: 300px;
+    margin-right: 15px;
+    float: left;
+    background-color: #fff;
+    border-top: 1px solid #ccc;
+    border-left: 1px solid #ccc;
+    border-right: 1px solid #ccc;
+}
+
+.management-index .index-content {
+    width: calc(100% - 315px);
+    padding: 15px;
+    float: right;
+    background-color: #fff;
+    border: 1px solid #ccc;
+}
+
+.management-index .feature-list .feature {
+    width: 100%;
+    border-bottom: 1px solid #ccc;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.management-index .feature-list .feature .icon {
+    width: 90px;
+    height: 90px;
+    line-height: 90px;
+    margin: auto 0;
+    text-align: center;
+    font-size: 50px;
+    color: #0bb4db;
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+}
+
+.management-index .feature-list .feature:hover, .management-index .feature-list .feature.active {
+    background: #0bb4db;
+    color: #fff;
+}
+
+.management-index .feature-list .feature:hover *, .management-index .feature-list .feature.active * {
+    background: #0bb4db;
+    color: #fff !important;
+}
+
+.management-index .feature-list .feature .detail {
+    width: calc(100% - 90px);
+    float: right;
+    padding: 20px 0;
+    min-height: 80px;
+}
+
+.management-index .feature-list .feature .detail .name {
+    font-weight: bold;
+    line-height: 30px;
+}
+
+.management-index .feature-list .feature .detail .child-features {
+    font-size: 13px;
+}
+
+.management-index .feature-list .feature .detail .child-features a {
+    color: inherit;
+}
+
+.management-index .instructor-info {
+    vertical-align: middle;
+    margin-bottom: 15px;
+}
+
+.management-index .instructor-info .instructor-avatar {
+    width: 50px;
+    height: 50px;
+    border: 1px solid #ddd;
+    vertical-align: middle;
+    margin-right: 15px;
+}
+
+.management-index .instructor-info .instructor-name {
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.management-index .course-status-overview {
+
+}
+
+.management-index .course-status-overview .course-status {
+    display: table;
+    width: 100%;
+    padding: 10px 15px;
+}
+
+.management-index .course-status-overview .course-status .icon {
+    width: 32px;
+    height: 30px;
+    font-size: 24px;
+    line-height: 30px;
+    position: relative;
+    display: block;
+    float: left;
+    margin-right: 15px;
+    color: #555;
+}
+
+.management-index .course-status-overview .course-status .icon-status {
+    width: 15px;
+    height: 15px;
+    text-align: center;
+    font-size: 11px;
+    position: absolute;
+    top: 5px;
+    right: 0;
+    background: #fff;
+    border-radius: 50%;
+    padding: 2px;
+}
+
+.management-index .course-status-overview .course-status .icon-status.published {
+    color: #4ab708;
+}
+
+.management-index .course-status-overview .course-status .icon-status.pending {
+    color: #f48c11;
+}
+
+.management-index .course-status-overview .course-status .icon-status.editing {
+    color: #00bff5;
+}
+
+.management-index .course-status-overview .course-status .icon-status.returned {
+    color: #d9534f;
+}
+
+.management-index .course-status-overview .course-status .status {
+    height: 30px;
+    line-height: 30px;
+    display: block;
+    width: calc(100% - 47px);
+    float: right;
+}
+
+.management-index .course-status-overview .course-status .status .counter {
+    color: #ffa73a;
+    font-weight: bold;
+    font-size: 16px;
+    margin-right: 5px;
+}
+
+.management-index .index-content .course-learner-index {
+    display: block;
+    float: right;
+    width: auto;
+}
+
+.management-index .index-content .course-learner-index > * {
+    width: 250px;
+    margin-bottom: 15px;
+}
+
+.management-index .course-progress-bar {
+    width: 100%;
+    height: 12px;
+    border-radius: 7px;
+    background: #ccc;
+    float: left;
+}
+
+.management-index .course-progress-bar .current-progress {
+    height: 12px;
+    border-radius: 7px;
+    background: #4eb60b;
+    text-align: center;
+    line-height: 12px;
+    font-size: 10px;
+}
+
+@media screen and (max-width: 991px) {
+    .management-index .index-content .course-learner-index > * {
+        width: 100%;
+    }
+
+    .management-index .index-content .course-learner-index > :not(:last-child) {
+        margin-right: 0;
+    }
+}
+
+@media screen and (max-width: 767px) {
+    .management-index .feature-list {
+        margin-left: -15px;
+        width: 50px;
+    }
+
+    .management-index .index-content {
+        width: calc(100% - 50px);
+    }
+
+    .management-index .feature-list .feature {
+        height: 49px;
+        border-bottom: 1px solid #ccc;
+        overflow: initial;
+    }
+
+    .management-index .feature-list .feature .icon {
+        width: 48px;
+        height: 48px;
+        line-height: 48px;
+        font-size: 30px;
+    }
+
+    .management-index .feature-list .feature .detail {
+        display: none;
+        position: absolute;
+        top: -1px;
+        left: 100%;
+        bottom: -1px;
+        width: 150px;
+        padding: 0 15px;
+        border-bottom: 1px solid #ccc;
+        border-top: 1px solid #ccc;
+        border-right: 1px solid #ccc;
+        min-height: initial;
+        z-index: 99;
+    }
+
+    .management-index .feature-list .feature .detail .name {
+        line-height: 48px;
+    }
+
+    .management-index .feature-list .feature:hover .detail {
+        display: block;
+    }
+
+    .management-index .feature-list .feature .detail .child-features {
+        display: none;
+    }
+
+    .management-index .course-status-overview .course-status .status {
+        line-height: 18px;
+    }
+
+    .management-index .index-content .course-learner-index {
+        width: 100%;
+    }
+
+    .management-index .index-content .course-learner-index > :first-child {
+        width: calc(50% - 8px);
+    }
+
+    .management-index .index-content .course-learner-index > :last-child {
+        width: calc(50% - 7px);
+    }
+
+    .management-index .index-content .course-learner-index > :not(:last-child) {
+        margin-right: 15px;
+    }
+}
+
+@media screen and (max-width: 479px) {
+    .management-index .index-content .course-learner-index > *, .management-index .index-content .course-learner-index > :first-child, .management-index .index-content .course-learner-index > :last-child {
+        width: 100%;
+    }
+
+    .management-index .index-content .course-learner-index > :not(:last-child) {
+        margin-right: 0;
+    }
+}
+
+.experience-page {
+    background: url(../images/ex-maps.png) no-repeat center center;
+    width: 100%;
+    min-height: calc(100vh - 266px);
+}
+
+.experience-page .welcome {
+    width: 100%;
+    text-align: center;
+    margin: 30px 0 50px 0;
+    font-size: 16px;
+}
+
+.experience-page a.go-to-role {
+    max-width: 100%;
+    display: inline-block;
+    position: relative;
+}
+
+.experience-page .learner-role {
+    width: 100%;
+    margin: 0 auto;
+    text-align: center;
+}
+.experience-page .learner-role .thumbs {
+    width: 100%;
+    max-width: 400px;
+} 
+
+.experience-page .instructor-role, .experience-page .administrator-role {
+    width: 50%;
+    float: left;
+    text-align: center;
+}
+
+.experience-page .instructor-role .thumbs, .experience-page .administrator-role .thumbs {
+    max-width: 300px;
+}
+
+.experience-page .learner-role p, .experience-page .instructor-role p, .experience-page .administrator-role p {
+    padding: 15px 0;
+    line-height: 24px;
+    position: relative;
+}
+
+.experience-page .learner-role .role-name, .experience-page .instructor-role .role-name, .experience-page .administrator-role .role-name {
+    position: absolute;
+    color: #fff;
+    text-shadow: 0px 0px 3px #333;
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+.experience-page .learner-role .role-name {
+    top: 60%;
+    left: 47%;
+    transform: translateX(-50%);
+}
+
+.experience-page .instructor-role .role-name {
+    top: 70%;
+    left: 43%;
+    transform: translateX(-50%);
+}
+
+.experience-page .administrator-role .role-name {
+    top: 80%;
+    left: 28%;
+    transform: translate(-50%, -50%);
+    max-width: 100px;
+    font-size: 16px;
+}
+
+.experience-page .learner-role p {
+    padding: 30px 0;
+}
+
+.experience-page .instructor-role p .upload {
+    color: #0bb4db;
+    font-weight: bold;
+}
+
+.experience-page .instructor-role p .upload .icon {
+    font-size: 20px;
+}
+
+.experience-page .uploading {
+    display: none;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 999999999;
+    overflow: hidden;
+}
+
+.experience-page .uploading .progress-box {
+    position: absolute;
+    top: 30%;
+    left: 50%;
+    transform: translate(-50%, -30%);
+    background: #fff;
+    width: 100%;
+    max-width: 400px;
+    padding: 30px;
+}
+
+.experience-page .uploading .progress-box .file-info {
+    text-align: center;
+}
+
+.experience-page .uploading .progress-box .file-info .file-name {
+    font-weight: bold;
+}
+
+.experience-page .uploading .progress-box .upload-progress {
+    
+}
+
+.experience-page .uploading .progress-box .upload-progress .progress-percent {
+    font-size: 12px;
+    font-weight: bold;
+    text-align: center;
+}
+
+.experience-page .uploading .progress-box .upload-progress .progress {
+    height: 5px;
+    margin-bottom: 0;
+}
+
+.experience-page .uploading .progress-box .upload-progress .progress-bar {
+    background: #10e922;
+}
+
+@media screen and (max-width: 767px) {
+    .experience-page .learner-role, .experience-page .instructor-role, .experience-page .administrator-role {
+        float: none;
+        width: 100%;
+        padding: 30px 0;
+    }
+}

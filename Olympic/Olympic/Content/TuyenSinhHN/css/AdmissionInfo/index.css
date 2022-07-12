@@ -1,0 +1,146 @@
+﻿body {
+}
+
+.ctl_select {
+    width: 89%;
+    height: 35px
+}
+
+.info-wrapper {
+    margin: 30px 0 45px
+}
+
+    .info-wrapper #btn-search {
+        margin-top: 10px;
+        padding: 5px 12px;
+    }
+
+    .info-wrapper .list-schools-title {
+        margin-top: 30px;
+        padding: 0.75rem 2rem;
+        background: #ecf0f5;
+        border-radius: 8px;
+        margin-bottom: 0;
+    }
+
+.class-content {
+    width: 100%;
+}
+
+.ul-father {
+    list-style: none;
+    background: #eefaff;
+    padding-top: 15px;
+    padding-bottom: 15px;
+}
+
+    .ul-father .li-child {
+        background: url(../../../www.computerhope.com/issues/pictures/bullet.gif) no-repeat top left;
+        background-position: 0 10px;
+        line-height: 1.5;
+        padding: 0 0 4px 10px;
+        margin-left: 1em;
+        font-weight: bold;
+        background-size: 6px;
+    }
+
+ul li {
+    font-weight: normal;
+}
+
+.form-control {
+    font-size: 14px;
+    line-height: 1.42857143;
+}
+
+.btn {
+    font-size: 15px;
+    line-height: 1.42857143;
+}
+
+.hide {
+    display: none
+}
+
+.form-control {
+    padding: 2px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+}
+
+.btn {
+    padding: 4px 12px;
+    font-size: 15px;
+    line-height: 1.42857143;
+}
+
+label {
+    margin: .25rem 0
+}
+
+.lst-schools-wrapper {
+    background: #fff;
+    border-radius: 8px;
+    box-shadow: 1px -1px 12px rgba(51, 51, 51, 0.3);
+}
+
+#accordion .card {
+    border: none;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 0;
+    margin: 0 0.5em;
+}
+
+    #accordion .card:last-child {
+        border: none;
+    }
+
+        #accordion .card:last-child .card-header {
+            border: none;
+            padding-bottom: 10px !important;
+        }
+
+    #accordion .card .card-header {
+        background: transparent;
+        border: none;
+        padding-bottom: 0;
+    }
+
+li.li-child ul {
+    list-style: none;
+    padding: 15px;
+}
+
+.card-body {
+    padding: .5rem 1.25rem
+}
+
+@media(max-width:767px) {
+    .ul-father .li-child {
+        margin: 0
+    }
+
+    li.li-child ul, .ul-father {
+        padding: 10px
+    }
+}
+
+.search {
+    box-shadow: 1px -1px 12px rgba(51, 51, 51, 0.3);
+    width: auto;
+    background: #fff;
+    border-radius: 8px;
+}
+
+body.smart-city .search {
+    box-shadow: none
+}
+
+body.smart-city .info-wrapper {
+    margin: 4px 0 0
+}
+
+body.smart-city .btn-primary {
+    display: block;
+    width: 100%;
+}
