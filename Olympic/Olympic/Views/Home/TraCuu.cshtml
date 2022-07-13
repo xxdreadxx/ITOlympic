@@ -1,0 +1,80 @@
+﻿@{
+    ViewBag.Title = "Tra cứu";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .hd-top-block {
+        position: unset !important;
+    }
+</style>
+
+<div class="page-wrapper pt-3">
+    <div class="container">
+        <main role="main" class="pb-3">
+            <div id="search-result" class="panel-search">
+                <div class="row justify-content-sm-center">
+                    <div class="col-12 col-sm-8 col-md-6 search">
+                        <h2 class="page-title">Tra c&#x1EE9;u k&#x1EBF;t qu&#x1EA3; cuộc thi</h2>
+                        <div class="row mt-2 justify-content-md-center">
+                            <label class="required col-md-12">Tra cứu theo</label>
+                            <div style="border: 1px dashed #5581c1;width: 95%; margin-bottom:10px; padding:10px; text-align:center">
+                                <div hidden class="checkbox col-md-4 pull-left">
+                                    <label>
+                                        <input value="1" type="radio" name="rdlLoaiTraCuu" onclick="ShowInfo(this)"> Mã hồ sơ
+                                    </label>
+                                </div>
+                                <div class="checkbox col-md-6 pull-left">
+                                    <label>
+                                        <input value="2" checked type="radio" name="rdlLoaiTraCuu" onclick="ShowInfo(this)"> Mã học sinh
+                                    </label>
+                                </div>
+                                @*<div class="checkbox col-md-6 pull-left">
+                                        <label>
+                                            <input value="3" type="radio" checked name="rdlLoaiTraCuu" onclick="ShowInfo(this)"> Số báo danh
+                                        </label>
+                                    </div>
+                                    <span class="error-text" id="errorthongtin"></span>*@
+                            </div>
+                        </div>
+                        @*<div class="row justify-content-md-center" id="nhapthongtintracuu">
+                                <div class="col-12">
+                                    <label class="required"><span>Số báo danh</span></label>
+                                    <input class="form-control" type="text" id="sobaodanh" />
+                                    <span class="error-text" id="error_input"></span>
+                                </div>
+                            </div>*@
+                        <div class="row justify-content-md-center">
+                            <div class="col-12">
+                                <label id="schoolyear_required">Cuộc thi</label>
+                                <select class="form-control ctl_selectone" name="Type" id="namhoc" data-placeholder="-- Chọn cuộc thi --">
+                                </select>
+                                <span class="error-text" id="error_namhoc"></span>
+                            </div>
+                        </div>
+                        <div class="row mt-3 mb-3 justify-content-center">
+                            <div class="col-12 col-sm-12 text-center">
+                                <button class="btn btn-primary" id="timkiem">Tìm kiếm</button>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="row">
+                    <div class="col-md-12 text-center">
+                        <b><span class="error-text" id="result"></span></b>
+                    </div>
+                </div>
+                <div class="search-result hide">
+
+                </div>
+            </div>
+        </main>
+    </div>
+    <section class="faq-area" id="thongtinhoso"></section>
+</div>
+
+@section scripts{
+    <script src="~/Content/education-online/tuyensinh/js/scroll.js"></script>
+}
+

@@ -1,0 +1,127 @@
+﻿@{
+    ViewBag.Title = "Tiện ích";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .hd-top-block {
+        position: unset !important;
+    }
+    .paragraph{
+        background:#ffffff;
+    }
+    .item{
+        margin-left:10px;
+    }
+    .head {
+        margin-left: 10px;
+    }
+</style>
+
+<div class="page-wrapper pt-3">
+    <div class="container">
+        <main role="main" class="pb-3">
+            <input id="hidFileServer" name="hidFileServer" type="hidden" value="https://static-v2.hanoi.gov.vn/storage/index/file" />
+            <div class="d-none" id="smartCityPrefix"></div>
+            <h1 class="page-title" hidden>H&#x1B0;&#x1EDB;ng d&#x1EAB;n s&#x1EED; d&#x1EE5;ng d&#x1ECB;ch v&#x1EE5; tuy&#x1EC3;n sinh tr&#x1EF1;c tuy&#x1EBF;n</h1>
+
+            <div class="row">
+                <div class="col-12 col-md-3 mb-3 mb-md-0">
+                    <div class="content-left-wrapper">
+                        <div class="lst-doet pt-2 pb-2 text-center bg-primary text-white br-025">Hướng dẫn</div>
+                        <div class="list-group">
+                            <div id="content-left" style="padding: 10px">
+                                <div id="ListOrganization" class="list-group">
+                                    @*<a class="list-group-item list-group-item-action" href="#page-gt" onclick="jsWalkthrough.changePage(this, event);">Giới thiệu</a>*@
+                                    <a class="list-group-item list-group-item-action" href="#page-hd" onclick="jsWalkthrough.changePage(this, event);">Hướng dẫn sử dụng</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-9">
+                    <div class="page-item active" id="page-hd">
+                        <h2 class="head" style="text-align:center">HƯỚNG DẪN ĐĂNG KÝ ONLINE</h2>
+                        <p></p>
+                        <div class="paragraph">
+                            <div class="item" style="margin-bottom: 5px">
+                                <h3><span class="label">Bước 1</span></h3>
+                                <p style="margin-bottom: 5px">Tại màn hình trang chủ, nhấn nút <strong>Đăng ký tuyển sinh </strong>:</p>
+                                <p class="text-center"><img class="img-fluid img-custom-shadow text-center" src="~/Content/Templates/TuyenSinhHN/huongdan/b1.png"></p>
+                            </div>
+                            <div class="item" style="margin-bottom: 5px">
+                                <h3><span class="label">Bước 2</span></h3>
+                                <p style="margin-bottom: 5px">Trang tuyển sinh hiển thị danh sách các kỳ thi tuyển sinh hiện có, phụ huynh click chọn kỳ tuyển sinh muốn đăng ký :</p>
+                                <p class="text-center"><img class="img-fluid img-custom-shadow" src="~/Content/Templates/TuyenSinhHN/huongdan/b2.png"></p>
+                            </div>
+                            <div class="item" style="margin-bottom: 5px">
+                                <h3><span class="label">Bước 3</span></h3>
+                                <p style="margin-bottom: 5px">Phụ huynh/học sinh nhấn vào ô "<strong>Chọn trường</strong>" :</p>
+                                <p class="text-center"><img class="img-fluid img-custom-shadow" src="~/Content/Templates/TuyenSinhHN/huongdan/b3.png"></p>
+                            </div>
+                            <div class="item" style="margin-bottom: 5px">
+                                <h3><span class="label">Bước 4</span></h3>
+                                <p style="margin-bottom: 5px">Chọn trường muốn đăng ký trong danh sách trường tuyển sinh :</p>
+                                <p class="text-center">
+                                    <img class="img-fluid img-custom-shadow" src="~/Content/Templates/TuyenSinhHN/huongdan/b4.png">
+                                </p>
+                                <p style="margin: 10px 0">
+                                    <b style="text-decoration-line:underline; color:red; font-style:italic; margin-right:10px">Lưu ý: </b> <b>Đối với Trường chuyên/CLC: </b><br />
+                                    <strong>►&emsp;</strong>Phụ huynh/học sinh muốn đăng ký học lớp chuyên/CLC nhấn <i style="color:red">"Chọn lớp học" </i>và chọn <i style="color:red"> "Lớp chuyên/CLC" </i>. <br />
+                                    <strong>►&emsp;</strong>Phụ huynh/học sinh muốn đăng ký học lớp không chuyên không cần thực hiện chọn lớp. Trong trường hợp có lớp không chuyên thì thực hiện chọn lớp không chuyên.
+                                </p>
+                                <p class="text-center">
+                                    <img class="img-fluid img-custom-shadow" src="~/Content/Templates/TuyenSinhHN/huongdan/b4_1.png">
+                                </p>
+                            </div>
+                            <div class="item" style="margin-bottom: 5px">
+                                <h3><span class="label">Bước 5</span></h3>
+                                <p>Phụ huynh nhập đầy đủ các trường thông tin vào form đăng ký :</p>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p class="text-center"><img class="img-fluid img-custom-shadow" style="height: 545px" src="~/Content/Templates/TuyenSinhHN/huongdan/b5_1.png"></p>
+
+                                    </div>
+                                    <div class="col-md-6">
+                                        <p class="text-center"><img class="img-fluid img-custom-shadow" src="~/Content/Templates/TuyenSinhHN/huongdan/b5_2.png"></p>
+
+                                    </div>
+                                    <div class="col-md-12" style="margin-top: 5px">
+                                        <p class="text-center"><img class="img-fluid img-custom-shadow" src="~/Content/Templates/TuyenSinhHN/huongdan/b5_3.png"></p>
+
+                                    </div>
+                                </div>
+                                <p><strong>Lưu ý: </strong></p>
+                                <p style="margin-bottom: 5px; margin-left: 15px"><strong>►&emsp;</strong>Mã học sinh, mật khẩu hệ thống sẽ tự động cập nhật, phụ huynh vui lòng kiểm tra e-mail thông báo để nhận mã học sinh và mật khẩu.</p>
+                                <p style="margin-bottom: 5px; margin-left: 15px"><strong>►&emsp;</strong>Các thông tin chứa dấu "<span class="text-red" style="color: red">*</span>" đỏ là các thông tin bắt buộc nhập.</p>
+                                <p style="margin-bottom: 5px; margin-left: 15px"><strong>►&emsp;</strong>Nếu thông tin về hộ khẩu thường trú và nơi ở hiện tại không chính xác, phụ huynh vui lòng liên hệ cơ sở giáo dục cũ để chỉnh sửa hoặc đợi đến thời gian mở tuyển sinh trực tiếp mang hồ sơ tới trường để đăng ký tuyển sinh.</p>
+                            </div>
+                            <div class="item" style="margin-bottom: 5px">
+                                <h3><span class="label">Bước 6</span></h3>
+                                <p>Phụ huynh kiểm tra lại thông tin sau đó tích chọn cam kết, nhấn <strong>Đăng ký</strong> :</p>
+                                <p class="text-center"><img class="img-fluid img-custom-shadow" src="~/Content/Templates/TuyenSinhHN/huongdan/b6.png"></p>
+                                <p>Sau khi đăng ký thành công, phụ huynh nhận Mã hồ sơ, mã học sinh, mật khẩu qua email. Phụ huynh sử dụng mã hồ sơ đăng ký để tra cứu kết quả tuyển sinh.</p>
+                                <p><strong>Lưu ý: </strong></p>
+                                <p style="margin-bottom: 5px; margin-left: 15px"><strong>►&emsp;</strong>Trường hợp học sinh có nơi sinh ở nước ngoài thì nộp hồ sơ trực tiếp tại trường.</p>
+                                <p style="margin-bottom: 5px; margin-left: 15px"><strong>►&emsp;</strong>Phụ huynh vui lòng không cung cấp mã học sinh, mật khẩu, mã hồ sơ cho bên thứ 3 dưới bất kỳ hình thức nào nhằm bảo mật thông tin hồ sơ.</p>
+                                <p style="margin-bottom: 5px; margin-left: 15px"><strong>►&emsp;</strong>Phụ huynh/học sinh đăng ký không thành công, vui lòng kiểm tra lại phân tuyến trường đăng ký và hộ khẩu.</p>
+                                <p style="margin-bottom: 5px; margin-left: 15px"><strong>►&emsp;</strong>Khi nhận được e-mail trả lại hồ sơ kèm theo lý cần chỉnh sửa hồ sơ, phụ huynh/học sinh thực hiện sửa đổi trực tiếp trên cổng thông tin tại mục "<strong>Đăng ký hồ sơ</strong>" dựa vào mã học sinh và mật khẩu đã được cấp.</p>
+                            </div>
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                            <br />
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+@section scripts{
+    <script src="~/Content/education-online/tuyensinh/js/scroll.js"></script>
+}
+
+

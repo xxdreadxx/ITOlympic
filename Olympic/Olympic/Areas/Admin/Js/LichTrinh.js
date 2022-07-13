@@ -273,7 +273,7 @@ function loadPartial() {
 }
 
 function Save() {
-    var isSave = false;
+    var isSave = true;
     var bdhs = $('#txtBatDauNhanHS').val();
     var kths = $('#txtKetThucNhanHS').val();
     var bdthi = $('#txtBatDauNhanTHi').val();

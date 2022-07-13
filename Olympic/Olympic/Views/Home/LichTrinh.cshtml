@@ -1,0 +1,315 @@
+﻿@using Olympic.Models;
+@{
+    ViewBag.Title = "Lịch trình";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    List<LichTrinhs> lstLichTrinh = ViewBag.LichTrinh;
+    List<LichTrinhs> so_LichTrinh = ViewBag.so_LichTrinh;
+}
+
+<style>
+    .itemKyThi {
+        float: left
+    }
+
+    .imgHeader {
+        width: 90px !important;
+        height: 90px;
+        border-radius: 50%;
+        box-shadow: 2px 3px #c2c6ce
+    }
+
+    .hd-top-block {
+        position: unset !important;
+    }
+
+    .list-group-item-action:focus, .list-group-item-action:hover {
+        z-index: 1 !important;
+        color: #000000 !important;
+        text-decoration: none !important;
+        background-color: #e6e7e9 !important;
+    }
+
+    .list-group-item-action :first-child {
+        font-weight: bold
+    }
+
+    .lefting-wrap, .righting-wrap {
+        height: auto !important;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+    ul {
+        list-style-type: none;
+    }
+
+    .accordion {
+        width: 100%;
+        max-width: 360px;
+        /* margin: 30px auto 20px;*/
+        background: #FFF;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+    }
+
+        .accordion .link {
+            cursor: pointer;
+            display: block;
+            padding: 15px 15px 15px 42px;
+            color: #495057;
+            /*font-size: 14px;*/
+            /*font-weight: 700;*/
+            border-bottom: 1px solid #CCC !important;
+            border-top: 1px solid #CCC !important;
+            position: relative;
+            -webkit-transition: all 0.4s ease;
+            -o-transition: all 0.4s ease;
+            transition: all 0.4s ease;
+        }
+
+        .accordion li:last-child .link {
+            border-bottom: 0;
+        }
+
+        .accordion li i {
+            position: absolute;
+            top: 16px;
+            left: 12px;
+            font-size: 18px;
+            color: #595959;
+            -webkit-transition: all 0.4s ease;
+            -o-transition: all 0.4s ease;
+            transition: all 0.4s ease;
+        }
+
+            .accordion li i.fa-chevron-down {
+                right: 12px;
+                left: auto;
+                font-size: 16px;
+            }
+
+        .accordion li.open .link {
+            background-color: #007bff !important;
+        }
+
+        .accordion li.open i {
+            color: #b63b4d;
+        }
+
+            .accordion li.open i.fa-chevron-down {
+                -webkit-transform: rotate(180deg);
+                -ms-transform: rotate(180deg);
+                -o-transform: rotate(180deg);
+                transform: rotate(180deg);
+            }
+
+    .submenu {
+        display: none;
+    }
+
+    .submenu_1 {
+        display: block;
+    }
+
+    .submenu a {
+        display: block;
+        text-decoration: none;
+        color: #495057;
+        padding: 12px;
+        padding-left: 42px;
+        -webkit-transition: all 0.25s ease;
+        -o-transition: all 0.25s ease;
+        transition: all 0.25s ease;
+    }
+
+        .submenu a:hover {
+            background: #b63b4d;
+            color: #FFF;
+        }
+</style>
+<link href="~/Content/TuyenSinhHN/css/animate.css" rel="stylesheet" />
+<div class="page-wrapper pt-3">
+    <div class="container">
+        <main role="main" class="pb-3">
+            <div class="row">
+                <div class="col-12 col-md-4 mb-3 mb-md-0">
+                    <div class="content-left-wrapper" style="height:100%">
+                        <div class="lst-doet pt-2 pb-2 text-center bg-primary text-white br-025">Danh sách cuộc thi</div>
+                        <div class="px-3" style="height: 550px">
+                            <div id="content-left" style="padding: 10px">
+                                <div id="ListOrganization" class="list-group">
+                                    @{
+                                        if (lstLichTrinh.Count() != 0)
+                                        {
+                                            foreach (var item in lstLichTrinh)
+                                            {
+                                                DateTime batBau = DateTime.ParseExact(item.ThoiGianBatDau, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                                                DateTime ketThuc = DateTime.ParseExact(item.ThoiGianKetThuc, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                                                var test = DateTime.Now.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                                                DateTime thoiGianHienTai = DateTime.ParseExact(test, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                                                if (ketThuc <= thoiGianHienTai)
+                                                {
+                                                    <ul id="accordion" class="accordion">
+                                                        <li data-id="@item.ID">
+                                                            <a id="a_@item.ID" class="list-group-item list-group-item-action lstA"
+                                                               href="javascript:void(0)"
+                                                               onclick="ShowTimeline(@item.ID)"
+                                                               style="cursor:pointer"
+                                                               title="@item.TenCuocThi">
+                                                                <p style="font-weight:600">@item.TenCuocThi</p>
+                                                                <p class="admission-time">Từ @item.ThoiGianBatDau đến @item.ThoiGianKetThuc</p>
+                                                                <p class="btn btn-admission btn-expired" title="@item.TenCuocThi" style="color: #e60237">Đã hết hạn</p>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                }
+                                                else
+                                                {
+                                                    <ul id="accordion" class="accordion">
+                                                        <li data-id="@item.ID">
+                                                            <a id="a_@item.ID" class="list-group-item list-group-item-action lstA"
+                                                               href="javascript:void(0)"
+                                                               onclick="ShowTimeline(@item.ID)"
+                                                               style="cursor:pointer"
+                                                               title="@item.TenCuocThi">
+                                                                <p style="font-weight:600">@item.TenCuocThi</p>
+                                                                <p class="admission-time">Từ @item.ThoiGianBatDau đến @item.ThoiGianKetThuc</p>
+                                                            </a>
+                                                        </li>
+                                                    </ul>
+                                                }
+                                            }
+                                        }
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="col-12 col-md-8 mb-3 mb-md-0" id="viewquyetdinh">
+                    <div class="content-right-wrapper">
+                        <div class="col-12 col-xl-12 pt-2 pb-2 text-center bg-primary text-white custom-border-right brtl-025 brbl-025">Lịch trình</div>
+                        <div class="px-3 overflow-auto" style="height: 550px">
+                            <div class="col-lg-12" style="padding: 10px">
+                                <div class="course-item" id="timeline_body">
+                                    <div id="" class="clsTimeLine row mb-md-4" style="min-height:500px; background-color:#182a44; display:none">
+                                        @{
+                                            if (so_LichTrinh.Count() != 0)
+                                            {
+                                                foreach (var i in so_LichTrinh)
+                                                {
+                                                    List<LichTrinhs> lichtrinh = lstLichTrinh.Where(x => x.ID == i.ID).ToList();
+                                                    int row = 0;
+                                                    <div id="timeline">
+                                                        <div class="row timeline-movement timeline-movement-top">
+                                                            <div class="timeline-badge timeline-future-movement">
+                                                                <p>@i.Nam</p>
+                                                            </div>
+                                                        </div>
+                                                        @foreach (var lt in lichtrinh)
+                                                        {
+                                                            row++;
+                                                            <div class="row timeline-movement">
+                                                                <div class="timeline-badge center-left">
+
+                                                                </div>
+                                                                <div class="col-sm-6 timeline-item">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-11">
+                                                                            <div class="timeline-panel credits  anim animate fadeInLeft animated">
+                                                                                <ul class="timeline-panel-ul">
+                                                                                    <li><a href="#" class="importo text-justify">Giai đoạn 1</a></li>
+                                                                                    <li><span class="causale text-justify">Niêm yết công khai kế hoạch tuyển sinh.</span></li>
+                                                                                    <li><p><b class="text-warning text-justify"><i class="glyphicon glyphicon-time"></i>@lt.ThoiGianBatDau</b></p></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row timeline-movement">
+                                                                <div class="timeline-badge center-right">
+
+                                                                </div>
+                                                                <div class="offset-sm-6 col-sm-6 timeline-item">
+                                                                    <div class="row">
+                                                                        <div class="offset-sm-1 col-sm-11">
+                                                                            <div class="timeline-panel debits  anim animate  fadeInRight animated">
+                                                                                <ul class="timeline-panel-ul">
+                                                                                    <li><a href="#" class="importo text-justify">Giai đoạn 2</a></li>
+                                                                                    <li><span class="causale text-justify">Nhận hồ sơ đăng ký.</span></li>
+                                                                                    <li><p><b class="text-warning text-justify"><i class="glyphicon glyphicon-time"></i>@lt.ThoiGianBatDauNhanHS - @lt.ThoiGianKetThucNhanHS</b></p></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row timeline-movement">
+                                                                <div class="timeline-badge center-left">
+
+                                                                </div>
+                                                                <div class="offset-sm-6 col-sm-6 timeline-item">
+                                                                    <div class="row">
+                                                                        <div class="offset-sm-1 col-sm-11">
+                                                                            <div class="timeline-panel debits  anim animate  fadeInRight animated">
+                                                                                <ul class="timeline-panel-ul">
+                                                                                    <li><a href="#" class="importo text-justify">Giai đoạn 3</a></li>
+                                                                                    <li><span class="causale text-justify">Thông báo, niêm yết danh sách kết quả.</span></li>
+                                                                                    <li><p><b class="text-warning text-justify"><i class="glyphicon glyphicon-time"></i>@lt.ThoiGianCongBoDiem</b></p></li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                            <div class="row timeline-movement">
+                                                                <div class="timeline-badge center-right">
+
+                                                                </div>
+                                                                <div class="col-sm-6 timeline-item">
+                                                                    <div class="row">
+                                                                        <div class="col-sm-11">
+                                                                            <div class="timeline-panel credits debits  anim animate fadeInLeft animated">
+                                                                                <ul class="timeline-panel-ul">
+                                                                                    <li><a href="#" class="importo text-justify">Giai đoạn 4</a></li>
+                                                                                    <li>
+                                                                                        <span class="causale text-justify">Tiếp nhận, giải quyết thắc mắc (nếu có).</span>
+                                                                                    </li>
+                                                                                    <li><p><b class="text-warning text-justify"><i class="glyphicon glyphicon-time"></i>@lt.ThoiGianKetThucThi</b></p> </li>
+                                                                                </ul>
+                                                                            </div>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    </div>
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+@section scripts{
+    <script src="~/JSCustom/LichTrinhJS.js"></script>
+    <script src="~/Content/education-online/tuyensinh/js/scroll.js"></script>
+    <script src="~/Content/TuyenSinhHN/js/ScrollAnimation.js"></script>
+}
+

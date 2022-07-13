@@ -1,0 +1,176 @@
+﻿
+@{
+    ViewBag.Title = "Thông tin tuyển";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .hd-top-block {
+        position: unset !important;
+    }
+
+    .list-group-item-action:focus, .list-group-item-action:hover {
+        z-index: 1 !important;
+        color: #000000 !important;
+        text-decoration: none !important;
+        background-color: #e6e7e9 !important;
+    }
+
+    a {
+        word-break: break-all;
+    }
+
+    * {
+        margin: 0;
+        padding: 0;
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+
+
+    ul {
+        list-style-type: none;
+    }
+    .accordion {
+        width: 100%;
+        max-width: 360px;
+        margin: 30px auto 20px;
+        background: #FFF;
+        -webkit-border-radius: 4px;
+        -moz-border-radius: 4px;
+        border-radius: 4px;
+    }
+
+        .accordion .link {
+            cursor: pointer;
+            display: block;
+            padding: 15px 15px 15px 42px;
+            color: #495057;
+            border-bottom: 1px solid #CCC !important;
+            border-top: 1px solid #CCC !important;
+            position: relative;
+            -webkit-transition: all 0.4s ease;
+            -o-transition: all 0.4s ease;
+            transition: all 0.4s ease;
+        }
+
+        .accordion li:last-child .link {
+            border-bottom: 0;
+        }
+
+        .accordion li i {
+            position: absolute;
+            top: 16px;
+            left: 12px;
+            font-size: 18px;
+            color: #595959;
+            -webkit-transition: all 0.4s ease;
+            -o-transition: all 0.4s ease;
+            transition: all 0.4s ease;
+        }
+
+            .accordion li i.fa-chevron-down {
+                right: 12px;
+                left: auto;
+                font-size: 16px;
+            }
+
+        .accordion li.open .link {
+            background-color: #007bff !important;
+        }
+
+        .accordion li.open i {
+            color: #b63b4d;
+        }
+
+            .accordion li.open i.fa-chevron-down {
+                -webkit-transform: rotate(180deg);
+                -ms-transform: rotate(180deg);
+                -o-transform: rotate(180deg);
+                transform: rotate(180deg);
+            }
+
+    /**
+     * Submenu
+     -----------------------------*/
+
+
+    .submenu {
+        display: none;
+        /*background: #444359;*/
+        /*        font-size: 14px;*/
+    }
+
+    .submenu_1 {
+        display: block;
+    }
+    /*.submenu li {
+                border-bottom: 1px solid #4b4a5e;
+            }*/
+    .submenu a {
+        display: block;
+        text-decoration: none;
+        color: #495057;
+        padding: 12px;
+        padding-left: 42px;
+        -webkit-transition: all 0.25s ease;
+        -o-transition: all 0.25s ease;
+        transition: all 0.25s ease;
+    }
+
+        .submenu a:hover {
+            background: #b63b4d;
+            color: #FFF;
+        }
+</style>
+<div class="page-wrapper pt-3">
+    <div class="container">
+        <main role="main" class="pb-3">
+            <div class="row">
+                <div class="col-12 col-md-4 mb-3 mb-md-0">
+                    <div class="content-left-wrapper" style="height:100%">
+                        <div class="lst-doet pt-2 pb-2 text-center bg-primary text-white br-025">Hệ thống văn bản tuyển sinh đầu cấp</div>
+                        <div class="px-3" style="height: 550px">
+                            <div id="content-left" style="padding: 10px">
+                                <div id="ListOrganization" class="list-group">
+                                    @{
+                                        <ul id="accordion" class="accordion">
+
+                                            <li id="li_" data-id="">
+                                                <a class="list-group-item list-group-item-action lstA"
+                                                   href="javascript:void(0)"
+                                                   id=""
+                                                   onclick="viewfile()"
+                                                   style="cursor:pointer"
+                                                   title=""></a>
+                                            </li>
+                                        </ul>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-12 col-md-8 mb-3 mb-md-0" id="viewquyetdinh">
+                    <div class="content-right-wrapper">
+                        <div class="col-12 col-xl-12 pt-2 pb-2 text-center bg-primary text-white custom-border-right brtl-025 brbl-025">Văn bản</div>
+                        <div class="px-3">
+                            <div class="col-lg-12" style="padding: 10px">
+                                <div class="course-item">
+                                    <iframe id="fileview" style="width:100%; height:550px"></iframe>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+
+
+@section scripts{
+    <script src="~/Content/education-online/tuyensinh/js/scroll.js"></script>
+}
+
