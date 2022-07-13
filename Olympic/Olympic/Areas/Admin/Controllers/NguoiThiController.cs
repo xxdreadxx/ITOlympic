@@ -195,5 +195,22 @@ namespace Olympic.Areas.Admin.Controllers
                 data = data
             }, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult addSVToDoiThi(int idSV, int idDoiThi)
+        {
+
+            return Json(new
+            {
+
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult delSVFromDoiThi(int IDSV, int IDDoiThi)
+        {
+            return Json(new
+            {
+
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

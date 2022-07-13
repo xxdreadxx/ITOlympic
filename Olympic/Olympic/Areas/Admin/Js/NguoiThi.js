@@ -325,10 +325,15 @@ function DSTV(id) {
 
 $('#btnAddSV').on('click', function () {
     var idDoiThi = $('#hdID_DoiThi').val();
+    getlstHSDaDangKi(idDoiThi);
+    $('#divLSTSV').modal('show');
+});
+
+function getlstHSDaDangKi(id) {
     $.ajax({
         url: "/NguoiThi/getDSSVChuaDKThi",
         data: {
-            id: idDoiThi
+            id: id
         },
         type: 'post',
         success: function (result) {
@@ -337,12 +342,29 @@ $('#btnAddSV').on('click', function () {
                 var stt = 0;
                 $.each(result.data, function (i, item) {
                     stt++;
-                    html += '<tr><td>' + stt + '</td><td>' + item.MaSV + '</td><td>' + item.HoTen + '</td><td>' + item.Lop + '</td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelTT(' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
+                    html += '<tr id=\"trlstSV_' + item.ID + '\"><td style=\"text-align: center\">' + stt + '</td><td>' + item.MaSV + '</td><td>' + item.HoTen + '</td><td>' + item.Lop + '</td><td><a href=\"#\" title=\"Thêm\" type=\"button\" onclick=\"AddSV(' + item.ID + ')\"><i class=\"ti-check\"></i></a></td></tr>';
                 });
-
                 $('#tbllstSV').html(html);
             }
         }
     });
-    $('#divLSTSV').modal('show');
-});
+}
+
+function AddSV(id) {
+    var idDoiThi = $('#hdID_DoiThi').val();
+    $.ajax({
+        url: "/NguoiThi/addSVToDoiThi",
+        data: {
+            idSV: id,
+            idDoiThi: idDoiThi
+        },
+        type: 'post',
+        success: function (result) {
+            if (result.status == true) {
+            }
+        }
+    });
+
+    $('#trlstSV_' + id).hide();
+    getlstHSDaDangKi(idDoiThi);
+}

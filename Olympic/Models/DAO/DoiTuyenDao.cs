@@ -235,5 +235,24 @@ namespace Models.DAO
                 }
             }
         }
+
+        public bool DelSVFromDoiTuyen(int IDSV, int IDDoiTuyen)
+        {
+            bool kt = true;
+            var item = db.a_DoiTuyen_SV.FirstOrDefault(x => x.ID_Doi == IDDoiTuyen && x.ID_SV == IDSV && x.TrangThai == 1);
+            if(item != null)
+            {
+                var IDHM = db.a_DoiTuyen.FirstOrDefault(x => x.ID == IDDoiTuyen).ID_HangMuc;
+                var item1 = db.a_HangMuc_SinhVien_Diem.FirstOrDefault(x => x.ID_SV == IDSV && x.TrangThai == 1 && x.ID_HangMuc == IDHM);
+                item.TrangThai = 10;
+                db.SaveChanges();
+                kt = true;
+            }
+            else
+            {
+                kt = false;
+            }
+            return kt;
+        }
     }
 }
