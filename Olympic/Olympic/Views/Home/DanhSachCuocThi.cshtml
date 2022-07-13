@@ -1,0 +1,76 @@
+﻿@{
+    ViewBag.Title = "Danh sách cuộc thi";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<style>
+    .itemKyThi {
+        float: left
+    }
+
+    .imgHeader {
+        width: 90px !important;
+        height: 90px;
+        border-radius: 50%;
+        box-shadow: 2px 3px #c2c6ce
+    }
+
+    .hd-top-block {
+        position: unset !important;
+    }
+
+    .clsDanhSachKyThi {
+        cursor: pointer;
+        padding: 20px;
+        border-bottom: 1px solid #e9e7e7
+    }
+
+        .clsDanhSachKyThi:hover {
+            background-color: #e9e7e7;
+        }
+</style>
+<link href="~/Content/Templates/TuyenSinhHN/css/animate.css" rel="stylesheet" />
+<div class="page-wrapper pt-3">
+    <div class="container">
+        <main role="main" class="pb-3">
+            <div class="row">
+                <div class="col-12 col-md-8 mb-3 mb-md-0" id="viewquyetdinh">
+                    <div class="content-right-wrapper">
+                        <div class="col-12 col-xl-12 pt-2 pb-2 text-center bg-primary text-white custom-border-right brtl-025 brbl-025">Kỳ tuyển sinh</div>
+                        <div class="px-3 overflow-auto" style="height: 550px">
+                            <div class="col-lg-12" style="padding: 10px">
+                                <div class="course-item" id="timeline_body">
+
+                                    <div class="row clsDanhSachKyThi clskithi clsid_" style="cursor:pointer" onclick="location.href='/Home/DangKyTuyenSinh';">
+                                        <div class="col-md-2 col-lg-3 d-none d-md-block"></div>
+                                        <div class="col-md-2 col-lg-1 d-none d-md-block">
+                                            <img class="imgHeader" src="~/Content/education-online/images/c3.png" />
+                                        </div>
+                                        <div class="col-12 col-md-6 col-lg-5" style="margin-left:50px">
+                                            <div class="admission-info-wrapper">
+                                                <div class="d-xs-block d-sm-none">
+                                                    <div class="admission-icon admission-mn">MN</div>
+                                                </div>
+                                                <div style="padding:10px!important">
+                                                    <h5>Tên cuộc thi</h5>
+                                                    <p class="admission-time">Từ 01/01/2022 đến 12/02/2022</p>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1 col-lg-2 d-none d-md-block">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</div>
+@section scripts{
+    <script src="~/Content/education-online/tuyensinh/js/scroll.js"></script>
+    <script src="~/Content/TuyenSinhHN/js/ScrollAnimation.js"></script>
+}
+

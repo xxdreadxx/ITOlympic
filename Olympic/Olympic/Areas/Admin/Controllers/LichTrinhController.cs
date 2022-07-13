@@ -86,6 +86,7 @@ namespace Olympic.Areas.Admin.Controllers
                 gv.ThoiGianCongBoDiem = c["TGCongBo"] ;
                 gv.NgayTao = DateTime.Now;
                 gv.NguoiTao = user;
+                gv.TrangThai = 1;
                 var kt = dao.Add(gv);
             }
             else
