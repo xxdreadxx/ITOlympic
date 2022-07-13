@@ -199,17 +199,19 @@ namespace Olympic.Areas.Admin.Controllers
         public JsonResult addSVToDoiThi(int idSV, int idDoiThi)
         {
 
+            var kt = dtDao.AddSVFromLstToDoiThi(idDoiThi, idSV);
             return Json(new
             {
-
+                status = kt
             }, JsonRequestBehavior.AllowGet);
         }
 
         public JsonResult delSVFromDoiThi(int IDSV, int IDDoiThi)
         {
+            var kt = dtDao.DelSVFromDoiTuyen(IDSV, IDDoiThi);
             return Json(new
             {
-
+                status = kt
             }, JsonRequestBehavior.AllowGet);
         }
     }

@@ -99,7 +99,7 @@ namespace Models.DAO
                     var _sqlStr = "select hs.*, hm.TenHangMuc, ct.TenCuocThi, sv.HoTen as TenSV , sv.MaSV, sv.Lop, hm.ThoiGianBatDau, hm.ThoiGianKetThuc " +
                         "from a_DoiTuyen_SV ds join a_SinhVien sv on sv.ID = ds.ID_SV join a_DoiTuyen dt on dt.ID = ds.ID_Doi " +
                         "join a_HangMuc hm on hm.ID = dt.ID_HangMuc join a_HangMuc_SinhVien_Diem hs on hs.ID_HangMuc = hm.ID and ds.ID_SV = hs.ID_SV join a_CuocThi ct on ct.ID = hm.ID_CuocThi " +
-                        $"where ds.ID_Doi = {ID} and ds.TrangThai <> 10";
+                        $"where ds.ID_Doi = {ID} and ds.TrangThai = 1";
                     lst = _conn.Query<a_HangMuc_SinhVien_Diem_View>(_sqlStr, null, commandType: CommandType.Text).ToList<a_HangMuc_SinhVien_Diem_View>();
                     totalCount = lst.Count();
                     return lst;
@@ -253,6 +253,48 @@ namespace Models.DAO
                 kt = false;
             }
             return kt;
+        }
+
+        public bool AddSVFromLstToDoiThi(int IDDoiTuyen, int IDSinhVien)
+        {
+            bool kt = true;
+            var IDHM = db.a_DoiTuyen.FirstOrDefault(x => x.ID == IDDoiTuyen).ID_HangMuc;
+            var ktTS = db.a_HangMuc_SinhVien_Diem.FirstOrDefault(x => x.ID_HangMuc == IDHM && x.ID_SV == IDSinhVien && x.TrangThai == 2);
+            if(ktTS != null)
+            {
+                ktTS.TrangThai = 1;
+                db.SaveChanges();
+                a_DoiTuyen_SV ds = new a_DoiTuyen_SV();
+                ds.ID_Doi = IDDoiTuyen;
+                ds.ID_SV = IDSinhVien;
+                ds.NgayTao = DateTime.Now;
+                ds.TrangThai = 1;
+                db.a_DoiTuyen_SV.Add(ds);
+                db.SaveChanges();
+                kt = true;
+            }
+            else
+            {
+                a_DoiTuyen_SV ds = new a_DoiTuyen_SV();
+                ds.ID_Doi = IDDoiTuyen;
+                ds.ID_SV = IDSinhVien;
+                ds.NgayTao = DateTime.Now;
+                ds.TrangThai = 1;
+                db.a_DoiTuyen_SV.Add(ds);
+                db.SaveChanges();
+
+                a_HangMuc_SinhVien_Diem hsd = new a_HangMuc_SinhVien_Diem();
+                hsd.ID_HangMuc = IDHM;
+                hsd.ID_SV = IDSinhVien;
+                hsd.NgayTao = DateTime.Now;
+                hsd.TrangThai = 1;
+            }
+            return kt;
+        }
+
+        public int CountSVinDoiTuyen(int IDDoiTuyen)
+        {
+            return db.a_DoiTuyen_SV.Where(x => x.ID_Doi == IDDoiTuyen && x.TrangThai == 1).ToList().Count();
         }
     }
 }

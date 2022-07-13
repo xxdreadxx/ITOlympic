@@ -295,6 +295,11 @@ $(document).ready(function () {
 });
 
 function DSTV(id) {
+    getListMember(id);
+    $('#divMember').modal('show');
+}
+
+function getListMember(id) {
     $.ajax({
         url: "/NguoiThi/getDSSVTrongDoiThi",
         data: {
@@ -307,6 +312,7 @@ function DSTV(id) {
                 $('#idHM').val(result.dataHM.ID);
                 $('#hdID_DoiThi').val(id);
                 $('#HM_SL').val(result.dataHM.SoLuong);
+                $('#HM_SLHienTai').val(result.totalCount);
                 $('#txtHMTGBD').val(result.dataHM.ThoiGianBatDau);
                 $('#txtTenHM').val(result.dataHM.TenHangMuc);
                 $('#txtHMTGKT').val(result.dataHM.ThoiGianKetThuc);
@@ -314,22 +320,28 @@ function DSTV(id) {
                 var stt = 0;
                 $.each(result.data, function (i, item) {
                     stt++;
-                    html += '<tr><td>' + stt + '</td><td>' + item.MaSV + '</td><td>' + item.TenSV + '</td><td>' + item.Lop + '</td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelTT(' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
+                    html += '<tr id=\"trlstMem_' + item.ID + '\"><td>' + stt + '</td><td>' + item.MaSV + '</td><td>' + item.TenSV + '</td><td>' + item.Lop + '</td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelMember(' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
                 });
                 $('#tblMember').html(html);
             }
         }
     });
-    $('#divMember').modal('show');
 }
 
 $('#btnAddSV').on('click', function () {
     var idDoiThi = $('#hdID_DoiThi').val();
-    getlstHSDaDangKi(idDoiThi);
-    $('#divLSTSV').modal('show');
+    var SoLuongMax = $('#HM_SL').val();
+    var SoLuongHT = $('#HM_SLHienTai').val();
+    if (SoLuongHT >= SoLuongMax) {
+        alert('Số lượng thành viên trong đội đã đủ'); return false;
+    }
+    else {
+        getlstHSTruong(idDoiThi);
+        $('#divLSTSV').modal('show');
+    }
 });
 
-function getlstHSDaDangKi(id) {
+function getlstHSTruong(id) {
     $.ajax({
         url: "/NguoiThi/getDSSVChuaDKThi",
         data: {
@@ -352,19 +364,40 @@ function getlstHSDaDangKi(id) {
 
 function AddSV(id) {
     var idDoiThi = $('#hdID_DoiThi').val();
+    var SoLuongMax = $('#HM_SL').val();
+    var SoLuongHT = $('#HM_SLHienTai').val();
+    if (SoLuongHT >= SoLuongMax) {
+        alert('Số lượng thành viên trong đội đã đủ'); return false;
+    }
+    else {
+        $.ajax({
+            url: "/NguoiThi/addSVToDoiThi",
+            data: {
+                idSV: id,
+                idDoiThi: idDoiThi
+            },
+            type: 'post',
+            success: function (result) {
+                if (result.status == true) {
+                }
+            }
+        });
+        $('#trlstSV_' + id).hide();
+        getListMember(idDoiThi);
+    }
+}
+
+function DelMember(id) {
+    var idDoiThi = $('#hdID_DoiThi').val();
     $.ajax({
-        url: "/NguoiThi/addSVToDoiThi",
+        url: "/NguoiThi/delSVFromDoiThi",
         data: {
-            idSV: id,
-            idDoiThi: idDoiThi
+            IDSV: id,
+            IDDoiThi: idDoiThi
         },
         type: 'post',
         success: function (result) {
-            if (result.status == true) {
-            }
+            $('#trlstMem_' + id).hide();
         }
     });
-
-    $('#trlstSV_' + id).hide();
-    getlstHSDaDangKi(idDoiThi);
 }
