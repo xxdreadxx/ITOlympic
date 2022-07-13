@@ -14,7 +14,7 @@ $('document').ready(function () {
     //ShowTimeline(firstchild);
 });
 function ShowTimeline(id) {
-    $('.lstA').removeClass('active');
+   /* $('.lstA').removeClass('active');*/
     $('#timeline_body').children().hide();
     $('#' + id).show();
     $('#a_' + id).addClass('active');

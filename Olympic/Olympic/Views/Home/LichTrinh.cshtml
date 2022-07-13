@@ -203,8 +203,6 @@
                                 <div class="course-item" id="timeline_body">
                                     <div id="" class="clsTimeLine row mb-md-4" style="min-height:500px; background-color:#182a44; display:none">
                                         @{
-                                            if (so_LichTrinh.Count() != 0)
-                                            {
                                                 foreach (var i in so_LichTrinh)
                                                 {
                                                     List<LichTrinhs> lichtrinh = lstLichTrinh.Where(x => x.ID == i.ID).ToList();
@@ -295,7 +293,7 @@
                                                         }
                                                     </div>
                                                 }
-                                            }
+                                            
                                         }
                                     </div>
                                 </div>
