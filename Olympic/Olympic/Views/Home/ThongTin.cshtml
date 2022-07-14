@@ -1,7 +1,8 @@
-﻿
+﻿@using Models.EF;
 @{
-    ViewBag.Title = "Thông tin tuyển";
+    ViewBag.Title = "Thông tin cuộc thi";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<a_CuocThi> cuocthi = ViewBag.CuocThi;
 }
 
 <style>
@@ -32,10 +33,11 @@
     ul {
         list-style-type: none;
     }
+
     .accordion {
         width: 100%;
         max-width: 360px;
-        margin: 30px auto 20px;
+       /* margin: 30px auto 20px;*/
         background: #FFF;
         -webkit-border-radius: 4px;
         -moz-border-radius: 4px;
@@ -90,39 +92,6 @@
                 -o-transform: rotate(180deg);
                 transform: rotate(180deg);
             }
-
-    /**
-     * Submenu
-     -----------------------------*/
-
-
-    .submenu {
-        display: none;
-        /*background: #444359;*/
-        /*        font-size: 14px;*/
-    }
-
-    .submenu_1 {
-        display: block;
-    }
-    /*.submenu li {
-                border-bottom: 1px solid #4b4a5e;
-            }*/
-    .submenu a {
-        display: block;
-        text-decoration: none;
-        color: #495057;
-        padding: 12px;
-        padding-left: 42px;
-        -webkit-transition: all 0.25s ease;
-        -o-transition: all 0.25s ease;
-        transition: all 0.25s ease;
-    }
-
-        .submenu a:hover {
-            background: #b63b4d;
-            color: #FFF;
-        }
 </style>
 <div class="page-wrapper pt-3">
     <div class="container">
@@ -130,22 +99,27 @@
             <div class="row">
                 <div class="col-12 col-md-4 mb-3 mb-md-0">
                     <div class="content-left-wrapper" style="height:100%">
-                        <div class="lst-doet pt-2 pb-2 text-center bg-primary text-white br-025">Hệ thống văn bản tuyển sinh đầu cấp</div>
+                        <div class="lst-doet pt-2 pb-2 text-center bg-primary text-white br-025">Danh sách cuộc thi</div>
                         <div class="px-3" style="height: 550px">
                             <div id="content-left" style="padding: 10px">
                                 <div id="ListOrganization" class="list-group">
                                     @{
-                                        <ul id="accordion" class="accordion">
-
-                                            <li id="li_" data-id="">
-                                                <a class="list-group-item list-group-item-action lstA"
-                                                   href="javascript:void(0)"
-                                                   id=""
-                                                   onclick="viewfile()"
-                                                   style="cursor:pointer"
-                                                   title=""></a>
-                                            </li>
-                                        </ul>
+                                        if (cuocthi.Count() != 0)
+                                        {
+                                            foreach (var item in cuocthi)
+                                            {
+                                                <ul id="accordion" class="accordion">
+                                                    <li id="li_@item.ID" data-id="@item.ID">
+                                                        <a class="list-group-item list-group-item-action lstA"
+                                                           href="javascript:void(0)"
+                                                           id="@item.ID"
+                                                           onclick="viewfile(@item.ID)"
+                                                           style="cursor:pointer"
+                                                           title="">@item.TenCuocThi</a>
+                                                    </li>
+                                                </ul>
+                                            }
+                                        }
                                     }
                                 </div>
                             </div>
@@ -171,6 +145,7 @@
 
 
 @section scripts{
+    <script src="~/JSCustom/ThongTinJS.js"></script>
     <script src="~/Content/education-online/tuyensinh/js/scroll.js"></script>
 }
 
