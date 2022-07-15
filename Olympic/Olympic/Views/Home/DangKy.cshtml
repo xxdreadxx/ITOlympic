@@ -2,6 +2,9 @@
 @{
     ViewBag.Title = "Đăng ký";
     Layout = "~/Views/Shared/_Layout.cshtml";
+
+    int idHangMuc = ViewBag.IDHangMuc;
+    int idCuocThi = ViewBag.IDCuocThi;
 }
 <style>
 
@@ -71,6 +74,9 @@
             </div>
         </div>
         <div class="row">
+            <input hidden value="0" id="id" />
+            <input hidden value="@idHangMuc" id="idHangMuc" />
+            <input hidden value="@idCuocThi" id="idCuocThi" />
             <div class="col-lg-10 mx-auto form-shared .contact-form-action">
                 <div class="admission-body">
                     <div class="row" style="padding: 0px 50px">
@@ -123,13 +129,14 @@
                                         <div class="row" style="padding:10px">
                                             <div class="col-lg-6 form-group">
                                                 <label class="form-label">Lớp hành chính<span style="color:red">&nbsp;*</span></label>
-                                                <input class="form-control" type="text" id="txthotencha" maxlength="100" name="txthotencha"
+                                                <input class="form-control" type="text" id="txtLopHanhChinh" maxlength="100" name="txtLopHanhChinh"
                                                        onchange="DeletetError('#errorhotencha')">
-                                                <p class="error-message" id="errorhotencha"></p>
+                                                <p class="error-message" id="errorlop"></p>
                                             </div>
                                             <div class="col-lg-6 form-group">
                                                 <label class="form-label">Mã sinh viên<span style="color:red">&nbsp;*</span></label>
-                                                <input class="form-control" type="text" id="txtnghenghiepcha" maxlength="100" name="txtnghenghiepcha">
+                                                <input class="form-control" type="text" id="txtMaSV" maxlength="20" name="txtMaSV">
+                                                <p class="error-message" id="errormasinhvien"></p>
                                             </div>
                                         </div>
                                     </fieldset>
@@ -138,12 +145,6 @@
                                             <div class="col-md-12">
                                                 <p class="tieude">
                                                     HỒ SƠ ĐÍNH KÈM:
-
-                                                    <span class="fa fa-exclamation-circle" id="tooltip_icon" style="color: red"
-                                                          data-bs-placement="top" data-bs-toggle="tooltip"
-                                                          title="Ảnh hồ sơ">
-                                                    </span>
-
                                                 </p>
                                                 <span class="error-message" id="errortailieudinhkem"></span>
                                             </div>
@@ -152,16 +153,30 @@
                                                     <thead style="background-color: #0554b6; color: white;">
                                                         <tr>
                                                             <th style="width: 90%; text-align: center; background-color: #0554b6; color: white;">Loại giấy tờ</th>
-                                                            <th style="width: 65%; text-align: center; background-color: #0554b6; color: white;" hidden>Ghi chú</th>
                                                             <th colspan="2" style="width: 10%; text-align: center; background-color: #0554b6; color: white;">Thao tác</th>
                                                         </tr>
                                                     </thead>
+                                                    <tbody id="lst_chonfile_DinhKem">
+                                                        <tr class="file_loai" id="file_loai" data-required="">
+                                                            <td style="vertical-align:middle; font-weight:bold">
+                                                                Ảnh hồ sơ
+                                                                <span style="color: red; font-weight: bold;">*</span>
 
+                                                                <br />
+                                                            </td>
+                                                            <td colspan="2" style="vertical-align:middle">
+                                                                <input class="form-control" type="file" id="fDinhKem" maxlength="100" name="fDinhKem" onchange="fileChange()" hidden
+                                                                       accept="image/jpg,image/png,image/jpeg">
+                                                                <label type="button" class="form-control btn btn_chontep" id="btn_chontep" style="background-color: #e9e9e9" for="fDinhKem">
+                                                                    <i class="fa fa-save"></i>&ensp;Chọn tệp
+                                                                </label>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
                                                 </table>
                                             </div>
                                         </div>
                                     </fieldset>
-
 
                                     <!--Thông tin liên lạc-->
                                     <fieldset style="margin-top:30px">
@@ -174,14 +189,12 @@
                                             </div>
                                             <div class="col-lg-6 form-group">
                                                 <label class="form-label">Điện thoại liên hệ<span style="color:red">&nbsp;*</span></label>
-                                                <input class="form-control" type="tel" id="txtdienthoailienhe" name="txtdienthoailienhe"
-                                                       onchange="DeletetError('#errordienthoailienhe')">
+                                                <input class="form-control" type="tel" id="txtdienthoailienhe" name="txtdienthoailienhe">
                                                 <p class="error-message" id="errordienthoailienhe"></p>
                                             </div>
                                             <div class="col-lg-6 form-group">
                                                 <label class="form-label">Email liên hệ<span style="color:red">&nbsp;*</span></label>
-                                                <input class="form-control" type="text" id="txtemaillienhe" name="txtemaillienhe" placeholder="email@gmail.com"
-                                                       onchange="DeletetError('#erroremaillienhe')">
+                                                <input class="form-control" type="text" id="txtemaillienhe" name="txtemaillienhe" placeholder="email@gmail.com">
                                                 <p class="error-message" id="erroremaillienhe"></p>
                                             </div>
                                             <div class="col-lg-12 note">
@@ -194,8 +207,7 @@
                                         <div class="row" style="padding:10px">
                                             <div class="col-md-12">
                                                 <div class="custom-checkbox">
-                                                    <input type="checkbox" id="camket"
-                                                           onchange="DeletetError('#errorcamket')">
+                                                    <input type="checkbox" id="camket">
                                                     <label for="camket">Tôi xin cam kết khai báo đúng thông tin</label>
                                                 </div>
                                                 <p class="error-message" id="errorcamket"></p>
@@ -207,17 +219,16 @@
                         </div>
                     </div>
                     <div class="col-lg-12 text-center" style="margin-top:20px">
-                        <a class="theme-btn" style=" display:none; color:#fff;cursor:pointer;background-color: #0072c5; color: white;" id="savethongtin" onclick="">Đăng ký</a>
+                        <a class="theme-btn" style="color:#fff;cursor:pointer;background-color: #0072c5; color: white;" id="savethongtin" onclick="SaveThongTin()">Đăng ký</a>
                     </div>
-
                 </div>
             </div>
         </div>
     </div>
 </section>
 @section scripts{
+    <script src="~/JSCustom/DangKy.js"></script>
     <script src="~/Content/education-online/tuyensinh/js/scroll.js"></script>
-
 }
 
 

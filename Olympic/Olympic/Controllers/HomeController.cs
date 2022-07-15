@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -31,7 +32,7 @@ namespace Olympic.Controllers
                         lt.ThoiGianKetThucThi, lt.ThoiGianBatDauChamDiem, lt.ThoiGianKetThucChamDiem, lt.ThoiGianCongBoDiem, ct.Nam from a_CuocThi ct
                         join a_CuocThi_LichTrinh lt on ct.ID = lt.IDCuocThi and lt.TrangThai <> 10
                         where ct.TrangThai <> 10";
-            var lstLichTrinh = db.Database.SqlQuery<LichTrinhs>(sql).OrderByDescending(x=>x.ID).ToList();
+            var lstLichTrinh = db.Database.SqlQuery<LichTrinhs>(sql).OrderByDescending(x => x.ID).ToList();
             var so_LichTrinh = lstLichTrinh.GroupBy(x => x.ID).Select(x => x.FirstOrDefault()).ToList();
             ViewBag.LichTrinh = lstLichTrinh;
             ViewBag.so_LichTrinh = so_LichTrinh;
@@ -40,30 +41,30 @@ namespace Olympic.Controllers
 
         public ActionResult ThongTin()
         {
-            var cuocthi = db.a_CuocThi.Where(x => x.TrangThai != 10).OrderByDescending(x=>x.ID).ToList();
+            var cuocthi = db.a_CuocThi.Where(x => x.TrangThai != 10).OrderByDescending(x => x.ID).ToList();
             ViewBag.CuocThi = cuocthi;
             return View();
         }
 
         public JsonResult ViewQuyetDinh(int id)
         {
-                var filequyetdinh = db.a_CuocThi.Where(x => x.ID == id && x.TrangThai != 10).FirstOrDefault();
-                if (filequyetdinh != null)
+            var filequyetdinh = db.a_CuocThi.Where(x => x.ID == id && x.TrangThai != 10).FirstOrDefault();
+            if (filequyetdinh != null)
+            {
+                return Json(new
                 {
-                    return Json(new
-                    {
-                        status = true,
-                        filequyetdinh = filequyetdinh
-                    }, JsonRequestBehavior.AllowGet);
-                }
-                else
+                    status = true,
+                    filequyetdinh = filequyetdinh
+                }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new
                 {
-                    return Json(new
-                    {
-                        status = false
-                    }, JsonRequestBehavior.AllowGet);
-                }
-            
+                    status = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+
         }
 
         public ActionResult DanhSachCuocThi()
@@ -85,9 +86,91 @@ namespace Olympic.Controllers
             return View();
         }
 
-        public ActionResult DangKy()
+        public ActionResult DangKy(int idCuocThi = 0,int idHangMuc = 0)
         {
+            ViewBag.IDHangMuc = idHangMuc;
+            ViewBag.IDCuocThi = idCuocThi;
             return View();
+        }
+
+        [ValidateInput(false)]
+        public JsonResult SaveThongTin()
+        {
+            var c = Request.Form;
+            HttpFileCollectionBase fileDinhKem_TenFile = Request.Files;
+            string mahocsinh = c["MaHocSinh"].ToString().Trim().ToLower();
+            string email = c["Email"].ToString().Trim();
+            string gioitinh = c["GioiTinh"];
+            string ngaysinh = c["NgaySinh"];
+            string hoten = c["HoTen"].ToString().Trim();
+            string lop = c["Lop"].ToString().Trim();
+            string sodienthoai = c["SoDienThoai"].ToString().Trim();
+            int ID = int.Parse(c["ID"].ToString());
+            int idHangMuc = int.Parse(c["idHangMuc"]);
+            int idCuocThi = int.Parse(c["IDCuocThi"]);
+
+            var checkExist = db.a_SinhVien.FirstOrDefault(x => x.MaSV.ToLower() == mahocsinh && x.TrangThai != 10 && x.ID != ID);
+            if ((mahocsinh != "" && mahocsinh != null) && checkExist != null)
+            {
+                return Json(new
+                {
+                    status = false,
+                    error = "Mã học sinh đã tồn tại",
+                }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                a_SinhVien sv = new a_SinhVien();
+                sv.MaSV = mahocsinh;
+                sv.HoTen = hoten;
+                sv.Email = email;
+                if (gioitinh == "1")
+                {
+                    sv.GioiTinh = true;
+                }
+                else
+                {
+                    sv.GioiTinh = false;
+                }
+
+                if (fileDinhKem_TenFile.Count > 0)
+                {
+                    if (fileDinhKem_TenFile[0].ContentLength > 0)
+                    {
+                        string pathFolder = "/Content/Images/Avatars/SinhVien/";
+                        Directory.CreateDirectory(Server.MapPath(pathFolder));
+                        string nameAnh = fileDinhKem_TenFile[0].FileName;
+                        string pathFile = Path.Combine(Server.MapPath(pathFolder), nameAnh);
+                        fileDinhKem_TenFile[0].SaveAs(pathFile);
+                        sv.AnhHoSo = pathFolder + nameAnh;
+                    }
+                }
+
+                sv.NgaySinh = ngaysinh;
+                sv.Lop = lop;
+                sv.SDT = sodienthoai;
+                sv.TrangThai = 1;
+                sv.NgayTao = DateTime.Now;
+                sv.NguoiTao = 0;
+                db.a_SinhVien.Add(sv);
+                db.SaveChanges();
+
+                var sinhvien = db.a_SinhVien.Where(x => x.ID == sv.ID).FirstOrDefault();
+                a_HangMuc_SinhVien_Diem hm_sv = new a_HangMuc_SinhVien_Diem();
+                hm_sv.ID_SV = sv.ID;
+                hm_sv.ID_HangMuc = idHangMuc;
+                hm_sv.TrangThai = 2;
+                hm_sv.NgayTao = DateTime.Now;
+                hm_sv.NguoiTao = 0;
+                db.a_HangMuc_SinhVien_Diem.Add(hm_sv);
+                db.SaveChanges();
+
+                return Json(new
+                {
+                    status = true,
+                    error = "Đăng ký thành công"
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
     }
 }
