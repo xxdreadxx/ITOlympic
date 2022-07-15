@@ -32,7 +32,7 @@
                         <div class="list-group">
                             <div id="content-left" style="padding: 10px">
                                 <div id="ListOrganization" class="list-group">
-                                    <a class="list-group-item list-group-item-action" href="#page-gt" onclick="jsWalkthrough.changePage(this, event);">Giới thiệu</a>
+                                    <a class="list-group-item list-group-item-action active" href="#page-gt" onclick="jsWalkthrough.changePage(this, event);">Giới thiệu</a>
                                     <a class="list-group-item list-group-item-action" href="#page-hd" onclick="jsWalkthrough.changePage(this, event);">Hướng dẫn sử dụng</a>
                                 </div>
                             </div>
@@ -91,7 +91,7 @@
                             <br />
                         </div>
                     </div>
-                    <div class="page-item" id="page-hd" style="background:#ffff;">
+                    <div class="page-item hide" id="page-hd" style="background:#ffff;">
                         <h2 class="head" style="text-align:center">HƯỚNG DẪN SỬ DỤNG</h2>
                         <p></p>
                         <div class="paragraph" style="margin-top: 10px">
@@ -114,6 +114,11 @@
 
 @section scripts{
     <script src="~/Content/education-online/tuyensinh/js/scroll.js"></script>
+    <script>
+        $('document').ready(function () {
+            $('#navHuongDan').addClass('active');
+        });
+    </script>
 }
 
 

@@ -1,0 +1,223 @@
+﻿
+@{
+    ViewBag.Title = "Đăng ký";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+
+    #lstDinhKem li {
+        border-bottom: 1px solid #e5e7ea;
+        padding: 5px
+    }
+
+    .hd-top-block {
+        position: unset !important;
+    }
+
+    #tooltip_icon:hover .tooltip {
+        opacity: 1;
+        transition: 0.5s;
+        transition-delay: 0.1s;
+    }
+
+    .btn_chontep:hover {
+        background-color: #0554b6 !important;
+        color: white !important;
+    }
+
+    .lbNguyenVong {
+        height: 38px !important;
+    }
+
+    .form-check {
+        display: inline;
+        margin: 0 30px;
+    }
+
+    .HTXD {
+        border: 1px solid green !important;
+        padding-left: 10px !important;
+    }
+
+        .HTXD i {
+            color: green;
+        }
+
+    #tbListNguyenVong_1 .select2 select2-container select2-container--default {
+        width: 100% !important
+    }
+</style>
+<section class="admission-area">
+    <div class="breadcrumb-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12">
+                    <div class="breadcrumb-content">
+                        <ul class="breadcrumb__list">
+                            <li></li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 headtitle">
+                <div class="section-heading text-center">
+                    <h2 class="section__title" style=" word-wrap: break-word;"></h2>
+                    <span class="section__divider"></span>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-lg-10 mx-auto form-shared .contact-form-action">
+                <div class="admission-body">
+                    <div class="row" style="padding: 0px 50px">
+                        <div class="form">
+                            <div class="row">
+                                <div class="d-flex justify-content-center" style="position: relative;top: 22px;width: 100%;align-items: center;text-align: center;flex-direction: row;font-size: 25px;font-weight: bold;align-self: center;">
+                                    <span style="padding: 10px; background-color: #0554b6; color: white; border-radius: 15px;">Thông tin sinh viên</span>
+                                </div>
+                                <div class="row" style="border-width: 2px; border-style: dotted; padding: 25px; margin-left: 10px; margin-right: 10px;">
+                                    <fieldset style="width: 100%">
+                                        <input type="hidden" id="txtIDKyThi" value="0" />
+                                        <div class="row" style="padding:10px">
+                                            <div class="col-lg-5 form-group">
+                                                <label class="form-label">Họ và tên<span style="color:red">&nbsp;*</span></label>
+                                                <input class="form-control" type="text" id="txthoten" maxlength="100" name="txthoten"
+                                                       onchange="DeletetError('#errorhoten')">
+                                                <p class="error-message" id="errorhoten"></p>
+                                            </div>
+                                            <div class="col-lg-4 form-group">
+                                                <label class="form-label">Ngày sinh<span style="color:red">&nbsp;*</span></label>
+                                                <input class="form-control dateformat" id="txtngaysinh" type="text" maxlength="50" name="txtngaysinh"
+                                                       onchange="DeletetError('#errorngaysinh')">
+                                                <p class="error-message" id="errorngaysinh"></p>
+                                            </div>
+                                            <div class="col-lg-3 form-group gender-group">
+                                                <label class="form-label">Giới tính</label>
+                                                <div class="sidebar-widget rating-widget">
+                                                    <div class="rating__list">
+                                                        <label class="review-label customline">
+                                                            <input value="1" type="radio" name="Gender" checked>
+                                                            <span class="textradio">
+                                                                Nam
+                                                            </span>
+                                                            <span class="review-mark"></span>
+                                                        </label>
+                                                        <label class="review-label customline">
+                                                            <input value="0" type="radio" name="Gender">
+                                                            <span class="textradio">
+                                                                Nữ
+                                                            </span>
+                                                            <span class="review-mark"></span>
+                                                        </label>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                    </fieldset>
+                                    <fieldset style="margin-top:30px;width:100%">
+                                        <div class="row" style="padding:10px">
+                                            <div class="col-lg-6 form-group">
+                                                <label class="form-label">Lớp hành chính<span style="color:red">&nbsp;*</span></label>
+                                                <input class="form-control" type="text" id="txthotencha" maxlength="100" name="txthotencha"
+                                                       onchange="DeletetError('#errorhotencha')">
+                                                <p class="error-message" id="errorhotencha"></p>
+                                            </div>
+                                            <div class="col-lg-6 form-group">
+                                                <label class="form-label">Mã sinh viên<span style="color:red">&nbsp;*</span></label>
+                                                <input class="form-control" type="text" id="txtnghenghiepcha" maxlength="100" name="txtnghenghiepcha">
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <fieldset style="width:100% !important">
+                                        <div class="row" style="padding:10px">
+                                            <div class="col-md-12">
+                                                <p class="tieude">
+                                                    HỒ SƠ ĐÍNH KÈM:
+
+                                                    <span class="fa fa-exclamation-circle" id="tooltip_icon" style="color: red"
+                                                          data-bs-placement="top" data-bs-toggle="tooltip"
+                                                          title="Ảnh hồ sơ">
+                                                    </span>
+
+                                                </p>
+                                                <span class="error-message" id="errortailieudinhkem"></span>
+                                            </div>
+                                            <div class="col-lg-12 form-group" id="Giaytolienquan">
+                                                <table class="table table-bordered table-hover overflow-auto" style="width: 100%">
+                                                    <thead style="background-color: #0554b6; color: white;">
+                                                        <tr>
+                                                            <th style="width: 90%; text-align: center; background-color: #0554b6; color: white;">Loại giấy tờ</th>
+                                                            <th style="width: 65%; text-align: center; background-color: #0554b6; color: white;" hidden>Ghi chú</th>
+                                                            <th colspan="2" style="width: 10%; text-align: center; background-color: #0554b6; color: white;">Thao tác</th>
+                                                        </tr>
+                                                    </thead>
+
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+
+
+                                    <!--Thông tin liên lạc-->
+                                    <fieldset style="margin-top:30px">
+                                        <div class="row" style="padding:10px">
+                                            <div class="col-lg-12">
+                                                <p class="tieude">THÔNG TIN LIÊN LẠC:</p>
+                                            </div>
+                                            <div class="col-lg-12 note">
+                                                Vui lòng nhập số điện thoại và địa chỉ email để cơ quan chức năng liên hệ với anh/chị khi có kết quả.
+                                            </div>
+                                            <div class="col-lg-6 form-group">
+                                                <label class="form-label">Điện thoại liên hệ<span style="color:red">&nbsp;*</span></label>
+                                                <input class="form-control" type="tel" id="txtdienthoailienhe" name="txtdienthoailienhe"
+                                                       onchange="DeletetError('#errordienthoailienhe')">
+                                                <p class="error-message" id="errordienthoailienhe"></p>
+                                            </div>
+                                            <div class="col-lg-6 form-group">
+                                                <label class="form-label">Email liên hệ<span style="color:red">&nbsp;*</span></label>
+                                                <input class="form-control" type="text" id="txtemaillienhe" name="txtemaillienhe" placeholder="email@gmail.com"
+                                                       onchange="DeletetError('#erroremaillienhe')">
+                                                <p class="error-message" id="erroremaillienhe"></p>
+                                            </div>
+                                            <div class="col-lg-12 note">
+                                                Sau khi sinh viên đăng ký thành công ngoài việc nhận thông báo qua email đăng ký,
+                                                sinh viên có thể tra cứu thông tin đăng ký tại trang web <a href="/"></a> ở chức năng <a href="javascript:void(0);">TRA CỨU KẾT QUẢ</a>.
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                    <fieldset style="margin-top:30px">
+                                        <div class="row" style="padding:10px">
+                                            <div class="col-md-12">
+                                                <div class="custom-checkbox">
+                                                    <input type="checkbox" id="camket"
+                                                           onchange="DeletetError('#errorcamket')">
+                                                    <label for="camket">Tôi xin cam kết khai báo đúng thông tin</label>
+                                                </div>
+                                                <p class="error-message" id="errorcamket"></p>
+                                            </div>
+                                        </div>
+                                    </fieldset>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-lg-12 text-center" style="margin-top:20px">
+                        <a class="theme-btn" style=" display:none; color:#fff;cursor:pointer;background-color: #0072c5; color: white;" id="savethongtin" onclick="">Đăng ký</a>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+@section scripts{
+    <script src="~/Content/education-online/tuyensinh/js/scroll.js"></script>
+
+}
+
+

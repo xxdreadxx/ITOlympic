@@ -1,6 +1,10 @@
-﻿@{
+﻿@using Olympic.Models;
+@using Models.EF;
+@{
     ViewBag.Title = "Danh sách cuộc thi";
     Layout = "~/Views/Shared/_Layout.cshtml";
+    List<CuocThiHangMuc> lstData = ViewBag.lstHangMucThi;
+    List<LichTrinhs> lstCuocThi = ViewBag.CuocThi;
 }
 
 <style>
@@ -34,32 +38,132 @@
     <div class="container">
         <main role="main" class="pb-3">
             <div class="row">
+                <div class="col-12 col-md-4 mb-3 mb-md-0">
+                    <div class="content-left-wrapper" style="height:100%">
+                        <div class="lst-doet pt-2 pb-2 text-center bg-primary text-white br-025">Danh sách cuộc thi</div>
+                        <div class="px-3" style="height: 550px">
+                            <div class="list-group">
+                                <div id="content-left" style="padding: 10px">
+                                    <div id="ListOrganization" class="list-group">
+                                        @{
+                                            if (lstCuocThi.Count() != 0)
+                                            {
+                                                foreach (var item in lstCuocThi)
+                                                {
+                                                    DateTime batBau = DateTime.ParseExact(item.ThoiGianBatDauNhanHS, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                                                    DateTime ketThuc = DateTime.ParseExact(item.ThoiGianKetThucNhanHS, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                                                    var test = DateTime.Now.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                                                    DateTime thoiGianHienTai = DateTime.ParseExact(test, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                                                    if (ketThuc <= thoiGianHienTai)
+                                                    {
+                                                        <ul id="accordion" class="accordion">
+                                                            <li data-id="@item.IDCuocThi">
+                                                                <a id="a_@item.IDCuocThi" class="list-group-item list-group-item-action lstA"
+                                                                   href="javascript:void(0)"
+                                                                   onclick="ShowTimeline(@item.IDCuocThi)"
+                                                                   style="cursor:pointer"
+                                                                   title="@item.TenCuocThi">
+                                                                    <p style="font-weight:600">@item.TenCuocThi</p>
+                                                                    <p class="btn btn-admission btn-expired" title="@item.TenCuocThi" style="color: #e60237">Đã hết hạn đăng ký</p>
+
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    }
+                                                    else
+                                                    {
+                                                        <ul id="accordion" class="accordion">
+                                                            <li data-id="@item.IDCuocThi">
+                                                                <a id="a_@item.IDCuocThi" class="list-group-item list-group-item-action lstA"
+                                                                   href="javascript:void(0)"
+                                                                   onclick="ShowTimeline(@item.IDCuocThi)"
+                                                                   style="cursor:pointer"
+                                                                   title="@item.TenCuocThi">
+                                                                    <p style="font-weight:600">@item.TenCuocThi</p>
+                                                                    <p class="admission-time">Nhận hồ sơ từ @item.ThoiGianBatDauNhanHS đến @item.ThoiGianKetThucNhanHS</p>
+                                                                </a>
+                                                            </li>
+                                                        </ul>
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="col-12 col-md-8 mb-3 mb-md-0" id="viewquyetdinh">
                     <div class="content-right-wrapper">
-                        <div class="col-12 col-xl-12 pt-2 pb-2 text-center bg-primary text-white custom-border-right brtl-025 brbl-025">Kỳ tuyển sinh</div>
+                        <div class="col-12 col-xl-12 pt-2 pb-2 text-center bg-primary text-white custom-border-right brtl-025 brbl-025">Hạng mục thi</div>
                         <div class="px-3 overflow-auto" style="height: 550px">
                             <div class="col-lg-12" style="padding: 10px">
                                 <div class="course-item" id="timeline_body">
+                                    @if (lstCuocThi.Count() != 0)
+                                    {
+                                        foreach (var item in lstCuocThi)
+                                        {
+                                            if (lstData.Count() != 0)
+                                            {
+                                                List<CuocThiHangMuc> hangmuc = lstData.Where(x => x.IDCuocThi == item.IDCuocThi).ToList();
 
-                                    <div class="row clsDanhSachKyThi clskithi clsid_" style="cursor:pointer" onclick="location.href='/Home/DangKyTuyenSinh';">
-                                        <div class="col-md-2 col-lg-3 d-none d-md-block"></div>
-                                        <div class="col-md-2 col-lg-1 d-none d-md-block">
-                                            <img class="imgHeader" src="~/Content/education-online/images/c3.png" />
-                                        </div>
-                                        <div class="col-12 col-md-6 col-lg-5" style="margin-left:50px">
-                                            <div class="admission-info-wrapper">
-                                                <div class="d-xs-block d-sm-none">
-                                                    <div class="admission-icon admission-mn">MN</div>
-                                                </div>
-                                                <div style="padding:10px!important">
-                                                    <h5>Tên cuộc thi</h5>
-                                                    <p class="admission-time">Từ 01/01/2022 đến 12/02/2022</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div class="col-md-1 col-lg-2 d-none d-md-block">
-                                        </div>
-                                    </div>
+                                                if (hangmuc.Count() != 0)
+                                                {
+                                                    foreach (var hm in hangmuc)
+                                                    {
+                                                        DateTime batBau = DateTime.ParseExact(hm.ThoiGianBatDauNhanHS, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                                                        DateTime ketThuc = DateTime.ParseExact(hm.ThoiGianKetThucNhanHS, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                                                        var test = DateTime.Now.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                                                        DateTime thoiGianHienTai = DateTime.ParseExact(test, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                                                        if (ketThuc <= thoiGianHienTai)
+                                                        {
+                                                            <div id="@hm.IDCuocThi" class="row clsDanhSachKyThi clskithi clsid_@hm.IDCuocThi">
+                                                                <div class="col-md-2 col-lg-3 d-none d-md-block"></div>
+                                                                <div class="col-md-2 col-lg-1 d-none d-md-block">
+                                                                    <img class="imgHeader" src="~/Content/education-online/images/c3.png" />
+                                                                </div>
+                                                                <div class="col-12 col-md-6 col-lg-5" style="margin-left:50px">
+                                                                    <div class="admission-info-wrapper">
+                                                                        <div class="d-xs-block d-sm-none">
+                                                                            <div class="admission-icon admission-mn"></div>
+                                                                        </div>
+                                                                        <div style="padding:10px!important">
+                                                                            <h5>@hm.TenHangMuc</h5>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-1 col-lg-2 d-none d-md-block">
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                        else
+                                                        {
+                                                            <div id="@hm.IDCuocThi" class="row clsDanhSachKyThi clskithi clsid_@hm.IDCuocThi" style="cursor:pointer"  onclick="location.href='/Home/DangKy'">
+                                                                <div class="col-md-2 col-lg-3 d-none d-md-block"></div>
+                                                                <div class="col-md-2 col-lg-1 d-none d-md-block">
+                                                                    <img class="imgHeader" src="~/Content/education-online/images/c3.png" />
+                                                                </div>
+                                                                <div class="col-12 col-md-6 col-lg-5" style="margin-left:50px">
+                                                                    <div class="admission-info-wrapper">
+                                                                        <div class="d-xs-block d-sm-none">
+                                                                            <div class="admission-icon admission-mn"></div>
+                                                                        </div>
+                                                                        <div style="padding:10px!important">
+                                                                            <h5>@hm.TenHangMuc</h5>
+                                                                        </div>
+                                                                    </div>
+                                                                </div>
+                                                                <div class="col-md-1 col-lg-2 d-none d-md-block">
+                                                                </div>
+                                                            </div>
+                                                        }
+                                                    }
+                                                }
+
+                                            }
+                                        }
+                                    }
                                 </div>
                             </div>
                         </div>
@@ -70,6 +174,7 @@
     </div>
 </div>
 @section scripts{
+    <script src="~/JSCustom/DangKy.js"></script>
     <script src="~/Content/education-online/tuyensinh/js/scroll.js"></script>
     <script src="~/Content/TuyenSinhHN/js/ScrollAnimation.js"></script>
 }
