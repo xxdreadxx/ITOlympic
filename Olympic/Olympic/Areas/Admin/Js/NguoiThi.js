@@ -320,7 +320,7 @@ function getListMember(id) {
                 var stt = 0;
                 $.each(result.data, function (i, item) {
                     stt++;
-                    html += '<tr id=\"trlstMem_' + item.ID + '\"><td>' + stt + '</td><td>' + item.MaSV + '</td><td>' + item.TenSV + '</td><td>' + item.Lop + '</td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelMember(' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
+                    html += '<tr id=\"trlstMem_' + item.ID + '\"><td>' + stt + '</td><td>' + item.MaSV + '</td><td>' + item.TenSV + '</td><td>' + item.Lop + '</td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelMember(' + item.ID_SV + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
                 });
                 $('#tblMember').html(html);
             }

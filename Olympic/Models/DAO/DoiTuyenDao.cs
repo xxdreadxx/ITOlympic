@@ -244,6 +244,10 @@ namespace Models.DAO
             {
                 var IDHM = db.a_DoiTuyen.FirstOrDefault(x => x.ID == IDDoiTuyen).ID_HangMuc;
                 var item1 = db.a_HangMuc_SinhVien_Diem.FirstOrDefault(x => x.ID_SV == IDSV && x.TrangThai == 1 && x.ID_HangMuc == IDHM);
+                if (item1 != null)
+                {
+                    item1.TrangThai = 10;
+                }
                 item.TrangThai = 10;
                 db.SaveChanges();
                 kt = true;
