@@ -12,6 +12,7 @@ namespace Models.EF
         public int ID { get; set; }
 
         public int? ID_SV { get; set; }
+        public string SoBaoDanh { get; set; }
 
         public int? ID_HangMuc { get; set; }
 
