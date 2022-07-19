@@ -9,40 +9,49 @@
             <th width="5%"><input id="check-all-delete-js" type="checkbox"></th>
             <th width="30%">Tên giáo viên</th>
             <th width="20%" class="text-center">Tên đăng nhập</th>
-            <th width="15%" class="text-center">Kiểu người dùng</th>
-            <th width="20%" class="text-center">Email</th>
+            <th width="10%" class="text-center">Kiểu người dùng</th>
+            <th width="15%" class="text-center">Email</th>
+            <th width="10%" class="text-center">Trạng thái</th>
             <th width="10%" style="text-align:center">Chức năng</th>
         </tr>
     </thead>
     <tbody>
         @foreach (var item in Model)
         {
-            <tr data-id="@item.ID" id="idtr">
-                <td><input type="checkbox" autocomplete="off" class="one-delete-js" /></td>
-                <td>@item.HoTen</td>
-                <td class="text-center">@item.Username</td>
-                @if (item.LoaiTK == 1)
+        <tr data-id="@item.ID" id="idtr">
+            <td><input type="checkbox" autocomplete="off" class="one-delete-js" /></td>
+            <td>@item.HoTen</td>
+            <td class="text-center">@item.Username</td>
+            @if (item.LoaiTK == 1)
+            {
+                <td class="text-center">Quản trị viên</td>
+            }
+            else
+            {
+                <td class="text-center">Người dùng</td>
+            }
+            <td class="text-center">@item.Email</td>
+            @if (item.TrangThai == 1)
+            {
+                <td class="text-center"><span class="badge badge-success">Sử dụng</span></td>
+            }
+            else
+            {
+                <td class="text-center"><span class="badge badge-dark">Dừng sử dụng</span></td>
+            }
+            <td style="text-align:center">
+                @if (item.TrangThai == 1)
                 {
-                    <td class="text-center">Quản trị viên</td>
+                    <a href="#" title="Dừng sử dụng" onclick="Link_Status_onclick(@item.ID,2)"><i class="ti-na"></i></a>
                 }
                 else
                 {
-                    <td class="text-center">Người dùng</td>
+                    <a href="#" title="Kích hoạt sử dụng" onclick="Link_Status_onclick(@item.ID,1)"><i class="ti-check"></i></a>
                 }
-                <td class="text-center">@item.Email</td>
-                <td style="text-align:center">
-                    @if (item.TrangThai == 1)
-                    {
-                        <a href="#" title="Bỏ kích hoạt" onclick="Link_Status_onclick(@item.ID,2)"><i class="ti-na"></i></a>
-                    }
-                    else
-                    {
-                        <a href="#" title="Kích hoạt" onclick="Link_Status_onclick(@item.ID,1)"><i class="ti-check"></i></a>
-                    }
-                    <a href="#" title="Sửa" type="button" onclick="Add(@item.ID)"><i class="ti-pencil"></i></a>
-                    <a href="#" title="Xóa" onclick="Link_DeleteTT_onclick(@item.ID)"><i class="ti-trash"></i></a>
-                </td>
-            </tr>
+                <a href="#" title="Sửa" type="button" onclick="Add(@item.ID)"><i class="ti-pencil"></i></a>
+                <a href="#" title="Xóa" onclick="Link_DeleteTT_onclick(@item.ID)"><i class="ti-trash"></i></a>
+            </td>
+        </tr>
         }
 
     </tbody>

@@ -229,5 +229,15 @@ namespace Olympic.Areas.Admin.Controllers
                 status = data,
             }, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult checkHLV(string ID)
+        {
+            bool kt = true;
+            kt = dao.checkHLV(ID);
+            return Json(new
+            {
+                status = kt
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }

@@ -1,9 +1,11 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Dapper;
 using Models.EF;
 
 namespace Models.DAO
@@ -96,7 +98,7 @@ namespace Models.DAO
             try
             {
                 var convertArray = ListID.Replace("[", "").Replace("]", "");
-                string _sqlStr = "update a_GiaoVien set TrangThai = 10 where ID in (select * from dbo.SplitDelimiterString(@lstMa,','))";
+                string _sqlStr = "update a_GiaoVien set TrangThai = 10 where ID in (select * from string_split(@lstMa,','))";
                 var maTinParam1 = new SqlParameter("@lstMa", convertArray);
                 var delete = db.Database.ExecuteSqlCommand(_sqlStr, maTinParam1);
             }
@@ -172,5 +174,30 @@ namespace Models.DAO
             return db.a_GiaoVien.Where(x => x.TrangThai == 1 && x.LoaiTK == 2).ToList();
         }
 
+        public bool checkHLV(string ID)
+        {
+            using (SqlConnection _conn = new SqlConnection(ConnectionLib.ConnectString))
+            {
+                _conn.Open();
+                try
+                {
+                    var _sqlStr = @"select gv.* from a_GiaoVien gv join a_DoiTuyen dt on dt.ID_HLV = gv.ID join a_HangMuc hm on hm.ID = dt.ID_HangMuc and hm.TrangThai <> 10 " +
+                        $"join a_CuocThi ct on ct.ID = hm.ID_CuocThi and ct.TrangThai in (1, 2) where gv.ID in (select * from string_split('{ID}',','))";
+                    var lst = _conn.Query<a_GiaoVien>(_sqlStr, null, commandType: CommandType.Text).ToList<a_GiaoVien>();
+                    int totalCount = lst.Count();
+                    if(totalCount >= 1)
+                    {
+                        return false;
+                    }
+                    else{
+                        return true;
+                    }
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+        }
     }
 }

@@ -46,10 +46,8 @@
                 </div>
                 <div class="col-lg-6">
                     <div class="col-lg-offset-6 custom-search-form">
-                        <input type="text" class="form-control" tabindex="2" value="@ViewBag.Search" name="Search" id="txtSearch" placeholder="Tìm kiếm..." />
-                        @*<span class="input-group-btn">
-                            <button class="btn btn-default" type="submit" tabindex="3" id="btnSearch"><i class="ti-search"></i></button>
-                        </span>*@
+                        <input class="form-control" value="@ViewBag.Search" name="Search" id="txtSearch" placeholder="Tìm kiếm ..." />
+                        <input type="text" class="form-control" tabindex="2" style="display:none" />
                     </div>
                 </div>
             </div>
@@ -149,10 +147,6 @@
                                     <input type="file" id="fImage" onchange="changeIMG()" name="fImage" accept="*/image" style="display:none" />
                                 </div>
                             </div>
-                            
-
-                            
-
                             <div class="lms-input-group">
                                 <div class="input-group-title right">Số điện thoại</div>
                                 <div class="input-group-content">
@@ -204,4 +198,3 @@
 @section scripts{
     <script src="~/Areas/Admin/Js/dGiaoVien.js"></script>
 }
-

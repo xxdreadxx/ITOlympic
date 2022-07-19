@@ -103,11 +103,15 @@ function Add(id) {
                     else {
                         $('#NewGender_0').attr('checked', true)
                     }
-                    if (result.data.trangthai == 1) {
-                        $('#activeKH_1').attr('checked', true)
+                    if (result.data.TrangThai == 1) {
+                        radiobtn = document.getElementById("activeKH_1");
+                        radiobtn.checked = true;
+                        //$('#activeKH_1').attr('checked', true)
                     }
                     else {
-                        $('#activeKH_0').attr('checked', true)
+                        radiobtn = document.getElementById("activeKH_0");
+                        radiobtn.checked = true;
+                        //$('#activeKH_0').attr('checked', true)
                     }
                 }
             }
@@ -404,27 +408,50 @@ function deleteOne() {
         mangId.push(idND)
     }
     $.ajax({
-        url: '/dGiaoVien/Delete',
+        url: '/dGiaoVien/checkHLV',
         dataType: 'json',
         type: 'post',
         data: { ListID: JSON.stringify(mangId) },
         success: function (rs) {
             if (rs.status == true) {
-                $("#DeleteND").modal("hide");
+                $.ajax({
+                    url: '/dGiaoVien/Delete',
+                    dataType: 'json',
+                    type: 'post',
+                    data: { ListID: JSON.stringify(mangId) },
+                    success: function (rs) {
+                        if (rs.status == true) {
+                            $("#DeleteND").modal("hide");
+                            bootbox.alert({
+                                title: "Thông báo",
+                                message: "Xóa thành công bản ghi",
+                                buttons: {
+                                    ok: {
+                                        label: 'Đóng',
+                                        className: "btn btn-default",
+                                    }
+                                },
+                                callback: function () { loadPartial(); }
+                            })
+                        }
+                    }
+                })
+            }
+            else {
                 bootbox.alert({
                     title: "Thông báo",
-                    message: "Xóa thành công bản ghi",
+                    message: "Có huấn luyện viên đang huấn luyện đội thi, không thể xóa",
                     buttons: {
                         ok: {
                             label: 'Đóng',
                             className: "btn btn-default",
                         }
-                    },
-                    callback: function () { loadPartial(); }
+                    }
                 })
             }
         }
     })
+    
 }
 
 function deleteAll() {
@@ -461,10 +488,10 @@ function Link_Status_onclick(DID, trangthai) {
     if (idBG != "")//view popup xác nhận xóa
     {
         if (status == 2) {
-            $('#statusNoiDung').text('Bạn có muốn bỏ kích hoạt tài khoản giáo viên đã chọn hay không?')
+            $('#statusNoiDung').text('Bạn có muốn dừng sử dụng tài khoản giáo viên đã chọn hay không?')
         }
         else {
-            $('#statusNoiDung').text('Bạn có muốn kích hoạt tài khoản giáo viên đã chọn hay không?')
+            $('#statusNoiDung').text('Bạn có muốn kích hoạt sử dụng tài khoản giáo viên đã chọn hay không?')
         }
         $("#status").modal("show");
     }
@@ -513,11 +540,13 @@ function changeStatus() {
 }
 
 $(document).ready(function () {
-    $("#txtSearch").on('keyup', function () {
-        var value = $(this).val().toLowerCase();
-        $("#tblUser > tbody tr").filter(function () {
-            $(this).toggle($(this).text().toLowerCase().indexOf(value) != -1)
-        });
+    $("#txtSearch").val('');
+});
+
+$("#txtSearch").on('keyup', function () {
+    var value = $(this).val().toLowerCase();
+    $("#tblUser > tbody tr").filter(function () {
+        $(this).toggle($(this).text().toLowerCase().indexOf(value) != -1)
     });
 });
 
