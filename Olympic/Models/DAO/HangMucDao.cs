@@ -120,9 +120,9 @@ namespace Models.DAO
             return 1;
         }
 
-        public bool checkMa(string ma, int id)
+        public bool checkMa(string ma, int id, int idCuocThi)
         {
-            var item = db.a_HangMuc.FirstOrDefault(x => x.MaHangMuc == ma && x.TrangThai != 10 && x.ID != id);
+            var item = db.a_HangMuc.FirstOrDefault(x => x.MaHangMuc == ma && x.TrangThai != 10 && x.ID != id && x.ID_CuocThi == idCuocThi);
             if (item != null)
             {
                 return false;
