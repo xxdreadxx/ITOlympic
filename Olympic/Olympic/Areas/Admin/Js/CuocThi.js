@@ -73,6 +73,7 @@ function Add(id) {
     $('#id').val(id);
     if (id == null || id == 0) {
         document.getElementById('tieude').innerHTML = "Thêm mới cuộc thi";
+        $('#addNewUser').modal('show');
     }
     else {
         document.getElementById('tieude').innerHTML = "Cập nhật thông tin cuộc thi";
@@ -84,29 +85,37 @@ function Add(id) {
             type: 'post',
             success: function (result) {
                 if (result.status == true) {
-                    $('#id').val(id);
-                    $('#txtMa').val(result.data.MaCuocThi);
-                    $('#txtBatDau').val(result.data.ThoiGianBatDau);
-                    $('#txtBTC').val(result.data.BTC);
-                    $('#txtGiaiThuong').val(result.data.GiaiTHuong);
-                    $('#txtTen').val(result.data.TenCuocThi);
-                    $('#txtNam').val(result.data.Nam);
-                    $('#txtKetThuc').val(result.data.ThoiGianKetThuc);
-                    $('#txtKinhPhi').val(result.data.KinhPhi);
-                    $('#txtNoiDung').val(result.data.NoiDung);
-                    if (result.data.TenFile != null && result.data.TenFile != "") {
-                        var strtenfile = result.data.TenFile.split("/").pop();
-                        if (strtenfile.length > 30) {
-                            strtenfile = strtenfile.substring(0, 20) + "...";
+                    if (result.data.TrangThai == 3 || result.data.TrangThai == 2) {
+                        toastr.error('Cuộc thi đã kết thúc hoặc đang triển khai, không thể sửa!', '', { timeOut: 2000 });
+                        //setTimeout(function () {
+                        //    window.location = '/Admin/HomeAd';
+                        //}, 1000);
+                    }
+                    else {
+                        $('#id').val(id);
+                        $('#txtMa').val(result.data.MaCuocThi);
+                        $('#txtBatDau').val(result.ThoiGianBatDau);
+                        $('#txtBTC').val(result.data.BTC);
+                        $('#txtGiaiThuong').val(result.data.GiaiTHuong);
+                        $('#txtTen').val(result.data.TenCuocThi);
+                        $('#txtNam').val(result.data.Nam);
+                        $('#txtKetThuc').val(result.ThoiGianKetThuc);
+                        $('#txtKinhPhi').val(result.data.KinhPhi);
+                        $('#txtNoiDung').val(result.data.NoiDung);
+                        if (result.data.TenFile != null && result.data.TenFile != "") {
+                            var strtenfile = result.data.TenFile.split("/").pop();
+                            if (strtenfile.length > 30) {
+                                strtenfile = strtenfile.substring(0, 20) + "...";
+                            }
+                            $('#fileName').text(strtenfile);
+                            $('#fileName').css('display', 'block');
                         }
-                        $('#fileName').text(strtenfile);
-                        $('#fileName').css('display', 'block');
+                        $('#addNewUser').modal('show');
                     }
                 }
             }
         });
     }
-    $('#addNewUser').modal('show');
 }
 
 function resetForm() {
@@ -253,132 +262,133 @@ function Save() {
     var ten = $('#txtTen').val().trim();
     var tgbd = $('#txtBatDau').val();
     var tgkt = $('#txtKetThuc').val();
-    var id = $('#id').val();
-    var file = document.getElementById('btnChoose');
-
     var extension = $("#btnChoose").val().split('.').pop();
     if (extension != "pdf" && extension != "") {
-        isSave = false;
         document.getElementById('fileError').innerHTML = "Vui lòng chọn file PDF";
+        isSave = false;
         $('#fileError').show();
+        return false;
     }
-    if (ten == "") {
-        isSave = false;
+    else if (ten == "") {
         document.getElementById('errTen').innerHTML = "Chưa nhập tên cuộc thi";
-        $('#errTen').show();
-    }
-    if (ma == "") {
         isSave = false;
-        document.getElementById('errMa').innerHTML = "Chưa nhập mã cuộc thi";
-        $('#errMa').show();
+        $('#errTen').show();
+        return false;
     }
-    else {
-        $.ajax({
-            url: "/CuocThiAd/checkMaCuocThi",
-            data: {
-                ma: ma,
-                id: id
-            },
-            type: 'post',
-            success: function (result) {
-                if (result.status == false) {
-                    isSave = false;
-                    document.getElementById('errUsername').innerHTML = "Tên đăng nhập đã tồn tại trong hệ thống";
-                    $('#errUsername').show();
-                }
-            }
-        });
+    else if (ma == "") {
+        document.getElementById('errMa').innerHTML = "Chưa nhập mã cuộc thi";
+        isSave = false;
+        $('#errMa').show();
+        return false;
     }
     if (tgbd == "") {
         document.getElementById('errTGBD').innerHTML = "Chưa nhập thời gian bắt đầu";
+        isSave = false;
         $('#errTGBD').show();
+        return false;
     }
     else {
         if (checkDate(tgkt, false) == false) {
             document.getElementById('errTGBD').innerHTML = "Ngày tháng năm sai định dạng.";
+            isSave = false;
             $('#errTGBD').show();
+            return false;
         }
         else {
             $('#errTGBD').hide();
         }
     }
-
     if (tgkt == "") {
         document.getElementById('errTGKT').innerHTML = "Chưa nhập thời gian kết thúc";
+        isSave = false;
         $('#errTGKT').show();
+        return false;
     }
     else {
         if (checkDate(tgkt, false) == false) {
             document.getElementById('errTGKT').innerHTML = "Ngày tháng năm sai định dạng.";
+            isSave = false;
             $('#errTGKT').show();
+            return false;
         }
         else {
             $('#errTGKT').hide();
         }
     }
-
-
     if (isSave == true) {
-        var formData = new FormData();
-        formData.append("Ma", ma);
-        formData.append("Ten", ten);
-        formData.append("BTC", $('#txtBTC').val());
-        formData.append("Cap", $('#dllCap').val());
-        formData.append("GiaiThuong", $('#txtGiaiThuong').val());
-        formData.append("KinhPhi", $('#txtKinhPhi').val());
-        formData.append("NamHoc", $('#txtNam').val());
-        var file = document.getElementById("btnChoose").files[0];
-        formData.append("File", file);
-        formData.append("NoiDung", $('#txtNoiDung').val());
-        formData.append("TGBD", tgbd);
-        formData.append("ID", id);
-        formData.append("TGKT", tgkt);
-        $.ajax({
-            async: false,
-            type: 'POST',
-            url: "/CuocThiAd/Save",
-            data: formData,
-            cache: false,
-            contentType: false,
-            processData: false,
-            success: function (response) {
-                if (response.status == true) {
-                    $('#addNewUser').modal('hide');
-                    if (id == 0) {
-                        bootbox.alert({
-                            title: "Thông báo",
-                            message: "Thêm mới thành công cuộc thi",
-                            buttons: {
-                                ok: {
-                                    label: 'Đóng',
-                                    className: "btn btn-default",
-                                }
-                            },
-                            callback: function () { loadPartial(); }
-                        })
-                    }
-                    else {
-                        bootbox.alert({
-                            title: "Thông báo",
-                            message: "Cập nhật cuộc thi thành công",
-                            buttons: {
-                                ok: {
-                                    label: 'Đóng',
-                                    className: "btn btn-default",
-                                }
-                            },
-                            callback: function () { loadPartial(); }
-                        })
-                    }
-                }
-            },
-            error: function (err) {
-                console.log(err);
-            }
-        });
+        SaveData();
     }
-
 }
+
+function SaveData() {
+    var ma = $('#txtMa').val().trim();
+    var ten = $('#txtTen').val().trim();
+    var tgbd = $('#txtBatDau').val();
+    var tgkt = $('#txtKetThuc').val();
+    var id = $('#id').val();
+    var formData = new FormData();
+    formData.append("Ma", ma);
+    formData.append("Ten", ten);
+    formData.append("BTC", $('#txtBTC').val());
+    formData.append("Cap", $('#dllCap').val());
+    formData.append("GiaiThuong", $('#txtGiaiThuong').val());
+    formData.append("KinhPhi", $('#txtKinhPhi').val());
+    formData.append("NamHoc", $('#txtNam').val());
+    var file = document.getElementById("btnChoose").files[0];
+    formData.append("File", file);
+    formData.append("NoiDung", $('#txtNoiDung').val());
+    formData.append("TGBD", tgbd);
+    formData.append("ID", id);
+    formData.append("TGKT", tgkt);
+    $.ajax({
+        async: false,
+        type: 'POST',
+        url: "/CuocThiAd/Save",
+        data: formData,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            if (response.status == true) {
+                $('#addNewUser').modal('hide');
+                if (id == 0) {
+                    bootbox.alert({
+                        title: "Thông báo",
+                        message: "Thêm mới thành công cuộc thi",
+                        buttons: {
+                            ok: {
+                                label: 'Đóng',
+                                className: "btn btn-default",
+                            }
+                        },
+                        callback: function () { loadPartial(); }
+                    })
+                }
+                else {
+                    bootbox.alert({
+                        title: "Thông báo",
+                        message: "Cập nhật cuộc thi thành công",
+                        buttons: {
+                            ok: {
+                                label: 'Đóng',
+                                className: "btn btn-default",
+                            }
+                        },
+                        callback: function () { loadPartial(); }
+                    })
+                }
+            }
+            else {
+                $('#errMa').text('Mã cuộc thi đã tồn tại');
+                $('#errMa').show();
+            }
+        },
+        error: function (err) {
+            console.log(err);
+        }
+    });
+}
+
 var idND = "";
 function Link_DeleteTT_onclick(DID) {
     idND = DID;

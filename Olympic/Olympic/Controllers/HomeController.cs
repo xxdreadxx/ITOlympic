@@ -126,11 +126,11 @@ namespace Olympic.Controllers
                 sv.Email = email;
                 if (gioitinh == "1")
                 {
-                    sv.GioiTinh = true;
+                    sv.GioiTinh = 1;
                 }
                 else
                 {
-                    sv.GioiTinh = false;
+                    sv.GioiTinh = 0;
                 }
 
                 if (fileDinhKem_TenFile.Count > 0)

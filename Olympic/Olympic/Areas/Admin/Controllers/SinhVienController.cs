@@ -92,11 +92,11 @@ namespace Olympic.Areas.Admin.Controllers
                 gv.NgaySinh = birth.GetValueOrDefault().ToString("dd/MM/yyyy");
                 if (c["GioiTinh"] == "1")
                 {
-                    gv.GioiTinh = true;
+                    gv.GioiTinh = 1;
                 }
                 else
                 {
-                    gv.GioiTinh = false;
+                    gv.GioiTinh = 0;
                 }
                 if (c["KichHoat"] == "1")
                 {
@@ -135,11 +135,11 @@ namespace Olympic.Areas.Admin.Controllers
                 gv.NgaySinh = birth.GetValueOrDefault().ToString("dd/MM/yyyy");
                 if (c["GioiTinh"] == "1")
                 {
-                    gv.GioiTinh = true;
+                    gv.GioiTinh = 1;
                 }
                 else
                 {
-                    gv.GioiTinh = false;
+                    gv.GioiTinh = 0;
                 }
                 gv.TrangThai = 1;
                 if (file.Count > 0)
