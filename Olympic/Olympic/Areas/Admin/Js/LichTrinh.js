@@ -78,32 +78,33 @@ $(document).on('change', '#check-all-delete-js , #tblUser > tbody > tr  input.on
 });
 
 function checkDate(strDate, kt) {
-    if (kt == true) {
-        var comp = strDate.split('/');
-        var d = comp[0];
-        var m = comp[1];
-        var y = comp[2];
-        var date = new Date(y, m - 1, d);
-        if (date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d) {
-            return true;
-        }
-        return false;
-    }
-    else {
-        //nếu ko có dữ liệu thì ko cần kiểm tra(trường ngày tháng có thể để trống)
-        if (strDate == null || strDate == "") return true;
-        else {
-            var comp = strDate.split('/');
-            var d = comp[0];
-            var m = comp[1];
-            var y = comp[2];
-            var date = new Date(y, m - 1, d);
-            if (date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d) {
-                return true;
-            }
-            return false;
-        }
-    }
+    //if (kt == true) {
+    //    var comp = strDate.split('/');
+    //    var d = comp[0];
+    //    var m = comp[1];
+    //    var y = comp[2];
+    //    var date = new Date(y, m - 1, d);
+    //    if (date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d) {
+    //        return true;
+    //    }
+    //    return false;
+    //}
+    //else {
+    //    //nếu ko có dữ liệu thì ko cần kiểm tra(trường ngày tháng có thể để trống)
+    //    if (strDate == null || strDate == "") return true;
+    //    else {
+    //        var comp = strDate.split('/');
+    //        var d = comp[0];
+    //        var m = comp[1];
+    //        var y = comp[2];
+    //        var date = new Date(y, m - 1, d);
+    //        if (date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d) {
+    //            return true;
+    //        }
+    //        return false;
+    //    }
+    //}
+    return true;
 }
 
 function DongY_ChonKyThi() {
@@ -130,8 +131,10 @@ function Add(id, idKyThi) {
             type: 'get',
             success: function (result) {
                 if (result.status == true) {
-                    $('#txtBatDauNhanHS').val(result.data.ThoiGianBatDauNhanHS);
-                    $('#txtCongBo').val(result.data.ThoiGianCongBoDiem);
+                    $('#txtBatDauNhanHS').val(result.ThoiGianBatDau);
+                    $('#txtCongBo').val(result.ThoiGianKetThuc);
+                    $('#id').val(0);
+                    $('#idCuocThi').val(idKyThi);
                 }
             }
         });
@@ -147,14 +150,15 @@ function Add(id, idKyThi) {
             success: function (result) {
                 if (result.status == true) {
                     $('#id').val(id);
-                    $('#txtBatDauNhanHS').val(result.data.ThoiGianBatDauNhanHoSo);
+                    $('#idCuocThi').val(result.data.IDCuocThi);
+                    $('#txtBatDauNhanHS').val(result.data.ThoiGianBatDauNhanHS);
                     $('#txtBatDauNhanTHi').val(result.data.ThoiGianBatDauThi);
-                    $('#txtDiaDiem').val(result.data.DiaDiemThi);
-                    $('#txtKetThucNhanHS').val(result.data.ThoiGianKetThucNhanHoSo);
+                    $('#txtDiaDiem').val(result.data.DiaDiem);
+                    $('#txtKetThucNhanHS').val(result.data.ThoiGianKetThucNhanHS);
                     $('#txtKetThucThi').val(result.data.ThoiGianKetThucThi);
                     $('#txtBatDauChamDiem').val(result.data.ThoiGianBatDauChamDiem);
                     $('#txtKetThuChamDiem').val(result.data.ThoiGianKetThucChamDiem);
-                    $('#txtCongBo').val(result.data.ThoiGianCongBoKetQua);
+                    $('#txtCongBo').val(result.data.ThoiGianCongBoDiem);
                 }
             }
         });
