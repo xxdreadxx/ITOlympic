@@ -463,3 +463,21 @@ $(document).ready(function () {
         });
     });
 });
+
+function link(id) {
+    $.ajax({
+        url: "/CuocThiAd/checklink",
+        data: {
+            id: id
+        },
+        type: 'post',
+        success: function (result) {
+            if (result.status == true) {
+                location.href = '/Admin/HangMuc/Index/' + id;
+            }
+            else {
+                toastr.error('Cuộc thi chưa nhập lịch trình, không thể vào quản lý hạng mục thi!', '', { timeOut: 2000 });
+            }
+        }
+    });
+}

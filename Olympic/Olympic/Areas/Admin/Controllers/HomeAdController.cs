@@ -26,9 +26,17 @@ namespace Olympic.Areas.Admin.Controllers
             Session["UserHoTen"] = ViewBag.User.HoTen;
             return View();
         }
-        public JsonResult GetCuocThi()
+        public JsonResult GetCuocThi(int type = 0)
         {
-            var data = db.a_CuocThi.Where(x => x.TrangThai != 10 && x.TrangThai != 3).ToList();
+            List<a_CuocThi> data = new List<a_CuocThi>();
+            if (type == 1)
+            {
+                data = db.a_CuocThi.Where(x => x.TrangThai == 1).ToList();
+            }
+            else
+            {
+                data = db.a_CuocThi.Where(x => x.TrangThai == 1 || x.TrangThai == 2).ToList();
+            }
             return Json(new
             {
                 status = true,
@@ -38,7 +46,7 @@ namespace Olympic.Areas.Admin.Controllers
 
         public JsonResult GetCuocThiChuaTaoLichTrinh()
         {
-            var data = db.a_CuocThi.Where(x => x.TrangThai != 10 && x.TrangThai != 3).ToList();
+            var data = db.a_CuocThi.Where(x => x.TrangThai == 1).ToList();
             return Json(new
             {
                 status = true,

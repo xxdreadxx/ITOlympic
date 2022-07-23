@@ -351,7 +351,7 @@
                 document.getElementById("divHinhThucThi").style.display = 'none';
             }
             $.ajax({
-                url: '/HomeAd/GetCuocThi',
+                url: '/HomeAd/GetCuocThi?type='+type,
                 success: function (res) {
                     var selectCuocThi = $('#txtKyThi_ChonKyThi');
                     var op = "<option value=0>Chọn cuộc thi</option>";

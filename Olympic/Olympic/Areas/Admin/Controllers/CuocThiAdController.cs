@@ -206,5 +206,24 @@ namespace Olympic.Areas.Admin.Controllers
                 status = true
             }, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult checklink(int id)
+        {
+            var data = ctDao.getLichTrinh(id);
+            if(data != null)
+            {
+                return Json(new
+                {
+                    status = true
+                }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new
+                {
+                    status = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
     }
 }

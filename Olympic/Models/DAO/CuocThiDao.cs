@@ -47,6 +47,11 @@ namespace Models.DAO
             return db.a_CuocThi.FirstOrDefault(x => x.ID == id);
         }
 
+        public a_CuocThi_LichTrinh getLichTrinh(int id)
+        {
+            return db.a_CuocThi_LichTrinh.FirstOrDefault(x => x.IDCuocThi == id && x.TrangThai == 1);
+        }
+
         public int Add(a_CuocThi result)
         {
             try
