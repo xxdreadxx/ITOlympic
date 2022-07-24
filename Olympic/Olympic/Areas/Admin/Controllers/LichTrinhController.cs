@@ -98,14 +98,14 @@ namespace Olympic.Areas.Admin.Controllers
             {
                 //thêm mới
                 gv.IDCuocThi = IDCuocThi;
-                gv.ThoiGianBatDauNhanHS = birth.GetValueOrDefault().ToString("dd/MM/yyyy"); ;
-                gv.ThoiGianKetThucNhanHS = birth1.GetValueOrDefault().ToString("dd/MM/yyyy"); ;
-                gv.ThoiGianBatDauThi = birth2.GetValueOrDefault().ToString("dd/MM/yyyy"); ;
-                gv.ThoiGianKetThucThi = birth3.GetValueOrDefault().ToString("dd/MM/yyyy"); ;
-                gv.ThoiGianBatDauChamDiem = birth4.GetValueOrDefault().ToString("dd/MM/yyyy"); ;
-                gv.ThoiGianKetThucChamDiem = birth5.GetValueOrDefault().ToString("dd/MM/yyyy"); ;
+                gv.ThoiGianBatDauNhanHS = birth.GetValueOrDefault().ToString("dd/MM/yyyy");
+                gv.ThoiGianKetThucNhanHS = birth1.GetValueOrDefault().ToString("dd/MM/yyyy");
+                gv.ThoiGianBatDauThi = birth2.GetValueOrDefault().ToString("dd/MM/yyyy");
+                gv.ThoiGianKetThucThi = birth3.GetValueOrDefault().ToString("dd/MM/yyyy");
+                gv.ThoiGianBatDauChamDiem = birth4.GetValueOrDefault().ToString("dd/MM/yyyy");
+                gv.ThoiGianKetThucChamDiem = birth5.GetValueOrDefault().ToString("dd/MM/yyyy");
                 gv.DiaDiem = c["DiaDiem"];
-                gv.ThoiGianCongBoDiem = birth6.GetValueOrDefault().ToString("dd/MM/yyyy"); ;
+                gv.ThoiGianCongBoDiem = birth6.GetValueOrDefault().ToString("dd/MM/yyyy");
                 gv.NgayTao = DateTime.Now;
                 gv.NguoiTao = user;
                 gv.TrangThai = 1;
@@ -115,14 +115,14 @@ namespace Olympic.Areas.Admin.Controllers
             {
                 //sửa
                 gv.ID = ID;
-                gv.ThoiGianBatDauNhanHS = birth.GetValueOrDefault().ToString("dd/MM/yyyy"); ;
-                gv.ThoiGianKetThucNhanHS = birth1.GetValueOrDefault().ToString("dd/MM/yyyy"); ;
-                gv.ThoiGianBatDauThi = birth2.GetValueOrDefault().ToString("dd/MM/yyyy"); ;
-                gv.ThoiGianKetThucThi = birth3.GetValueOrDefault().ToString("dd/MM/yyyy"); ;
-                gv.ThoiGianBatDauChamDiem = birth4.GetValueOrDefault().ToString("dd/MM/yyyy"); ;
-                gv.ThoiGianKetThucChamDiem = birth5.GetValueOrDefault().ToString("dd/MM/yyyy"); ;
+                gv.ThoiGianBatDauNhanHS = birth.GetValueOrDefault().ToString("dd/MM/yyyy");
+                gv.ThoiGianKetThucNhanHS = birth1.GetValueOrDefault().ToString("dd/MM/yyyy");
+                gv.ThoiGianBatDauThi = birth2.GetValueOrDefault().ToString("dd/MM/yyyy");
+                gv.ThoiGianKetThucThi = birth3.GetValueOrDefault().ToString("dd/MM/yyyy");
+                gv.ThoiGianBatDauChamDiem = birth4.GetValueOrDefault().ToString("dd/MM/yyyy");
+                gv.ThoiGianKetThucChamDiem = birth5.GetValueOrDefault().ToString("dd/MM/yyyy");
                 gv.DiaDiem = c["DiaDiem"];
-                gv.ThoiGianCongBoDiem = birth6.GetValueOrDefault().ToString("dd/MM/yyyy"); ;
+                gv.ThoiGianCongBoDiem = birth6.GetValueOrDefault().ToString("dd/MM/yyyy");
                 gv.NguoiSua = user;
                 gv.NgaySua = DateTime.Now;
                 var kt = dao.Edit(gv);

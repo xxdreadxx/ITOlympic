@@ -181,7 +181,10 @@ namespace Olympic.Areas.Admin.Controllers
         public JsonResult checkTG(string tg)
         {
             int IDCuocThi = int.Parse(Session["ID_CuocThi"].ToString());
-            bool kt = hmDao.checkLichTrinh(IDCuocThi, tg);
+            DateTime? birth = null;
+            birth = DateTime.ParseExact(tg, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+            string tgn = birth.GetValueOrDefault().ToString("dd/MM/yyyy");
+            bool kt = hmDao.checkLichTrinh(IDCuocThi, tgn);
             return Json(new
             {
                 status = kt
