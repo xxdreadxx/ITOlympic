@@ -139,24 +139,26 @@
                                                         }
                                                         else
                                                         {
-                                                            <div id="@hm.IDCuocThi" class="row clsDanhSachKyThi clskithi clsid_@hm.IDCuocThi" style="cursor:pointer"  onclick="location.href = '/Home/DangKy?idCuocThi = @hm.IDCuocThi?idHangMuc=@hm.ID'">
-                                                                <div class="col-md-2 col-lg-3 d-none d-md-block"></div>
-                                                                <div class="col-md-2 col-lg-1 d-none d-md-block">
-                                                                    <img class="imgHeader" src="~/Content/education-online/images/c3.png" />
-                                                                </div>
-                                                                <div class="col-12 col-md-6 col-lg-5" style="margin-left:50px">
-                                                                    <div class="admission-info-wrapper">
-                                                                        <div class="d-xs-block d-sm-none">
-                                                                            <div class="admission-icon admission-mn"></div>
-                                                                        </div>
-                                                                        <div style="padding:10px!important">
-                                                                            <h5>@hm.TenHangMuc</h5>
+                                                            <a href="/Home/DangKy/@hm.ID">
+                                                                <div id="@hm.IDCuocThi" class="row clsDanhSachKyThi clskithi clsid_@hm.IDCuocThi" style="cursor:pointer">
+                                                                    <div class="col-md-2 col-lg-3 d-none d-md-block"></div>
+                                                                    <div class="col-md-2 col-lg-1 d-none d-md-block">
+                                                                        <img class="imgHeader" src="~/Content/education-online/images/c3.png" />
+                                                                    </div>
+                                                                    <div class="col-12 col-md-6 col-lg-5" style="margin-left:50px">
+                                                                        <div class="admission-info-wrapper">
+                                                                            <div class="d-xs-block d-sm-none">
+                                                                                <div class="admission-icon admission-mn"></div>
+                                                                            </div>
+                                                                            <div style="padding:10px!important">
+                                                                                <h5>@hm.TenHangMuc</h5>
+                                                                            </div>
                                                                         </div>
                                                                     </div>
+                                                                    <div class="col-md-1 col-lg-2 d-none d-md-block">
+                                                                    </div>
                                                                 </div>
-                                                                <div class="col-md-1 col-lg-2 d-none d-md-block">
-                                                                </div>
-                                                            </div>
+                                                            </a>
                                                         }
                                                     }
                                                 }

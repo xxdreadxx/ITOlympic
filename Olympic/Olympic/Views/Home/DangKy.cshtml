@@ -4,7 +4,7 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 
     int idHangMuc = ViewBag.IDHangMuc;
-    int idCuocThi = ViewBag.IDCuocThi;
+    //int idCuocThi = ViewBag.IDCuocThi;
 }
 <style>
 
@@ -76,7 +76,7 @@
         <div class="row">
             <input hidden value="0" id="id" />
             <input hidden value="@idHangMuc" id="idHangMuc" />
-            <input hidden value="@idCuocThi" id="idCuocThi" />
+            @*<input hidden value="@idCuocThi" id="idCuocThi" />*@
             <div class="col-lg-10 mx-auto form-shared .contact-form-action">
                 <div class="admission-body">
                     <div class="row" style="padding: 0px 50px">

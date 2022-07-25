@@ -178,7 +178,7 @@ namespace Olympic.Areas.Admin.Controllers
         {
             int totalcount = 0;
             var data = dtDao.getListSVInDoiTuyen(ID, ref totalcount);
-            var dataHM = hmDao.getByID(ID);
+            var dataHM = hmDao.getByIDDT(ID);
             return Json(new
             {
                 status = true,

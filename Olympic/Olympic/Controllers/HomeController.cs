@@ -86,10 +86,10 @@ namespace Olympic.Controllers
             return View();
         }
 
-        public ActionResult DangKy(int idCuocThi = 0,int idHangMuc = 0)
+        public ActionResult DangKy(int id = 0)
         {
-            ViewBag.IDHangMuc = idHangMuc;
-            ViewBag.IDCuocThi = idCuocThi;
+            ViewBag.IDHangMuc = id;
+            //ViewBag.IDCuocThi = idCuocThi;
             return View();
         }
 
@@ -107,7 +107,7 @@ namespace Olympic.Controllers
             string sodienthoai = c["SoDienThoai"].ToString().Trim();
             int ID = int.Parse(c["ID"].ToString());
             int idHangMuc = int.Parse(c["idHangMuc"]);
-            int idCuocThi = int.Parse(c["IDCuocThi"]);
+            //int idCuocThi = int.Parse(c["IDCuocThi"]);
 
             var checkExist = db.a_SinhVien.FirstOrDefault(x => x.MaSV.ToLower() == mahocsinh && x.TrangThai != 10 && x.ID != ID);
             if ((mahocsinh != "" && mahocsinh != null) && checkExist != null)

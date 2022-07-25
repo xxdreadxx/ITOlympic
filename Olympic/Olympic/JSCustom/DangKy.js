@@ -20,7 +20,7 @@ function fileChange() {
     if (filedinhkem_input != null) {
 
         //Check xem cái file đẩy lên có đúng các đinh dạng yêu cầu hay không
-        var ten_file = filedinhkem_input.files[i].name;
+        var ten_file = filedinhkem_input.files[0].name;
         html = '<tr class="file_hienthi" id="file_hienthi">' +
             '<td colspan="0" style="width: 90%; font-size:14px" data-bs-placement="top" >●&ensp;' + ten_file + '</td>' +
             '<td colspan="2" class="btn_chontep" style="width: 10%; text-align:center; cursor: pointer;"><a class="fa fa-trash btn_chontep" style="width:100%; cursor: pointer;" onclick="removeFile()"></a>' +
@@ -170,7 +170,7 @@ function SaveThongTin() {
         var form = new FormData();
         form.append('ID', $('#id').val());
         form.append('IDHangMuc', $('#idHangMuc').val());
-        form.append('IDCuocThi', $('#idCuocThi').val());
+        //form.append('IDCuocThi', $('#idCuocThi').val());
         form.append("MaHocSinh", $('#txtMaSV').val());
         form.append("HoTen", $('#txthoten').val());
         form.append("GioiTinh", $('input[name="Gender"]:checked').val());
