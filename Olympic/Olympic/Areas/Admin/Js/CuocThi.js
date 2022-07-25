@@ -94,12 +94,12 @@ function Add(id) {
                     else {
                         $('#id').val(id);
                         $('#txtMa').val(result.data.MaCuocThi);
-                        $('#txtBatDau').val(result.ThoiGianBatDau);
+                        $('#txtBatDau').val(result.data.ThoiGianBatDau);
                         $('#txtBTC').val(result.data.BTC);
                         $('#txtGiaiThuong').val(result.data.GiaiTHuong);
                         $('#txtTen').val(result.data.TenCuocThi);
                         $('#txtNam').val(result.data.Nam);
-                        $('#txtKetThuc').val(result.ThoiGianKetThuc);
+                        $('#txtKetThuc').val(result.data.ThoiGianKetThuc);
                         $('#txtKinhPhi').val(result.data.KinhPhi);
                         $('#txtNoiDung').val(result.data.NoiDung);
                         if (result.data.TenFile != null && result.data.TenFile != "") {
@@ -170,10 +170,10 @@ function readURL(input) {
 
 function checkDate(strDate, kt) {
     if (kt == true) {
-        var comp = strDate.split('-');
-        var d = comp[2];
+        var comp = strDate.split('/');
+        var d = comp[0];
         var m = comp[1];
-        var y = comp[0];
+        var y = comp[2];
         var date = new Date(y, m - 1, d);
         if (date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d) {
             return true;
@@ -182,17 +182,18 @@ function checkDate(strDate, kt) {
     }
     else {
         //nếu ko có dữ liệu thì ko cần kiểm tra(trường ngày tháng có thể để trống)
-
-        var comp = strDate.split('-');
-        var d = comp[2];
-        var m = comp[1];
-        var y = comp[0];
-        var date = new Date(y, m - 1, d);
-        if (date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d) {
-            return true;
+        if (strDate == null || strDate == "") return true;
+        else {
+            var comp = strDate.split('/');
+            var d = comp[0];
+            var m = comp[1];
+            var y = comp[2];
+            var date = new Date(y, m - 1, d);
+            if (date.getFullYear() == y && date.getMonth() + 1 == m && date.getDate() == d) {
+                return true;
+            }
+            return false;
         }
-        return false;
-
     }
 }
 

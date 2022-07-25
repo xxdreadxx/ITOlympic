@@ -80,32 +80,19 @@ namespace Olympic.Areas.Admin.Controllers
             var ngaysinh5 = c["TGKTChamDiem"];
             var ngaysinh6 = c["TGCongBo"];
             a_CuocThi_LichTrinh gv = new a_CuocThi_LichTrinh();
-            DateTime? birth = null;
-            DateTime? birth1 = null;
-            DateTime? birth2 = null;
-            DateTime? birth3 = null;
-            DateTime? birth4 = null;
-            DateTime? birth5 = null;
-            DateTime? birth6 = null;
-            birth = DateTime.ParseExact(ngaysinh, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-            birth1 = DateTime.ParseExact(ngaysinh1, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-            birth2 = DateTime.ParseExact(ngaysinh2, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-            birth3 = DateTime.ParseExact(ngaysinh3, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-            birth4 = DateTime.ParseExact(ngaysinh4, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-            birth5 = DateTime.ParseExact(ngaysinh5, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-            birth6 = DateTime.ParseExact(ngaysinh6, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+
             if (ID == 0)
             {
                 //thêm mới
                 gv.IDCuocThi = IDCuocThi;
-                gv.ThoiGianBatDauNhanHS = birth.GetValueOrDefault().ToString("dd/MM/yyyy");
-                gv.ThoiGianKetThucNhanHS = birth1.GetValueOrDefault().ToString("dd/MM/yyyy");
-                gv.ThoiGianBatDauThi = birth2.GetValueOrDefault().ToString("dd/MM/yyyy");
-                gv.ThoiGianKetThucThi = birth3.GetValueOrDefault().ToString("dd/MM/yyyy");
-                gv.ThoiGianBatDauChamDiem = birth4.GetValueOrDefault().ToString("dd/MM/yyyy");
-                gv.ThoiGianKetThucChamDiem = birth5.GetValueOrDefault().ToString("dd/MM/yyyy");
+                gv.ThoiGianBatDauNhanHS = ngaysinh;
+                gv.ThoiGianKetThucNhanHS = ngaysinh1;
+                gv.ThoiGianBatDauThi = ngaysinh2;
+                gv.ThoiGianKetThucThi = ngaysinh3;
+                gv.ThoiGianBatDauChamDiem = ngaysinh4;
+                gv.ThoiGianKetThucChamDiem = ngaysinh5;
                 gv.DiaDiem = c["DiaDiem"];
-                gv.ThoiGianCongBoDiem = birth6.GetValueOrDefault().ToString("dd/MM/yyyy");
+                gv.ThoiGianCongBoDiem = ngaysinh6;
                 gv.NgayTao = DateTime.Now;
                 gv.NguoiTao = user;
                 gv.TrangThai = 1;
@@ -115,14 +102,14 @@ namespace Olympic.Areas.Admin.Controllers
             {
                 //sửa
                 gv.ID = ID;
-                gv.ThoiGianBatDauNhanHS = birth.GetValueOrDefault().ToString("dd/MM/yyyy");
-                gv.ThoiGianKetThucNhanHS = birth1.GetValueOrDefault().ToString("dd/MM/yyyy");
-                gv.ThoiGianBatDauThi = birth2.GetValueOrDefault().ToString("dd/MM/yyyy");
-                gv.ThoiGianKetThucThi = birth3.GetValueOrDefault().ToString("dd/MM/yyyy");
-                gv.ThoiGianBatDauChamDiem = birth4.GetValueOrDefault().ToString("dd/MM/yyyy");
-                gv.ThoiGianKetThucChamDiem = birth5.GetValueOrDefault().ToString("dd/MM/yyyy");
+                gv.ThoiGianBatDauNhanHS = ngaysinh;
+                gv.ThoiGianKetThucNhanHS = ngaysinh1;
+                gv.ThoiGianBatDauThi = ngaysinh2;
+                gv.ThoiGianKetThucThi = ngaysinh3;
+                gv.ThoiGianBatDauChamDiem = ngaysinh4;
+                gv.ThoiGianKetThucChamDiem = ngaysinh5;
                 gv.DiaDiem = c["DiaDiem"];
-                gv.ThoiGianCongBoDiem = birth6.GetValueOrDefault().ToString("dd/MM/yyyy");
+                gv.ThoiGianCongBoDiem = ngaysinh6;
                 gv.NguoiSua = user;
                 gv.NgaySua = DateTime.Now;
                 var kt = dao.Edit(gv);
@@ -136,48 +123,6 @@ namespace Olympic.Areas.Admin.Controllers
         public JsonResult Edit(int id)
         {
             var data = dao.getByID(id);
-            string ThoiGianBatDauNhanHS = "";
-            if (data.ThoiGianBatDauNhanHS != null)
-            {
-                ThoiGianBatDauNhanHS = DateTime.ParseExact(data.ThoiGianBatDauNhanHS, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
-            }
-            string ThoiGianKetThucNhanHS = "";
-            if (data.ThoiGianKetThucNhanHS != null)
-            {
-                ThoiGianKetThucNhanHS = DateTime.ParseExact(data.ThoiGianKetThucNhanHS, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
-            }
-            string ThoiGianBatDauThi = "";
-            if (data.ThoiGianBatDauThi != null)
-            {
-                ThoiGianBatDauThi = DateTime.ParseExact(data.ThoiGianBatDauThi, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
-            }
-            string ThoiGianKetThucThi = "";
-            if (data.ThoiGianKetThucThi != null)
-            {
-                ThoiGianKetThucThi = DateTime.ParseExact(data.ThoiGianKetThucThi, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
-            }
-            string ThoiGianBatDauChamDiem = "";
-            if (data.ThoiGianBatDauChamDiem != null)
-            {
-                ThoiGianBatDauChamDiem = DateTime.ParseExact(data.ThoiGianBatDauChamDiem, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
-            }
-            string ThoiGianKetThucChamDiem = "";
-            if (data.ThoiGianKetThucChamDiem != null)
-            {
-                ThoiGianKetThucChamDiem = DateTime.ParseExact(data.ThoiGianKetThucChamDiem, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
-            }
-            string ThoiGianCongBo = "";
-            if (data.ThoiGianCongBoDiem != null)
-            {
-                ThoiGianCongBo = DateTime.ParseExact(data.ThoiGianCongBoDiem, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture).ToString("yyyy-MM-dd");
-            }
-            data.ThoiGianBatDauNhanHS = ThoiGianBatDauNhanHS;
-            data.ThoiGianBatDauThi = ThoiGianBatDauThi;
-            data.ThoiGianBatDauChamDiem = ThoiGianBatDauChamDiem;
-            data.ThoiGianKetThucNhanHS = ThoiGianKetThucNhanHS;
-            data.ThoiGianKetThucThi = ThoiGianKetThucThi;
-            data.ThoiGianKetThucChamDiem = ThoiGianKetThucChamDiem;
-            data.ThoiGianCongBoDiem= ThoiGianCongBo;
             
             return Json(new
             {

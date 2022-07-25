@@ -309,7 +309,7 @@ function Save() {
         if (isSave == true) {
             SaveN(id);
         }
-    }, 1500);
+    }, 5000);
 }
 
 function SaveN(id) {

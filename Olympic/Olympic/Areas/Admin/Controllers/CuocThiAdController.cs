@@ -110,13 +110,6 @@ namespace Olympic.Areas.Admin.Controllers
                 {
                     var ngaysinh = c["TGBD"];
                     var ngaysinh1 = c["TGKT"];
-                    DateTime? birth = null;
-                    DateTime? birth1 = null;
-                    if (ngaysinh != "" && ngaysinh != null)
-                    {
-                        birth = DateTime.ParseExact(ngaysinh, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-                        birth1 = DateTime.ParseExact(ngaysinh1, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-                    }
 
                     a_CuocThi gv = new a_CuocThi();
                     gv.MaCuocThi = c["Ma"] != null ? c["Ma"].Trim() : "";
@@ -127,8 +120,8 @@ namespace Olympic.Areas.Admin.Controllers
                     gv.KinhPhi = c["KinhPhi"] != null ? c["KinhPhi"].Trim() : "";
                     gv.Nam = c["NamHoc"] != null ? c["NamHoc"].Trim() : "";
                     gv.NoiDung = c["NoiDung"] != null ? c["NoiDung"].Trim() : "";
-                    gv.ThoiGianBatDau = birth.GetValueOrDefault().ToString("dd/MM/yyyy");
-                    gv.ThoiGianKetThuc = birth1.GetValueOrDefault().ToString("dd/MM/yyyy");
+                    gv.ThoiGianBatDau = ngaysinh;
+                    gv.ThoiGianKetThuc = ngaysinh1;
                     gv.TrangThai = 1;
                     gv.NgayTao = DateTime.Now;
                     gv.NguoiTao = user;
@@ -163,13 +156,6 @@ namespace Olympic.Areas.Admin.Controllers
                 {
                     var ngaysinh = c["TGBD"];
                     var ngaysinh1 = c["TGKT"];
-                    DateTime? birth = null;
-                    DateTime? birth1 = null;
-                    if (ngaysinh != "" && ngaysinh != null)
-                    {
-                        birth = DateTime.ParseExact(ngaysinh, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-                        birth1 = DateTime.ParseExact(ngaysinh1, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-                    }
                     a_CuocThi gv = new a_CuocThi();
                     gv.ID = ID;
                     gv.MaCuocThi = c["Ma"] != null ? c["Ma"].Trim() : "";
@@ -180,8 +166,8 @@ namespace Olympic.Areas.Admin.Controllers
                     gv.KinhPhi = c["KinhPhi"] != null ? c["KinhPhi"].Trim() : "";
                     gv.Nam = c["NamHoc"] != null ? c["NamHoc"].Trim() : "";
                     gv.NoiDung = c["NoiDung"] != null ? c["NoiDung"].Trim() : "";
-                    gv.ThoiGianBatDau = birth.GetValueOrDefault().ToString("dd/MM/yyyy");
-                    gv.ThoiGianKetThuc = birth1.GetValueOrDefault().ToString("dd/MM/yyyy");
+                    gv.ThoiGianBatDau = ngaysinh;
+                    gv.ThoiGianKetThuc = ngaysinh1;
                     gv.TrangThai = 1;
                     gv.NgaySua = DateTime.Now;
                     gv.NguoiSua = user;

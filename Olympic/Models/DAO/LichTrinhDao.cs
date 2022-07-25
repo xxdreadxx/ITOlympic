@@ -52,7 +52,7 @@ namespace Models.DAO
                 {
                     var _sqlStr = @"select ct.* " +
                         "from a_CuocThi ct " +
-                        $"where ct.TrangThai <> 10 and (CONVERT(DATE, ThoiGianBatDau, 103)) <= (CONVERT(DATE, '{date}', 103)) and (CONVERT(DATE, '{date}', 103)) <= (CONVERT(DATE, ThoiGianKetThuc, 103))";
+                        $"where ct.TrangThai <> 10 and (CONVERT(nvarchar, ThoiGianBatDau, 103)) <= (CONVERT(DATE, '{date}', 103)) and (CONVERT(nvarchar, '{date}', 103)) <= (CONVERT(DATE, ThoiGianKetThuc, 103))";
                     var lst = _conn.Query<a_CuocThi>(_sqlStr, null, commandType: CommandType.Text).ToList<a_CuocThi>();
                     int totalCount = lst.Count();
                     if (totalCount > 0)

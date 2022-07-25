@@ -97,25 +97,8 @@ namespace Olympic.Areas.Admin.Controllers
             int ID = int.Parse(c["ID"].ToString());
             if (ID == 0)
             {
-                var data = hmDao.checkMa(c["Ma"].Trim(), ID, IDCuocThi);
-                if (data == false)
-                {
-                    return Json(new
-                    {
-                        status = false
-                    }, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
                     var ngaysinh = c["TGBD"];
                     var ngaysinh1 = c["TGKT"];
-                    DateTime? birth = null;
-                    DateTime? birth1 = null;
-                    if (ngaysinh != "" && ngaysinh != null)
-                    {
-                        birth = DateTime.ParseExact(ngaysinh, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-                        birth1 = DateTime.ParseExact(ngaysinh1, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-                    }
                     a_HangMuc item = new a_HangMuc();
                     item.MaHangMuc = c["Ma"].ToString().Trim();
                     item.ID_CuocThi = IDCuocThi;
@@ -126,35 +109,20 @@ namespace Olympic.Areas.Admin.Controllers
                     item.NoiDungThi = c["NoiDung"].ToString().Trim();
                     item.SoLuong = int.Parse(c["SoLuong"].ToString());
                     item.ThoiGianBatDau = c["TGBD"].ToString().Trim();
-                    item.ThoiGianBatDau = birth.GetValueOrDefault().ToString("dd/MM/yyyy");
-                    item.ThoiGianKetThuc = birth1.GetValueOrDefault().ToString("dd/MM/yyyy");
+                    item.ThoiGianBatDau = ngaysinh;
+                    item.ThoiGianKetThuc = ngaysinh1;
                     item.NguoiTao = user;
                     item.NgayTao = DateTime.Now;
                     item.TrangThai = 1;
                     var idHM = hmDao.Add(item);
-                }
+                
             }
             else
             {
-                var data = hmDao.checkMa(c["Ma"].Trim(), ID, IDCuocThi);
-                if (data == false)
-                {
-                    return Json(new
-                    {
-                        status = false
-                    }, JsonRequestBehavior.AllowGet);
-                }
-                else
-                {
+
                     var ngaysinh = c["TGBD"];
                     var ngaysinh1 = c["TGKT"];
-                    DateTime? birth = null;
-                    DateTime? birth1 = null;
-                    if (ngaysinh != "" && ngaysinh != null)
-                    {
-                        birth = DateTime.ParseExact(ngaysinh, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-                        birth1 = DateTime.ParseExact(ngaysinh1, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-                    }
+                    
                     var item = hmDao.getByID(ID);
                     item.MaHangMuc = c["Ma"].ToString().Trim();
                     item.TenHangMuc = c["Ten"].ToString().Trim();
@@ -164,12 +132,12 @@ namespace Olympic.Areas.Admin.Controllers
                     item.NoiDungThi = c["NoiDung"].ToString().Trim();
                     item.SoLuong = int.Parse(c["SoLuong"].ToString());
                     item.ThoiGianBatDau = c["TGBD"].ToString().Trim();
-                    item.ThoiGianBatDau = birth.GetValueOrDefault().ToString("dd/MM/yyyy");
-                    item.ThoiGianKetThuc = birth1.GetValueOrDefault().ToString("dd/MM/yyyy");
+                    item.ThoiGianBatDau = ngaysinh;
+                    item.ThoiGianKetThuc = ngaysinh1;
                     item.NguoiSua = user;
                     item.NgaySua = DateTime.Now;
                     var kt = hmDao.Edit(item);
-                }
+                
             }
             
             return Json(new
@@ -181,14 +149,26 @@ namespace Olympic.Areas.Admin.Controllers
         public JsonResult checkTG(string tg)
         {
             int IDCuocThi = int.Parse(Session["ID_CuocThi"].ToString());
-            DateTime? birth = null;
-            birth = DateTime.ParseExact(tg, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
-            string tgn = birth.GetValueOrDefault().ToString("dd/MM/yyyy");
-            bool kt = hmDao.checkLichTrinh(IDCuocThi, tgn);
+            //DateTime? birth = null;
+            //birth = DateTime.ParseExact(tg, "yyyy-MM-dd", System.Globalization.CultureInfo.InvariantCulture);
+            //string tgn = birth.GetValueOrDefault().ToString("dd/MM/yyyy");
+            bool kt = hmDao.checkLichTrinh(IDCuocThi, tg);
             return Json(new
             {
                 status = kt
             }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult checkMaHangMuc(string ma, int id)
+        {
+            int IDCuocThi = int.Parse(Session["ID_CuocThi"].ToString());
+            bool data = hmDao.checkMa(ma, id, IDCuocThi);
+
+                return Json(new
+                {
+                    status = data
+                }, JsonRequestBehavior.AllowGet);
+            
         }
     }
 }

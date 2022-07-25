@@ -142,7 +142,7 @@ namespace Models.DAO
                 {
                     var _sqlStr = "select ct.* " +
                         "from a_CuocThi_LichTrinh ct " +
-                        $"where ct.TrangThai <> 10 and (CONVERT(DATE, ThoiGianBatDauThi, 103)) <= (CONVERT(DATE, '{date}', 103)) and (CONVERT(DATE, '{date}', 103)) <= (CONVERT(DATE, ThoiGianKetThucThi, 103))";
+                        $"where ct.TrangThai <> 10 and (CONVERT(nvarchar, ct.ThoiGianBatDauThi, 103)) <= (CONVERT(nvarchar, '{date}', 103)) and (CONVERT(nvarchar, '{date}', 103)) <= (CONVERT(nvarchar, ct.ThoiGianKetThucThi, 103))";
                     var lst = _conn.Query<a_CuocThi>(_sqlStr, null, commandType: CommandType.Text).ToList<a_CuocThi>();
                     int totalCount = lst.Count();
                     if (totalCount > 0)
@@ -154,7 +154,7 @@ namespace Models.DAO
                         return false;
                     }
                 }
-                catch (Exception)
+                catch (Exception ex)
                 {
                     return false;
                 }

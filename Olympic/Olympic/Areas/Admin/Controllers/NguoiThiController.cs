@@ -11,6 +11,7 @@ namespace Olympic.Areas.Admin.Controllers
 {
     public class NguoiThiController : Controller
     {
+        private OlympicDbContext db = new OlympicDbContext();
         DoiTuyenDao dtDao = new DoiTuyenDao();
         CuocThiDao ctDao = new CuocThiDao();
         HangMucDao hmDao = new HangMucDao();
@@ -23,9 +24,9 @@ namespace Olympic.Areas.Admin.Controllers
 
         public ActionResult DSDoiThi(int idCuocThi = 0)
         {
-            int sl = 0;
             ViewBag.CuocThi = ctDao.getByID(idCuocThi);
-            ViewBag.HangMuc = hmDao.getByIDCuocThi(idCuocThi, 1, ref sl);
+            List<a_HangMuc> lstHangMuc = db.a_HangMuc.Where(x => x.TrangThai != 10 && x.DoiTuong == 1 && x.ID_CuocThi == idCuocThi).ToList();
+            ViewBag.HangMuc = lstHangMuc;
             ViewBag.lstHLV = uDao.lstHLV();
             Session["IDCuocThi"] = idCuocThi;
             return View();
@@ -143,7 +144,8 @@ namespace Olympic.Areas.Admin.Controllers
         {
             int sl = 0;
             ViewBag.CuocThi = ctDao.getByID(idCuocThi);
-            ViewBag.HangMuc = hmDao.getByIDCuocThi(idCuocThi, 1, ref sl);
+            List<a_HangMuc> lstHangMuc = db.a_HangMuc.Where(x => x.TrangThai != 10 && x.DoiTuong == 2 && x.ID_CuocThi == idCuocThi).ToList();
+            ViewBag.HangMuc = lstHangMuc;
             ViewBag.lstHLV = uDao.lstHLV();
             Session["IDCuocThi"] = idCuocThi;
             return View();
