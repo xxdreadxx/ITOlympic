@@ -220,12 +220,13 @@ namespace Models.DAO
         public List<a_SinhVien> getListSVChuaDK(int ID)
         {
             List<a_SinhVien> lst = new List<a_SinhVien>();
+            int IDHM = db.a_DoiTuyen.FirstOrDefault(x => x.ID == ID).ID_HangMuc.GetValueOrDefault();
             using (SqlConnection _conn = new SqlConnection(ConnectionLib.ConnectString))
             {
                 _conn.Open();
                 try
                 {
-                    var _sqlStr = $"select * from a_SinhVien where TrangThai = 1 and ID not in (select ID_SV from a_DoiTuyen_SV where ID_Doi = {ID} and TrangThai <> 10) ";
+                    var _sqlStr = $"select * from a_SinhVien where TrangThai = 1 and ID not in (select ID_SV from a_HangMuc_SinhVien_Diem where ID_HangMuc = {IDHM} and TrangThai = 2) ";
                     lst = _conn.Query<a_SinhVien>(_sqlStr, null, commandType: CommandType.Text).ToList<a_SinhVien>();
                     return lst;
                 }

@@ -50,6 +50,12 @@ namespace Models.DAO
             return db.a_HangMuc.FirstOrDefault(x => x.ID == id);
         }
 
+        public a_HangMuc getByIDDT(int id)
+        {
+            int IDHM = db.a_DoiTuyen.FirstOrDefault(x => x.ID == id).ID_HangMuc.GetValueOrDefault();
+            return db.a_HangMuc.FirstOrDefault(x => x.ID == IDHM);
+        }
+
         public int Add(a_HangMuc result)
         {
             try
