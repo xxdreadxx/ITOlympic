@@ -226,7 +226,7 @@ namespace Models.DAO
                 _conn.Open();
                 try
                 {
-                    var _sqlStr = $"select * from a_SinhVien where TrangThai = 1 and ID not in (select ID_SV from a_HangMuc_SinhVien_Diem where ID_HangMuc = {IDHM} and TrangThai = 2) ";
+                    var _sqlStr = $"select * from a_SinhVien where TrangThai = 1 and ID in (select ID_SV from a_HangMuc_SinhVien_Diem where ID_HangMuc = {IDHM} and TrangThai = 2) ";
                     lst = _conn.Query<a_SinhVien>(_sqlStr, null, commandType: CommandType.Text).ToList<a_SinhVien>();
                     return lst;
                 }
@@ -247,7 +247,7 @@ namespace Models.DAO
                 var item1 = db.a_HangMuc_SinhVien_Diem.FirstOrDefault(x => x.ID_SV == IDSV && x.TrangThai == 1 && x.ID_HangMuc == IDHM);
                 if (item1 != null)
                 {
-                    item1.TrangThai = 10;
+                    item1.TrangThai = 2;
                 }
                 item.TrangThai = 10;
                 db.SaveChanges();

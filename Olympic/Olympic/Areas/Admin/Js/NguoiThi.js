@@ -320,7 +320,12 @@ function getListMember(id) {
                 var stt = 0;
                 $.each(result.data, function (i, item) {
                     stt++;
-                    html += '<tr id=\"trlstMem_' + item.ID + '\"><td>' + stt + '</td><td>' + item.MaSV + '</td><td>' + item.TenSV + '</td><td>' + item.Lop + '</td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelMember(' + item.ID_SV + ', ' + item.ID+')\"><i class=\"ti-trash\"></i></a></td></tr>';
+                    if (item.Diem == null) {
+                        html += '<tr id=\"trlstMem_' + item.ID + '\"><td>' + stt + '</td><td>' + item.MaSV + '</td><td>' + item.TenSV + '</td><td>' + item.Lop + '</td><td></td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelMember(' + item.ID_SV + ', ' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
+                    }
+                    else {
+                        html += '<tr id=\"trlstMem_' + item.ID + '\"><td>' + stt + '</td><td>' + item.MaSV + '</td><td>' + item.TenSV + '</td><td>' + item.Lop + '</td><td>' + item.Diem + '</td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelMember(' + item.ID_SV + ', ' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
+                    }
                 });
                 $('#tblMember').html(html);
             }
@@ -332,7 +337,7 @@ $('#btnAddSV').on('click', function () {
     var idDoiThi = $('#hdID_DoiThi').val();
     var SoLuongMax = $('#HM_SL').val();
     var SoLuongHT = $('#HM_SLHienTai').val();
-    if (SoLuongHT >= SoLuongMax) {
+    if (parseInt(SoLuongHT) >= parseInt(SoLuongMax)) {
         alert('Số lượng thành viên trong đội đã đủ'); return false;
     }
     else {
@@ -366,7 +371,7 @@ function AddSV(id) {
     var idDoiThi = $('#hdID_DoiThi').val();
     var SoLuongMax = $('#HM_SL').val();
     var SoLuongHT = $('#HM_SLHienTai').val();
-    if (SoLuongHT >= SoLuongMax) {
+    if (parseInt(SoLuongHT) >= parseInt(SoLuongMax)) {
         alert('Số lượng thành viên trong đội đã đủ'); return false;
     }
     else {
