@@ -45,7 +45,7 @@
     <div class="row">
         <input type="hidden" id="hdIDCuocThi" value="@Session["IDCuocThi"]" />
         <div class="card alert">
-            <div class="card-header">
+            @*<div class="card-header">
                 <div class="col-lg-6" style="padding-left:0px">
                     <div class="button-list">
                         <button type="button" class="btn btn-success  btn-flat btn-addon m-b-10 m-l-5" onclick="Add(0)"><i class="ti-plus"></i> Thêm mới</button>
@@ -68,9 +68,9 @@
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="card-body" id="tableNguoiDung">
-                @Html.Action("getListDoiThi", "NguoiThi")
+            </div>*@
+            <div class="card-body" id="tableCaNhan">
+                @Html.Action("getListThiSinhThiCaNhan", "NguoiThi")
             </div>
         </div>
     </div>
@@ -147,4 +147,14 @@
 
 @section scripts{
     <script src="~/Areas/Admin/Js/NguoiThi.js"></script>
+    <script>
+        function openCity(cityName) {
+            var i;
+            var x = document.getElementsByClassName("city");
+            for (i = 0; i < x.length; i++) {
+                x[i].style.display = "none";
+            }
+            document.getElementById(cityName).style.display = "block";
+        }
+    </script>
 }
