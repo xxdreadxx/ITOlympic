@@ -49,7 +49,7 @@
             @if (page != 1)
             {
                 var stt = page - 1;
-                <li><a href="/Admin/NguoiThi/DSDoiThi?page=@stt"><i class="fa fa-angle-left"></i></a></li>
+                <li><a href="/Admin/NguoiThi/getListDoiThi?page=@stt"><i class="fa fa-angle-left"></i></a></li>
             }
             @for (int i = 1; i <= ViewBag.MaxPage; i++)
             {
@@ -59,13 +59,13 @@
                 }
                 else
                 {
-                    <li><a href="/Admin/NguoiThi/DSDoiThi?page=@i">@i</a></li>
+                    <li><a href="/Admin/NguoiThi/getListDoiThi?page=@i">@i</a></li>
                 }
             }
             @if (page != ViewBag.MaxPage && ViewBag.MaxPage != 0)
             {
                 var stt = page + 1;
-                <li><a href="/Admin/NguoiThi/DSDoiThi?page=@stt"><i class="fa fa-angle-right"></i></a></li>
+                <li><a href="/Admin/NguoiThi/getListDoiThi?page=@stt"><i class="fa fa-angle-right"></i></a></li>
             }
         </ul>
     </div>

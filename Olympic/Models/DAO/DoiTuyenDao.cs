@@ -40,6 +40,7 @@ namespace Models.DAO
             }
         }
 
+
         public List<a_DoiTuyenView> getListDoiTuyenByIDHangMuc(int ID, ref int totalCount)
         {
             List<a_DoiTuyenView> lst = new List<a_DoiTuyenView>();

@@ -39,4 +39,13 @@ namespace Models.EF
         public int SoLuongHM { get; set; }
         public string HLV { get; set; }
     }
+
+    public class CaNhanView
+    {
+        public int ID { get; set; }
+        public string HoTen { get; set; }
+        public string MaSinhVien { get; set; }
+        public string TenHangMuc { get; set; }
+        public string TenCuocThi { get; set; }
+    }
 }

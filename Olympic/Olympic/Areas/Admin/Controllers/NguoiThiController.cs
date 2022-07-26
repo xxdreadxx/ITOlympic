@@ -158,9 +158,15 @@ namespace Olympic.Areas.Admin.Controllers
             int pageSize = 15;
             int pageno = 0;
             pageno = page == null ? 1 : int.Parse(page.ToString());
-            List<a_DoiTuyenView> lstGV = new List<a_DoiTuyenView>();
-            var getdata = dtDao.getListDoiTuyenByIDCuocThi(IDCuocThi, search, ref totalCount);
-            lstGV = getdata.Skip((pageno - 1) * pageSize).Take(pageSize).ToList();
+
+            List<CaNhanView> lstCaNhan = new List<CaNhanView>();
+
+            string sql = $@"select sv.ID, sv.MaSV, sv.HoTen, hm.TenHangMuc from a_SinhVien sv
+                        join a_HangMuc_SinhVien_Diem hmcv on sv.ID = hmcv.ID_SV and hmcv.TrangThai <> 10
+                        join a_HangMuc hm on hm.ID = hmcv.ID_HangMuc and hm.TrangThai <> 10
+                        where sv.TrangThai <> 10";
+            var data = db.Database.SqlQuery<CaNhanView>(sql).ToList();
+            lstCaNhan = data.Skip((pageno - 1) * pageSize).Take(pageSize).ToList();
             ViewBag.Page = page;
             int maxCount = totalCount;
             if (maxCount % pageSize > 0)
@@ -171,7 +177,7 @@ namespace Olympic.Areas.Admin.Controllers
             {
                 ViewBag.MaxPage = (maxCount / pageSize);
             }
-            return PartialView(lstGV);
+            return PartialView(lstCaNhan);
         }
 
         public JsonResult getDSSVTrongDoiThi(int ID)
