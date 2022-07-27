@@ -216,5 +216,19 @@ namespace Olympic.Areas.Admin.Controllers
                 status = kt
             }, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult changeDiem(int id, int Diem)
+        {
+            var hs = db.a_HangMuc_SinhVien_Diem.FirstOrDefault(x => x.ID == id);
+            if(hs != null)
+            {
+                hs.Diem = Diem;
+                db.SaveChanges();
+            }
+            return Json(new
+            {
+                status=true
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
