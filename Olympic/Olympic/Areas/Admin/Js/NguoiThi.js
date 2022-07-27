@@ -321,10 +321,10 @@ function getListMember(id) {
                 $.each(result.data, function (i, item) {
                     stt++;
                     if (item.Diem == null) {
-                        html += '<tr id=\"trlstMem_' + item.ID + '\"><td>' + stt + '</td><td>' + item.MaSV + '</td><td>' + item.TenSV + '</td><td>' + item.Lop + '</td><td></td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelMember(' + item.ID_SV + ', ' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
+                        html += '<tr id=\"trlstMem_' + item.ID + '\"><td>' + stt + '</td><td>' + item.MaSV + '</td><td>' + item.TenSV + '</td><td>' + item.Lop + '</td><td><input type="text" value="0" onchange="changeDiem(' + item.ID + ')" id="txtDiem_' + item.ID +'" /></td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelMember(' + item.ID_SV + ', ' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
                     }
                     else {
-                        html += '<tr id=\"trlstMem_' + item.ID + '\"><td>' + stt + '</td><td>' + item.MaSV + '</td><td>' + item.TenSV + '</td><td>' + item.Lop + '</td><td>' + item.Diem + '</td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelMember(' + item.ID_SV + ', ' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
+                        html += '<tr id=\"trlstMem_' + item.ID + '\"><td>' + stt + '</td><td>' + item.MaSV + '</td><td>' + item.TenSV + '</td><td>' + item.Lop + '</td><td><input type="text" value="' + item.Diem + '" onchange="changeDiem(' + item.ID +')" id="txtDiem_' + item.ID +'" /></td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelMember(' + item.ID_SV + ', ' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
                     }
                 });
                 $('#tblMember').html(html);
@@ -403,6 +403,23 @@ function DelMember(id, id1) {
         type: 'post',
         success: function (result) {
             $('#trlstMem_' + id1).hide();
+        }
+    });
+}
+
+function changeDiem(id) {
+    var diem = $('#txtDiem_' + id).val();
+    $.ajax({
+        url: "/NguoiThi/changeDiem",
+        data: {
+            id: id,
+            Diem: diem
+        },
+        type: 'post',
+        success: function (result) {
+            if (result.status == true) {
+
+            }
         }
     });
 }
