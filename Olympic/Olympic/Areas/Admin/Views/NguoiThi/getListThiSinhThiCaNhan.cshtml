@@ -1,74 +1,140 @@
-﻿@model IEnumerable<Models.EF.a_DoiTuyenView>
+﻿@model IEnumerable<Models.EF.CaNhanView>
 @{
     int page = int.Parse(ViewBag.page.ToString());
     int maxpage = int.Parse(ViewBag.MaxPage.ToString());
 }
-<table class="table table-responsive table-hover " id="tblUser">
-    <thead>
-        <tr>
-            <th class="text-center" width="5%"><input id="check-all-delete-js" type="checkbox"></th>
-            <th class="text-center" width="8%">Mã đội thi</th>
-            <th class="text-center" width="17%">Tên đội thi</th>
-            <th class="text-center" width="18%">Tên hạng mục thi</th>
-            <th class="text-center" width="13%">Huấn luyện viên</th>
-            <th class="text-center" width="12%">Số lượng thành viên</th>
-            <th class="text-center" width="12%">Trạng thái</th>
-            <th class="text-center" width="15%">Chức năng</th>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var item in Model)
-        {
-            <tr data-id="@item.ID" id="idtr">
-                <td><input type="checkbox" autocomplete="off" class="one-delete-js" /></td>
-                <td>@item.MaDoi</td>
-                <td>@item.TenDoi</td>
-                <td>@item.TenHangMuc</td>
-                <td>@item.HLV</td>
-                <td class="text-center">@item.SoLuong / @item.SoLuongHM</td>
-                @if (item.TrangThai == 1)
-                {
-                    <td class="text-center color-success">Sẵn sàng </td>
-                }
-                else
-                {
-                    <td class="text-center color-danger">Chưa sẵn sàng</td>
-                }
-                <td style="text-align:center">
-                    <a href="#" title="Danh sách thành viên" type="button" onclick="DSTV(@item.ID)"><i class="ti-user"></i></a>
-                    <a href="#" title="Sửa" type="button" onclick="Add(@item.ID)"><i class="ti-pencil"></i></a>
-                    <a href="#" title="Xóa" onclick="Link_DeleteTT_onclick(@item.ID)"><i class="ti-trash"></i></a>
-                </td>
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<style>
+    .w3-black {
+        background-color: cornflowerblue !important;
+    }
+    .w3-bar w3-black {
+        color: white;
+    }
+</style>
+<div class="w3-bar w3-black">
+    <button class="w3-bar-item w3-button" onclick="openCity('London')">Danh sách đăng ký</button>
+    <button class="w3-bar-item w3-button" onclick="openCity('Paris')">Danh sách tham gia dự thi</button>
+</div>
+
+<div id="London" class="w3-container w3-display-container city">
+    <table class="table table-responsive table-hover " id="tblUser">
+        <thead>
+            <tr>
+                <th class="text-center" width="5%"><input id="check-all-delete-js" type="checkbox"></th>
+                <th class="text-left" width="20%">Mã sinh viên</th>
+                <th class="text-left" width="40%">Tên sinh viên</th>
+                <th class="text-center" width="20%">Tên hạng mục thi</th>
+                @*<th class="text-center" width="12%">Trạng thái</th>*@
+                <th class="text-center" width="15%">Chức năng</th>
             </tr>
-        }
-    </tbody>
-</table>
-<div id="content" class="row">
-    <div class="text-right col-lg-6" style="float:right;">
-        <ul class="pagination">
-            @if (page != 1)
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
             {
-                var stt = page - 1;
-                <li><a href="/Admin/LichTrinh?page=@stt"><i class="fa fa-angle-left"></i></a></li>
+                <tr data-id="@item.ID" id="idtr">
+                    <td class="text-center"><input type="checkbox" autocomplete="off" class="one-delete-js" /></td>
+                    <td class="text-left">@item.MaSinhVien</td>
+                    <td class="text-left">@item.HoTen</td>
+                    <td class="text-center">@item.TenHangMuc</td>
+                    @*<td class="text-center color-danger">Chưa sẵn sàng</td>*@
+
+                    <td style="text-align:center">
+                        <a href="#" title="Duyệt" type="button" ><i class="ti-user"></i></a>
+                        <a href="#" title="Sửa" type="button" onclick="Add(@item.ID)"><i class="ti-pencil"></i></a>
+                        <a href="#" title="Xóa" onclick="Link_DeleteTT_onclick(@item.ID)"><i class="ti-trash"></i></a>
+                    </td>
+                </tr>
             }
-            @for (int i = 1; i <= ViewBag.MaxPage; i++)
-            {
-                if (i == page)
+        </tbody>
+    </table>
+    <div id="content" class="row">
+        <div class="text-right col-lg-6" style="float:right;">
+            <ul class="pagination">
+                @if (page != 1)
                 {
-                    <li class="active"><a>@i</a></li>
+                    var stt = page - 1;
+                    <li><a href="/Admin/NguoiThi/getListDoiThi?page=@stt"><i class="fa fa-angle-left"></i></a></li>
                 }
-                else
+                @for (int i = 1; i <= ViewBag.MaxPage; i++)
                 {
-                    <li><a href="/Admin/LichTrinh?page=@i">@i</a></li>
+                    if (i == page)
+                    {
+                        <li class="active"><a>@i</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="/Admin/NguoiThi/getListDoiThi?page=@i">@i</a></li>
+                    }
                 }
-            }
-            @if (page != ViewBag.MaxPage && ViewBag.MaxPage != 0)
-            {
-                var stt = page + 1;
-                <li><a href="/Admin/LichTrinh?page=@stt"><i class="fa fa-angle-right"></i></a></li>
-            }
-        </ul>
+                @if (page != ViewBag.MaxPage && ViewBag.MaxPage != 0)
+                {
+                    var stt = page + 1;
+                    <li><a href="/Admin/NguoiThi/getListDoiThi?page=@stt"><i class="fa fa-angle-right"></i></a></li>
+                }
+            </ul>
+        </div>
     </div>
 </div>
 
+<div id="Paris" class="w3-container w3-display-container city" style="display:none">
+
+    <table class="table table-responsive table-hover " id="tblUser">
+        <thead>
+            <tr>
+                <th class="text-center" width="5%"><input id="check-all-delete-js" type="checkbox"></th>
+                <th class="text-left" width="20%">Mã sinh viên</th>
+                <th class="text-left" width="40%">Tên sinh viên</th>
+                <th class="text-center" width="20%">Tên hạng mục thi</th>
+                @*<th class="text-center" width="12%">Trạng thái</th>*@
+                <th class="text-center" width="15%">Chức năng</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr data-id="@item.ID" id="idtr">
+                    <td class="text-center"><input type="checkbox" autocomplete="off" class="one-delete-js" /></td>
+                    <td class="text-left">@item.MaSinhVien</td>
+                    <td class="text-left">@item.HoTen</td>
+                    <td class="text-center">@item.TenHangMuc</td>
+                    @*<td class="text-center color-danger">Chưa sẵn sàng</td>*@
+
+                    <td style="text-align:center">
+                        <a href="#" title="Duyệt" type="button"><i class="ti-user"></i></a>
+                        <a href="#" title="Sửa" type="button" onclick="Add(@item.ID)"><i class="ti-pencil"></i></a>
+                        <a href="#" title="Xóa" onclick="Link_DeleteTT_onclick(@item.ID)"><i class="ti-trash"></i></a>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <div id="content" class="row">
+        <div class="text-right col-lg-6" style="float:right;">
+            <ul class="pagination">
+                @if (page != 1)
+                {
+                    var stt = page - 1;
+                    <li><a href="/Admin/NguoiThi/getListDoiThi?page=@stt"><i class="fa fa-angle-left"></i></a></li>
+                }
+                @for (int i = 1; i <= ViewBag.MaxPage; i++)
+                {
+                    if (i == page)
+                    {
+                        <li class="active"><a>@i</a></li>
+                    }
+                    else
+                    {
+                        <li><a href="/Admin/NguoiThi/getListDoiThi?page=@i">@i</a></li>
+                    }
+                }
+                @if (page != ViewBag.MaxPage && ViewBag.MaxPage != 0)
+                {
+                    var stt = page + 1;
+                    <li><a href="/Admin/NguoiThi/getListDoiThi?page=@stt"><i class="fa fa-angle-right"></i></a></li>
+                }
+            </ul>
+        </div>
+    </div>
+</div>
 
