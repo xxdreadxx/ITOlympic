@@ -85,8 +85,8 @@ function Add(id) {
             success: function (result) {
                 if (result.status == true) {
                     $('#id').val(id);
-                    $('#txtMa').val(result.data.MaCuocThi);
-                    $('#txtTen').val(result.data.TenCuocThi);
+                    $('#txtMa').val(result.data.MaDoi);
+                    $('#txtTen').val(result.data.TenDoi);
                     $('#dllHM').val(result.data.ID_HangMuc).change();
                     $('#dllHLV').val(result.data.ID_HLV).change();
                 }

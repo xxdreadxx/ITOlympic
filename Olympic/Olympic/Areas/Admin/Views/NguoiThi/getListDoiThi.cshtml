@@ -7,7 +7,6 @@
     <thead>
         <tr>
             <th class="text-center" width="5%"><input id="check-all-delete-js" type="checkbox"></th>
-            <th class="text-center" width="8%">Mã đội thi</th>
             <th class="text-center" width="17%">Tên đội thi</th>
             <th class="text-center" width="18%">Tên hạng mục thi</th>
             <th class="text-center" width="13%">Huấn luyện viên</th>
@@ -20,8 +19,7 @@
         @foreach (var item in Model)
         {
             <tr data-id="@item.ID" id="idtr">
-                <td><input type="checkbox" autocomplete="off" class="one-delete-js" /></td>
-                <td>@item.MaDoi</td>
+                <td style="text-align:center"><input type="checkbox" autocomplete="off" class="one-delete-js" /></td>
                 <td>@item.TenDoi</td>
                 <td>@item.TenHangMuc</td>
                 <td>@item.HLV</td>
