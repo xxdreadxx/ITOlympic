@@ -66,12 +66,22 @@ namespace Olympic.Areas.Admin.Controllers
 
         public JsonResult Edit(int ID)
         {
-            var data = dtDao.getInfoDoiTuyen(ID);
-            return Json(new
+            var data = dtDao.getInfoDoiTuyen(ID, 0);
+            if(data == null)
             {
-                status = true,
-                data = data
-            }, JsonRequestBehavior.AllowGet);
+                return Json(new
+                {
+                    status = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new
+                {
+                    status = true,
+                    data = data
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         [ValidateInput(false)]
@@ -182,16 +192,30 @@ namespace Olympic.Areas.Admin.Controllers
 
         public JsonResult getDSSVTrongDoiThi(int ID)
         {
+            var kt = dtDao.checkChamDiem(ID);
             int totalcount = 0;
             var data = dtDao.getListSVInDoiTuyen(ID, ref totalcount);
             var dataHM = hmDao.getByIDDT(ID);
-            return Json(new
+            if (kt == null)
             {
-                status = true,
-                data = data,
-                dataHM = dataHM,
-                totalCount = totalcount
-            }, JsonRequestBehavior.AllowGet);
+                return Json(new
+                {
+                    status = false,
+                    data = data,
+                    dataHM = dataHM,
+                    totalCount = totalcount
+                }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new
+                {
+                    status = true,
+                    data = data,
+                    dataHM = dataHM,
+                    totalCount = totalcount
+                }, JsonRequestBehavior.AllowGet);
+            }
         }
 
         public JsonResult getDSSVChuaDKThi(int ID)
@@ -234,6 +258,37 @@ namespace Olympic.Areas.Admin.Controllers
             return Json(new
             {
                 status=true
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult EditTT(int ID)
+        {
+            var data = dtDao.getInfoDoiTuyen(ID, 1);
+            if (data == null)
+            {
+                return Json(new
+                {
+                    status = false
+                }, JsonRequestBehavior.AllowGet);
+            }
+            else
+            {
+                return Json(new
+                {
+                    status = true,
+                    data = data
+                }, JsonRequestBehavior.AllowGet);
+            }
+        }
+
+        public JsonResult SaveKQ(FormCollection c)
+        {
+            int ID = int.Parse(c["id"].ToString());
+            string kq = c["kq"].ToString();
+            int kt = dtDao.UpdateKQ(ID, kq);
+            return Json(new
+            {
+                status = true
             }, JsonRequestBehavior.AllowGet);
         }
     }

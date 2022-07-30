@@ -66,7 +66,44 @@ namespace Models.DAO
             }
         }
 
-        public a_DoiTuyenView getInfoDoiTuyen(int ID)
+        public a_DoiTuyenView getInfoDoiTuyen(int ID, int type)
+        {
+            a_DoiTuyenView lst = new a_DoiTuyenView();
+            using (SqlConnection _conn = new SqlConnection(ConnectionLib.ConnectString))
+            {
+                string _sqlStr = "";
+                _conn.Open();
+                try
+                {
+                    if (type == 0)
+                    {
+                        _sqlStr = "select dt.ID, dt.ID_HangMuc, dt.ID_HLV, dt.KetQua, dt.MaDoi, dt.TenDoi, dt.TrangThai, hm.TenHangMuc, ct.TenCuocThi, count(ds.ID) as SoLuong, gv.HoTen as HLV " +
+                        "from a_DoiTuyen dt join a_HangMuc hm on hm.ID = dt.ID_HangMuc and hm.TrangThai <> 10 join a_GiaoVien gv on gv.ID = dt.ID_HLV " +
+                        "join a_CuocThi ct on ct.ID = hm.ID_CuocThi join a_DoiTuyen_SV ds on ds.ID_Doi = dt.ID and ds.TrangThai <> 10 " +
+                        "join a_CuocThi_LichTrinh lt on lt.IDCuocThi = ct.ID " +
+                        $"where dt.ID = {ID} and convert(date, lt.ThoiGianBatDauNhanHS, 103) <= GETDATE() and GETDATE()<= convert(date, lt.ThoiGianKetThucNhanHS, 103) " +
+                        "group by dt.ID, dt.ID_HangMuc, dt.ID_HLV, dt.KetQua, dt.MaDoi, dt.TenDoi, dt.TrangThai, hm.TenHangMuc, ct.TenCuocThi, gv.HoTen";
+                    }
+                    else
+                    {
+                        _sqlStr = "select dt.ID, dt.ID_HangMuc, dt.ID_HLV, dt.KetQua, dt.MaDoi, dt.TenDoi, dt.TrangThai, hm.TenHangMuc, ct.TenCuocThi, count(ds.ID) as SoLuong, gv.HoTen as HLV " +
+                        "from a_DoiTuyen dt join a_HangMuc hm on hm.ID = dt.ID_HangMuc and hm.TrangThai <> 10 join a_GiaoVien gv on gv.ID = dt.ID_HLV " +
+                        "join a_CuocThi ct on ct.ID = hm.ID_CuocThi join a_DoiTuyen_SV ds on ds.ID_Doi = dt.ID and ds.TrangThai <> 10 " +
+                        "join a_CuocThi_LichTrinh lt on lt.IDCuocThi = ct.ID " +
+                        $"where dt.ID = {ID} " +
+                        "group by dt.ID, dt.ID_HangMuc, dt.ID_HLV, dt.KetQua, dt.MaDoi, dt.TenDoi, dt.TrangThai, hm.TenHangMuc, ct.TenCuocThi, gv.HoTen";
+                    }
+                    lst = _conn.Query<a_DoiTuyenView>(_sqlStr, null, commandType: CommandType.Text).FirstOrDefault();
+                    return lst;
+                }
+                catch (Exception)
+                {
+                    return lst;
+                }
+            }
+        }
+
+        public a_DoiTuyenView checkChamDiem(int ID)
         {
             a_DoiTuyenView lst = new a_DoiTuyenView();
             using (SqlConnection _conn = new SqlConnection(ConnectionLib.ConnectString))
@@ -78,7 +115,7 @@ namespace Models.DAO
                         "from a_DoiTuyen dt join a_HangMuc hm on hm.ID = dt.ID_HangMuc and hm.TrangThai <> 10 join a_GiaoVien gv on gv.ID = dt.ID_HLV " +
                         "join a_CuocThi ct on ct.ID = hm.ID_CuocThi join a_DoiTuyen_SV ds on ds.ID_Doi = dt.ID and ds.TrangThai <> 10 " +
                         "join a_CuocThi_LichTrinh lt on lt.IDCuocThi = ct.ID " +
-                        $"where dt.ID = {ID} and convert(date, lt.ThoiGianBatDauNhanHS, 103) <= GETDATE() and GETDATE()<= convert(date, lt.ThoiGianKetThucNhanHS, 103) " +
+                        $"where dt.ID = {ID} and convert(date, lt.ThoiGianBatDauChamDiem, 103) <= GETDATE() and GETDATE()<= convert(date, lt.ThoiGianKetThucChamDiem, 103) " +
                         "group by dt.ID, dt.ID_HangMuc, dt.ID_HLV, dt.KetQua, dt.MaDoi, dt.TenDoi, dt.TrangThai, hm.TenHangMuc, ct.TenCuocThi, gv.HoTen";
                     lst = _conn.Query<a_DoiTuyenView>(_sqlStr, null, commandType: CommandType.Text).FirstOrDefault();
                     return lst;
@@ -302,6 +339,25 @@ namespace Models.DAO
         public int CountSVinDoiTuyen(int IDDoiTuyen)
         {
             return db.a_DoiTuyen_SV.Where(x => x.ID_Doi == IDDoiTuyen && x.TrangThai == 1).ToList().Count();
+        }
+
+        public int UpdateKQ(int id, string kq)
+        {
+            try
+            {
+                var result = db.a_DoiTuyen.FirstOrDefault(x => x.ID == id);
+                if (result != null)
+                {
+                    result.KetQua = kq;
+                    result.TrangThai = 3;
+                }
+                db.SaveChanges();
+                return id;
+            }
+            catch
+            {
+                return 0;
+            }
         }
     }
 }

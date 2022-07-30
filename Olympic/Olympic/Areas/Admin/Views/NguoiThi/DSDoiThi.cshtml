@@ -235,7 +235,6 @@
     </div>
 </div>
 
-
 <div id="divLSTSV" class="modal fade" role="dialog">
     <div class="modal-dialog" style="top:20%">
         <!-- Modal content-->
@@ -273,6 +272,66 @@
             </div>
             <div class="modal-footer" style="text-align:center">
                 @*<button class="btn btn-success" type="button" id="btnAddUser" onclick="OK()"><i class="ti-save" aria-hidden="true"></i><span> Đồng ý</span></button>*@
+                <button class="btn btn-primary" type="reset" data-dismiss="modal"><i class="ti-close" aria-hidden="true"></i><span> Đóng</span></button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="divAddKQ" class="modal fade" role="dialog">
+    <div class="modal-dialog" style="top:20%">
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title" id="tieude">Kết quả thi</h4>
+            </div>
+            <div class="modal-body">
+                <div class="row">
+                    <div class="col-md-12">
+                        <input type="hidden" id="hdID_DoiThi_KQ" />
+                        <div class="col-md-6">
+                            <div class="lms-input-group">
+                                <div class="input-group-title right">Tên hạng mục</div>
+                                <div class="input-group-content">
+                                    <input type="text" id="txtKQ_TenHM" name="txtKQ_TenHM" value="" class="form-control" disabled />
+                                </div>
+                            </div>
+                            <div class="lms-input-group">
+                                <div class="input-group-title right">Tên đội tuyển</div>
+                                <div class="input-group-content">
+                                    <input type="text" id="txtKQ_TenDoiTuyen" name="txtKQ_TenDoiTuyen" value="" class="form-control" disabled />
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-md-6">
+                            <div class="lms-input-group">
+                                <div class="input-group-title right">Tên HLV</div>
+                                <div class="input-group-content">
+                                    <input type="text" name="txtKQ_TenHLV" class="form-control" id="txtKQ_TenHLV" disabled />
+                                </div>
+                                <span id="errTen" style="display:none;" class="error-message pull-right"></span>
+                            </div>
+                            <div class="lms-input-group">
+                                <div class="input-group-title right">Số lượng thành viên</div>
+                                <div class="input-group-content">
+                                    <input type="text" id="txtKQ_SL" name="txtKQ_SL" class="form-control" disabled />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="lms-input-group">
+                            <div class="input-group-title right">Kết quả</div>
+                            <div class="input-group-content">
+                                <input type="text" id="txtKQ_KetQua" class="form-control" />
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="modal-footer" style="text-align:center">
+                <button class="btn btn-success" type="button" id="btnSaveKQ" onclick="SaveKQ()"><i class="ti-save" aria-hidden="true"></i><span> Lưu</span></button>
                 <button class="btn btn-primary" type="reset" data-dismiss="modal"><i class="ti-close" aria-hidden="true"></i><span> Đóng</span></button>
             </div>
         </div>

@@ -26,7 +26,11 @@
                 <td class="text-center">@item.SoLuong / @item.SoLuongHM</td>
                 @if (item.TrangThai == 1)
                 {
-                    <td class="text-center color-success">Sẵn sàng </td>
+                    <td class="text-center color-success">Sẵn sàng</td>
+                }
+                else if (item.TrangThai == 3)
+                {
+                    <td class="text-center color-danger">Hoàn tất</td>
                 }
                 else
                 {
@@ -35,6 +39,7 @@
                 <td style="text-align:center">
                     <a href="#" title="Danh sách thành viên" type="button" onclick="DSTV(@item.ID)"><i class="ti-user"></i></a>
                     <a href="#" title="Sửa" type="button" onclick="Add(@item.ID)"><i class="ti-pencil"></i></a>
+                    <a href="#" title="Kết quả" type="button" onclick="AddKQ(@item.ID)"><i class="ti-cup"></i></a>
                     <a href="#" title="Xóa" onclick="Link_DeleteTT_onclick(@item.ID)"><i class="ti-trash"></i></a>
                 </td>
             </tr>

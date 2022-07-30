@@ -89,11 +89,14 @@ function Add(id) {
                     $('#txtTen').val(result.data.TenDoi);
                     $('#dllHM').val(result.data.ID_HangMuc).change();
                     $('#dllHLV').val(result.data.ID_HLV).change();
+                    $('#addNewUser').modal('show');
+                }
+                else {
+                    alert('Quá ngày đăng kí, không được sửa');
                 }
             }
         });
     }
-    $('#addNewUser').modal('show');
 }
 
 function resetForm() {
@@ -217,7 +220,6 @@ function Save() {
             }
         });
     }
-
 }
 var idND = "";
 function Link_DeleteTT_onclick(DID) {
@@ -321,10 +323,32 @@ function getListMember(id) {
                 $.each(result.data, function (i, item) {
                     stt++;
                     if (item.Diem == null) {
-                        html += '<tr id=\"trlstMem_' + item.ID + '\"><td>' + stt + '</td><td>' + item.MaSV + '</td><td>' + item.TenSV + '</td><td>' + item.Lop + '</td><td><input type="text" value="0" onchange="changeDiem(' + item.ID + ')" id="txtDiem_' + item.ID +'" /></td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelMember(' + item.ID_SV + ', ' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
+                        html += '<tr id=\"trlstMem_' + item.ID + '\"><td>' + stt + '</td><td>' + item.MaSV + '</td><td>' + item.TenSV + '</td><td>' + item.Lop + '</td><td><input type="text" value="0" onchange="changeDiem(' + item.ID + ')" id="txtDiem_' + item.ID + '" /></td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelMember(' + item.ID_SV + ', ' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
                     }
                     else {
-                        html += '<tr id=\"trlstMem_' + item.ID + '\"><td>' + stt + '</td><td>' + item.MaSV + '</td><td>' + item.TenSV + '</td><td>' + item.Lop + '</td><td><input type="text" value="' + item.Diem + '" onchange="changeDiem(' + item.ID +')" id="txtDiem_' + item.ID +'" /></td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelMember(' + item.ID_SV + ', ' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
+                        html += '<tr id=\"trlstMem_' + item.ID + '\"><td>' + stt + '</td><td>' + item.MaSV + '</td><td>' + item.TenSV + '</td><td>' + item.Lop + '</td><td><input type="text" value="' + item.Diem + '" onchange="changeDiem(' + item.ID + ')" id="txtDiem_' + item.ID + '" /></td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelMember(' + item.ID_SV + ', ' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
+                    }
+                });
+                $('#tblMember').html(html);
+            }
+            else {
+                $('#txtMaHM').val(result.dataHM.MaHangMuc);
+                $('#idHM').val(result.dataHM.ID);
+                $('#hdID_DoiThi').val(id);
+                $('#HM_SL').val(result.dataHM.SoLuong);
+                $('#HM_SLHienTai').val(result.totalCount);
+                $('#txtHMTGBD').val(result.dataHM.ThoiGianBatDau);
+                $('#txtTenHM').val(result.dataHM.TenHangMuc);
+                $('#txtHMTGKT').val(result.dataHM.ThoiGianKetThuc);
+                var html = '';
+                var stt = 0;
+                $.each(result.data, function (i, item) {
+                    stt++;
+                    if (item.Diem == null) {
+                        html += '<tr id=\"trlstMem_' + item.ID + '\"><td>' + stt + '</td><td>' + item.MaSV + '</td><td>' + item.TenSV + '</td><td>' + item.Lop + '</td><td><input type="text" value="0" disable onchange="changeDiem(' + item.ID + ')" id="txtDiem_' + item.ID + '" /></td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelMember(' + item.ID_SV + ', ' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
+                    }
+                    else {
+                        html += '<tr id=\"trlstMem_' + item.ID + '\"><td>' + stt + '</td><td>' + item.MaSV + '</td><td>' + item.TenSV + '</td><td>' + item.Lop + '</td><td><input type="text" disable value="' + item.Diem + '" onchange="changeDiem(' + item.ID + ')" id="txtDiem_' + item.ID + '" /></td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelMember(' + item.ID_SV + ', ' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
                     }
                 });
                 $('#tblMember').html(html);
@@ -420,6 +444,63 @@ function changeDiem(id) {
             if (result.status == true) {
 
             }
+        }
+    });
+}
+
+function AddKQ(id) {
+    $.ajax({
+        url: "/NguoiThi/EditTT",
+        data: {
+            id: id
+        },
+        type: 'post',
+        success: function (result) {
+            $('#txtKQ_TenHM').val(result.data.TenHangMuc);
+            $('#txtKQ_TenHLV').val(result.data.HLV);
+            $('#txtKQ_TenDoiTuyen').val(result.data.TenDoi);
+            $('#txtKQ_SL').val(result.data.SoLuong);
+            $('#hdID_DoiThi_KQ').val(id);
+            $('#txtKQ_KetQua').val(result.data.KetQua);
+        }
+    });
+    $('#divAddKQ').modal('show');
+}
+
+function SaveKQ() {
+    var id = $('#hdID_DoiThi_KQ').val();
+    var kq = $('#txtKQ_KetQua').val();
+    var formdata = new FormData();
+    formdata.append('id', id);
+    formdata.append('kq', kq);
+    $.ajax({
+        async: false,
+        type: 'POST',
+        url: "/NguoiThi/SaveKQ",
+        data: formdata,
+        cache: false,
+        contentType: false,
+        processData: false,
+        success: function (response) {
+            if (response.status == true) {
+                $('#addNewUser').modal('hide');
+                bootbox.alert({
+                    title: "Thông báo",
+                    message: "Cập nhật kết quả thành công",
+                    buttons: {
+                        ok: {
+                            label: 'Đóng',
+                            className: "btn btn-default",
+                        }
+                    },
+                    callback: function () {
+                        location.reload();
+                    }
+                })
+            }
+        },
+        error: function (err) {
+            console.log(err);
         }
     });
 }
