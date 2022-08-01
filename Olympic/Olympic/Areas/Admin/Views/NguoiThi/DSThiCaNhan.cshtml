@@ -3,7 +3,6 @@
     ViewBag.Title = "DSThiCaNhan";
     Layout = "~/Areas/Admin/Views/Shared/_Layout.cshtml";
     List<a_HangMuc> lstHangMuc = ViewBag.HangMuc;
-    List<a_GiaoVien> lstHLV = ViewBag.lstHLV;
 }
 
 <style>
@@ -27,7 +26,7 @@
             </div>
         </div>
     </div>
-    <!-- /# column -->
+    <!-- /# column --> 
     <div class="col-lg-4 p-0">
         <div class="page-header">
             <div class="page-title">
@@ -45,30 +44,6 @@
     <div class="row">
         <input type="hidden" id="hdIDCuocThi" value="@Session["IDCuocThi"]" />
         <div class="card alert">
-            @*<div class="card-header">
-                <div class="col-lg-6" style="padding-left:0px">
-                    <div class="button-list">
-                        <button type="button" class="btn btn-success  btn-flat btn-addon m-b-10 m-l-5" onclick="Add(0)"><i class="ti-plus"></i> Thêm mới</button>
-                        <button type="button" disabled class="btn btn-danger btn-flat btn-addon m-b-10 m-l-5 " id="btn-delete-all" onclick="Link_DeleteTT_onclick(0)"><i class="ti-trash"></i> Xóa bỏ</button>
-                    </div>
-                </div>
-                <div class="col-lg-6">
-                    <div class="row">
-                        <div class="col-lg-4">
-                            <select id="ddlSearch_HangMuc" class="form-control">
-                                <option value="0">Tất cả</option>
-                                @foreach (var item in lstHangMuc)
-                                {
-                                    <option value="@item.ID">@item.TenHangMuc</option>
-                                }
-                            </select>
-                        </div>
-                        <div class="col-lg-8 custom-search-form">
-                            <input type="text" class="form-control" tabindex="2" value="@ViewBag.Search" name="Search" id="txtSearch" placeholder="Tìm kiếm..." />
-                        </div>
-                    </div>
-                </div>
-            </div>*@
             <div class="card-body" id="tableCaNhan">
                 @Html.Action("getListThiSinhThiCaNhan", "NguoiThi")
             </div>
@@ -120,18 +95,6 @@
                                     <input type="text" name="txtTen" class="form-control" id="txtTen" />
                                 </div>
                                 <span id="errTen" style="display:none;" class="error-message pull-right"></span>
-                            </div>
-                            <div class="lms-input-group">
-                                <div class="input-group-title right">Huấn luyện viên</div>
-                                <div class="input-group-content">
-                                    <select id="dllHLV" class="form-control">
-                                        @foreach (var item in lstHLV)
-                                        {
-                                            <option value="@item.ID">@item.HoTen</option>
-                                        }
-                                    </select>
-                                </div>
-                                <span id="errTenHLV" style="display:none;" class="error-message pull-right"></span>
                             </div>
                         </div>
                     </div>

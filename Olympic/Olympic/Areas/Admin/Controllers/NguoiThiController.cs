@@ -156,7 +156,6 @@ namespace Olympic.Areas.Admin.Controllers
             ViewBag.CuocThi = ctDao.getByID(idCuocThi);
             List<a_HangMuc> lstHangMuc = db.a_HangMuc.Where(x => x.TrangThai != 10 && x.DoiTuong == 2 && x.ID_CuocThi == idCuocThi).ToList();
             ViewBag.HangMuc = lstHangMuc;
-            ViewBag.lstHLV = uDao.lstHLV();
             Session["IDCuocThi"] = idCuocThi;
             return View();
         }
@@ -170,6 +169,7 @@ namespace Olympic.Areas.Admin.Controllers
             pageno = page == null ? 1 : int.Parse(page.ToString());
 
             List<CaNhanView> lstCaNhan = new List<CaNhanView>();
+            List<CaNhanView> lstCaNhanDK = new List<CaNhanView>();
 
             string sql = $@"select sv.ID, sv.MaSV, sv.HoTen, hm.TenHangMuc from a_SinhVien sv
                         join a_HangMuc_SinhVien_Diem hmcv on sv.ID = hmcv.ID_SV and hmcv.TrangThai <> 10
@@ -177,6 +177,7 @@ namespace Olympic.Areas.Admin.Controllers
                         where sv.TrangThai <> 10";
             var data = db.Database.SqlQuery<CaNhanView>(sql).ToList();
             lstCaNhan = data.Skip((pageno - 1) * pageSize).Take(pageSize).ToList();
+            lstCaNhanDK = data.Skip((pageno - 1) * pageSize).Take(pageSize).ToList();
             ViewBag.Page = page;
             int maxCount = totalCount;
             if (maxCount % pageSize > 0)
