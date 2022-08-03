@@ -363,6 +363,8 @@ namespace Models.DAO
         public int DuyetTSThiCaNhan(int id)
         {
             var item = db.a_HangMuc_SinhVien_Diem.FirstOrDefault(x => x.ID == id);
+            int id_hangmuc = item.ID_HangMuc.GetValueOrDefault();
+            var 
             if (item != null)
             {
                 item.TrangThai = 1;

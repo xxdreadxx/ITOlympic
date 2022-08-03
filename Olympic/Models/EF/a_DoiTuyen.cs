@@ -48,6 +48,8 @@ namespace Models.EF
         public string MaSinhVien { get; set; }
         public string TenHangMuc { get; set; }
         public string TenCuocThi { get; set; }
+        public string GiaiThuong { get; set; }
+        public double? Diem { get; set; }
         public byte TrangThai { get; set; }
     }
 }
