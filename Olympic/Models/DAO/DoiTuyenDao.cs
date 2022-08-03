@@ -359,5 +359,20 @@ namespace Models.DAO
                 return 0;
             }
         }
+
+        public int DuyetTSThiCaNhan(int id)
+        {
+            var item = db.a_HangMuc_SinhVien_Diem.FirstOrDefault(x => x.ID == id);
+            if (item != null)
+            {
+                item.TrangThai = 1;
+                db.SaveChanges();
+                return id;
+            }
+            else
+            {
+                return 0;
+            }
+        }
     }
 }

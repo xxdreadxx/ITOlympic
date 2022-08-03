@@ -504,3 +504,21 @@ function SaveKQ() {
         }
     });
 }
+
+function Duyet(id) {
+    $.ajax({
+        url: "/NguoiThi/DuyetTSThiCaNhan",
+        data: {
+            id: id
+        },
+        type: 'post',
+        success: function (result) {
+            if (result.status == true) {
+                toastr.success('Duyệt thành công', '', { timeOut: 2000 });
+                setTimeout(function () {
+                    document.getElementById("idtrDK_" + id).style.display = "none";
+                }, 100);
+            }
+        }
+    });
+}

@@ -171,14 +171,17 @@ namespace Olympic.Areas.Admin.Controllers
             List<CaNhanView> lstCaNhan = new List<CaNhanView>();
             List<CaNhanView> lstCaNhanDK = new List<CaNhanView>();
 
-            string sql = $@"select sv.ID, sv.MaSV, sv.HoTen, hm.TenHangMuc from a_SinhVien sv
+            string sql = $@"select sv.ID, hmcv.ID as IDHM_SV, sv.MaSV, sv.HoTen, hm.TenHangMuc, hmcv.TrangThai from a_SinhVien sv
                         join a_HangMuc_SinhVien_Diem hmcv on sv.ID = hmcv.ID_SV and hmcv.TrangThai <> 10
-                        join a_HangMuc hm on hm.ID = hmcv.ID_HangMuc and hm.TrangThai <> 10
-                        where sv.TrangThai <> 10";
+                        join a_HangMuc hm on hm.ID = hmcv.ID_HangMuc
+                        join a_CuocThi ct on ct.ID = hm.ID_CuocThi
+                        where sv.TrangThai <> 10 and ct.ID = {IDCuocThi} and hm.DoiTuong = 2 and hm.TrangThai <> 10";
             var data = db.Database.SqlQuery<CaNhanView>(sql).ToList();
-            lstCaNhan = data.Skip((pageno - 1) * pageSize).Take(pageSize).ToList();
-            lstCaNhanDK = data.Skip((pageno - 1) * pageSize).Take(pageSize).ToList();
+            lstCaNhan = data.Where(x=>x.TrangThai == 1).Skip((pageno - 1) * pageSize).Take(pageSize).ToList();
+            lstCaNhanDK = data.Where(x => x.TrangThai == 2).Skip((pageno - 1) * pageSize).Take(pageSize).ToList();
             ViewBag.Page = page;
+            ViewBag.lstCaNhan = lstCaNhan;
+            ViewBag.lstCaNhanDK = lstCaNhanDK;
             int maxCount = totalCount;
             if (maxCount % pageSize > 0)
             {
@@ -287,6 +290,15 @@ namespace Olympic.Areas.Admin.Controllers
             int ID = int.Parse(c["id"].ToString());
             string kq = c["kq"].ToString();
             int kt = dtDao.UpdateKQ(ID, kq);
+            return Json(new
+            {
+                status = true
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult DuyetTSThiCaNhan(int id)
+        {
+            var kq = dtDao.DuyetTSThiCaNhan(id);
             return Json(new
             {
                 status = true

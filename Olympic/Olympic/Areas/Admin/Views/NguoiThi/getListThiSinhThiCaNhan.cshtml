@@ -1,7 +1,9 @@
-﻿@model IEnumerable<Models.EF.CaNhanView>
+﻿@using Models.EF;
+@model IEnumerable<Models.EF.CaNhanView>
 @{
     int page = int.Parse(ViewBag.page.ToString());
     int maxpage = int.Parse(ViewBag.MaxPage.ToString());
+    List<CaNhanView> lstCaNhanDK = ViewBag.lstCaNhanDK;
 }
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <style>
@@ -32,7 +34,7 @@
         <tbody>
             @foreach (var item in Model)
             {
-                <tr data-id="@item.ID" id="idtr">
+                <tr data-id="@item.ID" id="idtr_@item.IDHM_SV">
                     <td class="text-center"><input type="checkbox" autocomplete="off" class="one-delete-js" /></td>
                     <td class="text-left">@item.MaSinhVien</td>
                     <td class="text-left">@item.HoTen</td>
@@ -90,18 +92,15 @@
             </tr>
         </thead>
         <tbody>
-            @foreach (var item in Model)
+            @foreach (var item in lstCaNhanDK)
             {
-                <tr data-id="@item.ID" id="idtr">
+                <tr data-id="@item.ID" id="idtrDK_@item.IDHM_SV">
                     <td class="text-center"><input type="checkbox" autocomplete="off" class="one-delete-js" /></td>
                     <td class="text-left">@item.MaSinhVien</td>
                     <td class="text-left">@item.HoTen</td>
                     <td class="text-center">@item.TenHangMuc</td>
-                    @*<td class="text-center color-danger">Chưa sẵn sàng</td>*@
-
                     <td style="text-align:center">
-                        <a href="#" title="Duyệt" type="button"><i class="ti-user"></i></a>
-                        <a href="#" title="Sửa" type="button" onclick="Add(@item.ID)"><i class="ti-pencil"></i></a>
+                        <a href="#" title="Duyệt" onclick="Duyet(@item.IDHM_SV)"><i class="ti-check"></i></a>
                         <a href="#" title="Xóa" onclick="Link_DeleteTT_onclick(@item.ID)"><i class="ti-trash"></i></a>
                     </td>
                 </tr>

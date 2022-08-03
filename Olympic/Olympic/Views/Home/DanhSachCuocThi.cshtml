@@ -54,7 +54,7 @@
                                                     DateTime ketThuc = DateTime.ParseExact(item.ThoiGianKetThucNhanHS, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
                                                     var test = DateTime.Now.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
                                                     DateTime thoiGianHienTai = DateTime.ParseExact(test, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
-                                                    if (ketThuc <= thoiGianHienTai)
+                                                    if (ketThuc < thoiGianHienTai)
                                                     {
                                                         <ul id="accordion" class="accordion">
                                                             <li data-id="@item.IDCuocThi">
@@ -112,13 +112,8 @@
                                                 {
                                                     foreach (var hm in hangmuc)
                                                     {
-                                                        DateTime batBau = DateTime.ParseExact(hm.ThoiGianBatDauNhanHS, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
-                                                        DateTime ketThuc = DateTime.ParseExact(hm.ThoiGianKetThucNhanHS, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
-                                                        var test = DateTime.Now.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
-                                                        DateTime thoiGianHienTai = DateTime.ParseExact(test, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
-                                                        if (ketThuc <= thoiGianHienTai)
-                                                        {
-                                                            <div id="@hm.IDCuocThi" class="row clsDanhSachKyThi clskithi clsid_@hm.IDCuocThi">
+                                                        <a href="/Home/DangKy/@hm.ID">
+                                                            <div id="@hm.IDCuocThi" class="row clsDanhSachKyThi clskithi clsid_@hm.IDCuocThi" style="cursor:pointer">
                                                                 <div class="col-md-2 col-lg-3 d-none d-md-block"></div>
                                                                 <div class="col-md-2 col-lg-1 d-none d-md-block">
                                                                     <img class="imgHeader" src="~/Content/education-online/images/c3.png" />
@@ -136,33 +131,9 @@
                                                                 <div class="col-md-1 col-lg-2 d-none d-md-block">
                                                                 </div>
                                                             </div>
-                                                        }
-                                                        else
-                                                        {
-                                                            <a href="/Home/DangKy/@hm.ID">
-                                                                <div id="@hm.IDCuocThi" class="row clsDanhSachKyThi clskithi clsid_@hm.IDCuocThi" style="cursor:pointer">
-                                                                    <div class="col-md-2 col-lg-3 d-none d-md-block"></div>
-                                                                    <div class="col-md-2 col-lg-1 d-none d-md-block">
-                                                                        <img class="imgHeader" src="~/Content/education-online/images/c3.png" />
-                                                                    </div>
-                                                                    <div class="col-12 col-md-6 col-lg-5" style="margin-left:50px">
-                                                                        <div class="admission-info-wrapper">
-                                                                            <div class="d-xs-block d-sm-none">
-                                                                                <div class="admission-icon admission-mn"></div>
-                                                                            </div>
-                                                                            <div style="padding:10px!important">
-                                                                                <h5>@hm.TenHangMuc</h5>
-                                                                            </div>
-                                                                        </div>
-                                                                    </div>
-                                                                    <div class="col-md-1 col-lg-2 d-none d-md-block">
-                                                                    </div>
-                                                                </div>
-                                                            </a>
-                                                        }
+                                                        </a>
                                                     }
                                                 }
-
                                             }
                                         }
                                     }
