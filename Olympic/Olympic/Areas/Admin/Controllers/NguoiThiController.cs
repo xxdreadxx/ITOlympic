@@ -171,7 +171,7 @@ namespace Olympic.Areas.Admin.Controllers
             List<CaNhanView> lstCaNhan = new List<CaNhanView>();
             List<CaNhanView> lstCaNhanDK = new List<CaNhanView>();
 
-            string sql = $@"select sv.ID, hmcv.ID as IDHM_SV, sv.MaSV, sv.HoTen, hm.TenHangMuc, hmcv.TrangThai, hmcv.Diem, cn.GiaiThuong from a_SinhVien sv
+            string sql = $@"select sv.ID, hmcv.ID as IDHM_SV, sv.MaSV, hmcv.SoBaoDanh, sv.HoTen, hm.TenHangMuc, hmcv.TrangThai, hmcv.Diem, cn.GiaiThuong from a_SinhVien sv
                         join a_HangMuc_SinhVien_Diem hmcv on sv.ID = hmcv.ID_SV and hmcv.TrangThai <> 10
                         join a_HangMuc hm on hm.ID = hmcv.ID_HangMuc
                         join a_CuocThi ct on ct.ID = hm.ID_CuocThi
@@ -302,7 +302,8 @@ namespace Olympic.Areas.Admin.Controllers
             var kq = dtDao.DuyetTSThiCaNhan(id);
             return Json(new
             {
-                status = true
+                status = true,
+                data = kq
             }, JsonRequestBehavior.AllowGet);
         }
     }

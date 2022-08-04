@@ -46,6 +46,7 @@ namespace Models.EF
         public int IDHM_SV { get; set; }
         public string HoTen { get; set; }
         public string MaSinhVien { get; set; }
+        public string SoBaoDanh { get; set; }
         public string TenHangMuc { get; set; }
         public string TenCuocThi { get; set; }
         public string GiaiThuong { get; set; }

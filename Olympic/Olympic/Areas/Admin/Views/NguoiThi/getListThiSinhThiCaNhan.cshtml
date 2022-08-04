@@ -24,31 +24,26 @@
         <thead>
             <tr>
                 <th class="text-center" width="5%"><input id="check-all-delete-js" type="checkbox"></th>
-                <th class="text-left" width="15%">Mã sinh viên</th>
+                <th class="text-left" width="15%">Số báo danh</th>
                 <th class="text-left" width="25%">Tên sinh viên</th>
-                <th class="text-center" width="15%">Tên hạng mục thi</th>
-                <th class="text-center" width="10%">Điểm</th>
+                <th class="text-center" width="20%">Tên hạng mục thi</th>
+                <th class="text-center" width="5%">Điểm</th>
                 <th class="text-center" width="15%">Kết quả/ giải thưởng</th>
-                @*<th class="text-center" width="12%">Trạng thái</th>*@
                 <th class="text-center" width="15%">Chức năng</th>
             </tr>
         </thead>
-        <tbody>
+        <tbody id="body_DSThiCN">
             @foreach (var item in Model)
             {
                 <tr data-id="@item.ID" id="idtr_@item.IDHM_SV">
                     <td class="text-center"><input type="checkbox" autocomplete="off" class="one-delete-js" /></td>
-                    <td class="text-left">@item.MaSinhVien</td>
+                    <td class="text-left">@item.SoBaoDanh</td>
                     <td class="text-left">@item.HoTen</td>
                     <td class="text-center">@item.TenHangMuc</td>
-                    <td class="text-center">@item.Diem</td>
-                    <td class="text-center">@item.GiaiThuong</td>
-                    @*<td class="text-center color-danger">Chưa sẵn sàng</td>*@
-
+                    <td class="text-center"><input value="@item.Diem" onchange="changeDiem(@item.IDHM_SV)" id="txtDiem_@item.IDHM_SV" /></td>
+                    <td class="text-center"><input value="@item.GiaiThuong" onchange="changeGT(@item.IDHM_SV)" id="inpGT_@item.IDHM_SV" /></td>
                     <td style="text-align:center">
-                        <a href="#" title="Duyệt" type="button" ><i class="ti-user"></i></a>
-                        <a href="#" title="Sửa" type="button" onclick="Add(@item.ID)"><i class="ti-pencil"></i></a>
-                        <a href="#" title="Xóa" onclick="Link_DeleteTT_onclick(@item.ID)"><i class="ti-trash"></i></a>
+                        <a href="#" title="Xóa" onclick="DelSVThiCN(@item.ID)"><i class="ti-trash"></i></a>
                     </td>
                 </tr>
             }

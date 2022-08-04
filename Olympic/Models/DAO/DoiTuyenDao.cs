@@ -40,7 +40,6 @@ namespace Models.DAO
             }
         }
 
-
         public List<a_DoiTuyenView> getListDoiTuyenByIDHangMuc(int ID, ref int totalCount)
         {
             List<a_DoiTuyenView> lst = new List<a_DoiTuyenView>();
@@ -360,20 +359,34 @@ namespace Models.DAO
             }
         }
 
-        public int DuyetTSThiCaNhan(int id)
+        public CaNhanView DuyetTSThiCaNhan(int id)
         {
             var item = db.a_HangMuc_SinhVien_Diem.FirstOrDefault(x => x.ID == id);
             int id_hangmuc = item.ID_HangMuc.GetValueOrDefault();
-            var 
+            a_ThiCaNhan thi = new a_ThiCaNhan();
+            thi.ID_HangMuc = id_hangmuc;
+            thi.ID_SV = item.ID_SV;
+            thi.NgayTao = DateTime.Now;
+            thi.TrangThai = 1;
+            db.a_ThiCaNhan.Add(thi);
+            db.SaveChanges();
             if (item != null)
             {
                 item.TrangThai = 1;
                 db.SaveChanges();
-                return id;
+
+                string sql = $@"select sv.ID, hmcv.ID as IDHM_SV, sv.MaSV, hmcv.SoBaoDanh, sv.HoTen, hm.TenHangMuc, hmcv.TrangThai, hmcv.Diem, cn.GiaiThuong from a_SinhVien sv
+                        join a_HangMuc_SinhVien_Diem hmcv on sv.ID = hmcv.ID_SV and hmcv.TrangThai <> 10
+                        join a_HangMuc hm on hm.ID = hmcv.ID_HangMuc
+                        join a_CuocThi ct on ct.ID = hm.ID_CuocThi
+                        left join a_ThiCaNhan cn on cn.ID_SV = hmcv.ID_SV and cn.ID_HangMuc = hmcv.ID_HangMuc
+                        where sv.TrangThai <> 10 and hmcv.ID = {id} and hm.DoiTuong = 2 and hm.TrangThai <> 10";
+                var data = db.Database.SqlQuery<CaNhanView>(sql).FirstOrDefault();
+                return data;
             }
             else
             {
-                return 0;
+                return null;
             }
         }
     }
