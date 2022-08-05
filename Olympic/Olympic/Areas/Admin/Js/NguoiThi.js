@@ -442,7 +442,7 @@ function changeDiem(id) {
         type: 'post',
         success: function (result) {
             if (result.status == true) {
-
+                toastr.success('Nhập điểm thành công', '', { timeOut: 1000 });
             }
         }
     });
@@ -524,6 +524,38 @@ function Duyet(id) {
                 html += '</td><td style="text-align:center"><a href="#" title="Xóa" onclick="DelSVThiCN(' + result.data.ID+')"><i class="ti-trash"></i></a></td></tr>';
                 $('#body_DSThiCN').append(html);
             }
+        }
+    });
+}
+
+function changeGT(id) {
+    var kq = $('#inpGT_' + id).val();
+    $.ajax({
+        url: "/NguoiThi/changeKQ",
+        data: {
+            id: id,
+            kq: kq
+        },
+        type: 'post',
+        success: function (result) {
+            if (result.status == true) {
+                toastr.success('Nhập kết quả thi thành công', '', { timeOut: 1000 });
+            }
+        }
+    });
+}
+
+function DelSVThiCN(id) {
+    var IDCuocThi = $('#hdIDCuocThi').val();
+    $.ajax({
+        url: "/NguoiThi/DelSVThiCN",
+        data: {
+            IDSVHM: id,
+            IDCuocThi: IDCuocThi
+        },
+        type: 'post',
+        success: function (result) {
+            $('#trlstMem_' + id1).hide();
         }
     });
 }

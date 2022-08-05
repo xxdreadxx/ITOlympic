@@ -306,5 +306,38 @@ namespace Olympic.Areas.Admin.Controllers
                 data = kq
             }, JsonRequestBehavior.AllowGet);
         }
+
+        public JsonResult changeKQ(int id, string kq)
+        {
+            var hs = db.a_HangMuc_SinhVien_Diem.FirstOrDefault(x => x.ID == id);
+            if (hs != null)
+            {
+                int idhs = hs.ID_SV.GetValueOrDefault();
+                int idhm = hs.ID_HangMuc.GetValueOrDefault();
+                var hstcn = db.a_ThiCaNhan.FirstOrDefault(x => x.ID_HangMuc == idhm && x.ID_SV == idhs);
+                if(hstcn != null)
+                {
+                    hstcn.GiaiThuong = kq;
+                }
+                db.SaveChanges();
+            }
+            return Json(new
+            {
+                status = true
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult DelSVThiCN(int IDSVHM, int IDCuocThi)
+        {
+            bool kt = true;
+            if (dtDao.checkTGDel(IDCuocThi) == true)
+            {
+                kt = dtDao.DelTSCN(IDSVHM);
+            }
+            return Json(new
+            {
+                status = kt
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
