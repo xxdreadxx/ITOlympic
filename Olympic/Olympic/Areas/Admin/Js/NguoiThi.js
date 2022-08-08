@@ -97,6 +97,7 @@ function Add(id) {
             }
         });
     }
+    $('#addNewUser').modal('show');
 }
 
 function resetForm() {
@@ -362,7 +363,7 @@ $('#btnAddSV').on('click', function () {
     var SoLuongMax = $('#HM_SL').val();
     var SoLuongHT = $('#HM_SLHienTai').val();
     if (parseInt(SoLuongHT) >= parseInt(SoLuongMax)) {
-        alert('Số lượng thành viên trong đội đã đủ'); return false;
+        toastr.error('Số lượng thành viên trong đội đã đủ'); return false;
     }
     else {
         getlstHSTruong(idDoiThi);
@@ -396,7 +397,7 @@ function AddSV(id) {
     var SoLuongMax = $('#HM_SL').val();
     var SoLuongHT = $('#HM_SLHienTai').val();
     if (parseInt(SoLuongHT) >= parseInt(SoLuongMax)) {
-        alert('Số lượng thành viên trong đội đã đủ'); return false;
+        toastr.error('Số lượng thành viên trong đội đã đủ'); return false;
     }
     else {
         $.ajax({
@@ -407,12 +408,11 @@ function AddSV(id) {
             },
             type: 'post',
             success: function (result) {
-                if (result.status == true) {
-                }
+                $('#trlstSV_' + id).hide();
+                getListMember(idDoiThi);
             }
         });
-        $('#trlstSV_' + id).hide();
-        getListMember(idDoiThi);
+        
     }
 }
 
@@ -427,6 +427,8 @@ function DelMember(id, id1) {
         type: 'post',
         success: function (result) {
             $('#trlstMem_' + id1).hide();
+            var slsv = result.countSV;
+            $('#HM_SLHienTai').val(slsv);
         }
     });
 }
@@ -526,6 +528,7 @@ function Duyet(id) {
             }
         }
     });
+    loadPartial();
 }
 
 function changeGT(id) {
@@ -555,7 +558,16 @@ function DelSVThiCN(id) {
         },
         type: 'post',
         success: function (result) {
-            $('#trlstMem_' + id1).hide();
+            if (result.status == true) {
+                $('#trlstMem_' + id1).hide();
+            }
+            else {
+                toastr.error('Sinh viên đang tham gia dự thi không thể xóa'); 
+            }
         }
     });
+}
+
+function closeF() {
+    loadPartial();
 }

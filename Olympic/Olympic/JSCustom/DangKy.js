@@ -201,40 +201,22 @@ function SaveThongTin() {
             success: function (res) {
                 if (res.status == true) {
                     $('#savethongtin').hide();
-                    if ($('#txtIDHocSinh').val() == 0) {
-                        let mess = 'Hồ sơ đăng ký của bạn đã được tiếp nhận.  ' +
+                    if ($('#id').val() == 0) {
+                        var mess = 'Hồ sơ đăng ký của bạn đã được tiếp nhận.  ' +
                             'Bạn có thể thực hiện tra cứu thông tin hồ sơ trên cổng thông tin.';
 
-                        bootbox.alert({
-                            title: "Thông báo",
-                            message: mess,
-                            buttons: {
-                                ok: {
-                                    label: 'Đóng',
-                                    className: "btn btn-default",
-                                }
-                            },
-                            callback: function () { location.href = '/Home/DangKy' }
-                        })
+                        toastr.success(mess);
+                        location.href = '/Home/DanhSachCuocThi';
                     }
                 }
                 else {
-                    bootbox.alert({
-                        title: "Thông báo",
-                        message: res.error,
-                        buttons: {
-                            ok: {
-                                label: 'Đóng',
-                                className: "btn btn-default",
-                            }
-                        },
-                        callback: function () { }
-                    })
+                    
                 }
             },
             error: function () {
 
             }
         });
+        
     }
 }

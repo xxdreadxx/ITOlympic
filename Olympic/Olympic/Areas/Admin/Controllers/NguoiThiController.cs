@@ -246,9 +246,11 @@ namespace Olympic.Areas.Admin.Controllers
         public JsonResult delSVFromDoiThi(int IDSV, int IDDoiThi)
         {
             var kt = dtDao.DelSVFromDoiTuyen(IDSV, IDDoiThi);
+            var countSV = db.a_DoiTuyen_SV.Where(x => x.ID_Doi == IDDoiThi && x.TrangThai != 10).ToList();
             return Json(new
             {
-                status = kt
+                status = kt, 
+                countSV = countSV
             }, JsonRequestBehavior.AllowGet);
         }
 

@@ -15,11 +15,11 @@
     }
 </style>
 <div class="w3-bar w3-black">
-    <button class="w3-bar-item w3-button" onclick="openCity('London')">Danh sách đăng ký</button>
-    <button class="w3-bar-item w3-button" onclick="openCity('Paris')">Danh sách tham gia dự thi</button>
+    <button class="w3-bar-item w3-button active" onclick="openCity('London')">Danh sách đăng ký</button>
+    <button class="w3-bar-item w3-button " onclick="openCity('Paris')">Danh sách tham gia thi</button>
 </div>
 
-<div id="London" class="w3-container w3-display-container city">
+<div id="Paris" class="w3-container w3-display-container city" style="display: none;">
     <table class="table table-responsive table-hover " id="tblUser">
         <thead>
             <tr>
@@ -78,7 +78,7 @@
     </div>
 </div>
 
-<div id="Paris" class="w3-container w3-display-container city" style="display:none">
+<div id="London" class="w3-container w3-display-container city " style="display: block; ">
     <table class="table table-responsive table-hover " id="tblUser">
         <thead>
             <tr>
