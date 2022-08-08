@@ -389,5 +389,54 @@ namespace Models.DAO
                 return null;
             }
         }
+
+        public bool checkTGDel(int idCuocThi)
+        {
+            List<a_CuocThi_LichTrinh> lst = new List<a_CuocThi_LichTrinh>();
+            using (SqlConnection _conn = new SqlConnection(ConnectionLib.ConnectString))
+            {
+                _conn.Open();
+                try
+                {
+                    var _sqlStr = $"select lt.* from a_CuocThi_LichTrinh lt where convert(date, lt.ThoiGianBatDauNhanHS, 103) <= GETDATE() and GETDATE()<= convert(date, lt.ThoiGianKetThucNhanHS, 103) and lt.IDCuocThi = {idCuocThi} ";
+                    lst = _conn.Query<a_CuocThi_LichTrinh>(_sqlStr, null, commandType: CommandType.Text).ToList<a_CuocThi_LichTrinh>();
+                    if (lst.Count >= 1)
+                    {
+                        return true;
+                    }
+                    else
+                    {
+                        return false;
+                    }
+                }
+                catch (Exception)
+                {
+                    return false;
+                }
+            }
+        }
+
+        public bool DelTSCN(int id)
+        {
+            var tskm = db.a_HangMuc_SinhVien_Diem.FirstOrDefault(x => x.ID == id && x.TrangThai != 10);
+            if(tskm != null)
+            {
+                var tcn = db.a_ThiCaNhan.FirstOrDefault(x => x.ID_HangMuc == tskm.ID_HangMuc && x.ID_SV == tskm.ID_SV && x.TrangThai != 10);
+                if(tcn != null)
+                {
+                    tcn.TrangThai = 10;
+                    db.SaveChanges();
+                    return true;
+                }
+                else
+                {
+                    return false;
+                }
+            }
+            else
+            {
+                return false;
+            }
+        }
     }
 }
