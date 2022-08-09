@@ -107,20 +107,21 @@ function checkDate(strDate, kt) {
     return true;
 }
 
-function DongY_ChonKyThi() {
-    var idKyThi = $('#txtIDKyThi_ChonKyThi').val();
-    if (idKyThi != 0) {
-        $('#mdlChonKyThi').modal('hide')
-        Add(0, idKyThi);
+//function DongY_ChonKyThi() {
+//    var idKyThi = $('#txtIDKyThi_ChonKyThi').val();
+//    if (idKyThi != 0) {
+//        $('#mdlChonKyThi').modal('hide')
+//        Add(0, idKyThi);
 
-    } else {
-        $('#error').html('Vui lòng chọn cuộc thi');
-        $('#error').css('display', 'block');
-    }
-}
+//    } else {
+//        $('#error').html('Vui lòng chọn cuộc thi');
+//        $('#error').css('display', 'block');
+//    }
+//}
 
 function Add(id, idKyThi) {
     resetForm();
+    $('#loaiMD').val('0');
     if (id == null || id == 0) {
         document.getElementById('tieude').innerHTML = "Thêm mới lịch trình";
         $.ajax({
@@ -410,32 +411,13 @@ function Save() {
                 if (response.status == true) {
                     $('#modal_ThemSua_LichTrinh').modal('hide');
                     if (id == 0) {
-                        bootbox.alert({
-                            title: "Thông báo",
-                            message: "Thêm mới thành công lịch trình",
-                            buttons: {
-                                ok: {
-                                    label: 'Đóng',
-                                    className: "btn btn-default",
-                                }
-                            },
-                            callback: function () { loadPartial(); }
-                        })
+                        toastr.success("Thêm mới thành công lịch trình");
                     }
                     else {
-                        bootbox.alert({
-                            title: "Thông báo",
-                            message: "Cập nhật thành công lịch trình",
-                            buttons: {
-                                ok: {
-                                    label: 'Đóng',
-                                    className: "btn btn-default",
-                                }
-                            },
-                            callback: function () { loadPartial(); }
-                        })
+                        toastr.success("Cập nhật thành công lịch trình");
                     }
                 }
+                loadPartial();
             },
             error: function (err) {
                 console.log(err);
@@ -467,18 +449,9 @@ function deleteOne() {
         success: function (rs) {
             if (rs.status == true) {
                 $("#DeleteND").modal("hide");
-                bootbox.alert({
-                    title: "Thông báo",
-                    message: "Xóa thành công bản ghi",
-                    buttons: {
-                        ok: {
-                            label: 'Đóng',
-                            className: "btn btn-default",
-                        }
-                    },
-                    callback: function () { loadPartial(); }
-                })
+                toastr.success("Xóa thành công bản ghi");
             }
+            loadPartial();
         }
     })
 }
@@ -493,18 +466,9 @@ function deleteAll() {
         success: function (rs) {
             $('#check-all-delete-js').prop('checked', false);
             if (rs.status == true) {
-                bootbox.alert({
-                    title: "Thông báo",
-                    message: "Xóa thành công bản ghi",
-                    buttons: {
-                        ok: {
-                            label: 'Đóng',
-                            className: "btn btn-default",
-                        }
-                    },
-                    callback: function () { loadPartial(); }
-                })
+                toastr.success("Xóa thành công bản ghi");
             }
+            loadPartial();
         }
     })
 }

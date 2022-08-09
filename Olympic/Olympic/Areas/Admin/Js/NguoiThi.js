@@ -324,10 +324,10 @@ function getListMember(id) {
                 $.each(result.data, function (i, item) {
                     stt++;
                     if (item.Diem == null) {
-                        html += '<tr id=\"trlstMem_' + item.ID + '\"><td>' + stt + '</td><td>' + item.MaSV + '</td><td>' + item.TenSV + '</td><td>' + item.Lop + '</td><td><input type="text" value="0" onchange="changeDiem(' + item.ID + ')" id="txtDiem_' + item.ID + '" /></td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelMember(' + item.ID_SV + ', ' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
+                        html += '<tr id=\"trlstMem_' + item.ID + '\"><td class="text-center">' + stt + '</td><td class="text-center">' + item.MaSV + '</td><td class="text-center">' + item.TenSV + '</td><td class="text-center">' + item.Lop + '</td><td><input type="text" value="0" id="txtDiem" disabled onchange="changeDiem(' + item.ID + ')" id="txtDiem_' + item.ID + '" /></td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelMember(' + item.ID_SV + ', ' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
                     }
                     else {
-                        html += '<tr id=\"trlstMem_' + item.ID + '\"><td>' + stt + '</td><td>' + item.MaSV + '</td><td>' + item.TenSV + '</td><td>' + item.Lop + '</td><td><input type="text" value="' + item.Diem + '" onchange="changeDiem(' + item.ID + ')" id="txtDiem_' + item.ID + '" /></td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelMember(' + item.ID_SV + ', ' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
+                        html += '<tr id=\"trlstMem_' + item.ID + '\"><td class="text-center">' + stt + '</td><td class="text-center">' + item.MaSV + '</td><td class="text-center">' + item.TenSV + '</td><td class="text-center">' + item.Lop + '</td><td><input type="text" id="txtDiem" value="' + item.Diem + '" onchange="changeDiem(' + item.ID + ')" id="txtDiem_' + item.ID + '" /></td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelMember(' + item.ID_SV + ', ' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
                     }
                 });
                 $('#tblMember').html(html);
@@ -346,10 +346,10 @@ function getListMember(id) {
                 $.each(result.data, function (i, item) {
                     stt++;
                     if (item.Diem == null) {
-                        html += '<tr id=\"trlstMem_' + item.ID + '\"><td>' + stt + '</td><td>' + item.MaSV + '</td><td>' + item.TenSV + '</td><td>' + item.Lop + '</td><td><input type="text" value="0" disable onchange="changeDiem(' + item.ID + ')" id="txtDiem_' + item.ID + '" /></td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelMember(' + item.ID_SV + ', ' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
+                        html += '<tr id=\"trlstMem_' + item.ID + '\"><td class="text-center">' + stt + '</td><td class="text-center">' + item.MaSV + '</td><td class="text-center">' + item.TenSV + '</td><td class="text-center">' + item.Lop + '</td><td><input id="txtDiem" type="text" value="0" disabled onchange="changeDiem(' + item.ID + ')" id="txtDiem_' + item.ID + '" /></td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelMember(' + item.ID_SV + ', ' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
                     }
                     else {
-                        html += '<tr id=\"trlstMem_' + item.ID + '\"><td>' + stt + '</td><td>' + item.MaSV + '</td><td>' + item.TenSV + '</td><td>' + item.Lop + '</td><td><input type="text" disable value="' + item.Diem + '" onchange="changeDiem(' + item.ID + ')" id="txtDiem_' + item.ID + '" /></td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelMember(' + item.ID_SV + ', ' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
+                        html += '<tr id=\"trlstMem_' + item.ID + '\"><td class="text-center">' + stt + '</td><td class="text-center">' + item.MaSV + '</td><td class="text-center">' + item.TenSV + '</td><td class="text-center">' + item.Lop + '</td><td><input id="txtDiem" type="text" disable value="' + item.Diem + '" onchange="changeDiem(' + item.ID + ')" id="txtDiem_' + item.ID + '" /></td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelMember(' + item.ID_SV + ', ' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
                     }
                 });
                 $('#tblMember').html(html);

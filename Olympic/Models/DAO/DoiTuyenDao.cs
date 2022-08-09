@@ -23,11 +23,13 @@ namespace Models.DAO
                 _conn.Open();
                 try
                 {
-                    var _sqlStr = "select dt.ID, dt.ID_HangMuc, dt.ID_HLV, dt.KetQua, dt.MaDoi, dt.TenDoi, dt.TrangThai, hm.TenHangMuc, ct.TenCuocThi, count(ds.ID) as SoLuong, hm.SoLuong as SoLuongHM, gv.HoTen as HLV " +
+                    var _sqlStr = "select dt.ID, dt.ID_HangMuc, dt.ID_HLV, dt.KetQua, dt.MaDoi, dt.TenDoi, dt.TrangThai, hm.TenHangMuc, ct.TenCuocThi, count(ds.ID) as SoLuong, hm.SoLuong as SoLuongHM, gv.HoTen as HLV, lt.ThoiGianBatDauChamDiem " +
                         "from a_DoiTuyen dt join a_HangMuc hm on hm.ID = dt.ID_HangMuc and hm.TrangThai <> 10 join a_GiaoVien gv on gv.ID = dt.ID_HLV " +
-                        "join a_CuocThi ct on ct.ID = hm.ID_CuocThi left join a_DoiTuyen_SV ds on ds.ID_Doi = dt.ID and ds.TrangThai <> 10 " +
+                        "join a_CuocThi ct on ct.ID = hm.ID_CuocThi " +
+                        "left join a_CuocThi_LichTrinh lt on lt.IDCuocThi = ct.ID and lt.TrangThai <> 10 "+
+                        "left join a_DoiTuyen_SV ds on ds.ID_Doi = dt.ID and ds.TrangThai <> 10 " +
                         $"where ct.ID = {ID} and (dt.TenDoi like N'%{search}%' OR '{search}' = '') " +
-                        "group by dt.ID, dt.ID_HangMuc, dt.ID_HLV, dt.KetQua, dt.MaDoi, dt.TenDoi, dt.TrangThai, hm.TenHangMuc, ct.TenCuocThi, gv.HoTen, hm.SoLuong";
+                        "group by dt.ID, dt.ID_HangMuc, dt.ID_HLV, dt.KetQua, dt.MaDoi, dt.TenDoi, dt.TrangThai, hm.TenHangMuc, ct.TenCuocThi, gv.HoTen, hm.SoLuong, lt.ThoiGianBatDauChamDiem";
                     lst = _conn.Query<a_DoiTuyenView>(_sqlStr, null, commandType: CommandType.Text).ToList<a_DoiTuyenView>();
                     totalCount = lst.Count();
                     return lst;

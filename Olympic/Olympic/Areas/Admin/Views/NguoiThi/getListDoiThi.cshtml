@@ -7,12 +7,12 @@
     <thead>
         <tr>
             <th class="text-center" width="5%"><input id="check-all-delete-js" type="checkbox"></th>
-            <th class="text-center" width="17%">Tên đội thi</th>
+            <th width="17%">Tên đội thi</th>
             <th class="text-center" width="18%">Tên hạng mục thi</th>
             <th class="text-center" width="13%">Huấn luyện viên</th>
-            <th class="text-center" width="12%">Số lượng thành viên</th>
+            <th class="text-center" width="12%">Thành viên</th>
             <th class="text-center" width="12%">Trạng thái</th>
-            <th class="text-center" width="15%">Chức năng</th>
+            <th style="text-align:center" width="15%">Chức năng</th>
         </tr>
     </thead>
     <tbody>
@@ -21,8 +21,8 @@
             <tr data-id="@item.ID" id="idtr">
                 <td style="text-align:center"><input type="checkbox" autocomplete="off" class="one-delete-js" /></td>
                 <td>@item.TenDoi</td>
-                <td>@item.TenHangMuc</td>
-                <td>@item.HLV</td>
+                <td style="text-align:center">@item.TenHangMuc</td>
+                <td style="text-align:center">@item.HLV</td>
                 <td class="text-center">@item.SoLuong / @item.SoLuongHM</td>
                 @if (item.TrangThai == 1)
                 {
@@ -36,12 +36,20 @@
                 {
                     <td class="text-center color-danger">Chưa sẵn sàng</td>
                 }
-                <td style="text-align:center">
-                    <a href="#" title="Danh sách thành viên" type="button" onclick="DSTV(@item.ID)"><i class="ti-user"></i></a>
-                    <a href="#" title="Sửa" type="button" onclick="Add(@item.ID)"><i class="ti-pencil"></i></a>
+            <td style="text-align:center">
+                @{
+                    var test = DateTime.Now.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                    DateTime thoiGianHienTai = DateTime.ParseExact(test, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                    DateTime chamdiem = DateTime.ParseExact(item.ThoiGianBatDauChamDiem, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                }
+                <a href="#" title="Danh sách thành viên" type="button" onclick="DSTV(@item.ID)"><i class="ti-user"></i></a>
+                <a href="#" title="Sửa" type="button" onclick="Add(@item.ID)"><i class="ti-pencil"></i></a>
+                @if (thoiGianHienTai >= chamdiem)
+                {
                     <a href="#" title="Kết quả" type="button" onclick="AddKQ(@item.ID)"><i class="ti-cup"></i></a>
-                    <a href="#" title="Xóa" onclick="Link_DeleteTT_onclick(@item.ID)"><i class="ti-trash"></i></a>
-                </td>
+                }
+                <a href="#" title="Xóa" onclick="Link_DeleteTT_onclick(@item.ID)"><i class="ti-trash"></i></a>
+            </td>
             </tr>
         }
     </tbody>

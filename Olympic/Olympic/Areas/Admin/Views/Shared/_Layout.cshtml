@@ -346,6 +346,7 @@
         function ChonKyThi(type) {
             if (type == 0) {
                 document.getElementById("divHinhThucThi").style.display = 'block';
+                $('#loaiMD').val('1');
             }
             else {
                 document.getElementById("divHinhThucThi").style.display = 'none';
@@ -394,20 +395,35 @@
             }
         }
         function DongY_ChonKyThi() {
-            var idKyThi = $('#txtIDKyThi_ChonKyThi').val();
-            var idLoai = $('#ddlChonHinhThuc').val();
-            if (idKyThi != 0) {
-                $('#mdlChonKyThi').modal('hide');
-                if (idLoai == 1) {
-                    window.location = '/Admin/NguoiThi/DSDoiThi?idCuocThi=' + idKyThi;
+            var loai = $('#loaiMD').val();
+            if (loai == 0) {
+                var idKyThi = $('#txtIDKyThi_ChonKyThi').val();
+                if (idKyThi != 0) {
+                    $('#mdlChonKyThi').modal('hide')
+                    Add(0, idKyThi);
+
+                } else {
+                    $('#error').html('Vui lòng chọn cuộc thi');
+                    $('#error').css('display', 'block');
                 }
-                else {
-                    window.location = '/Admin/NguoiThi/DSThiCaNhan?idCuocThi=' + idKyThi;
-                }
-            } else {
-                $('#error').html('Vui lòng chọn cuộc thi');
-                $('#error').css('display', 'block');
             }
+            else {
+                var idKyThi = $('#txtIDKyThi_ChonKyThi').val();
+                var idLoai = $('#ddlChonHinhThuc').val();
+                if (idKyThi != 0) {
+                    $('#mdlChonKyThi').modal('hide');
+                    if (idLoai == 1) {
+                        window.location = '/Admin/NguoiThi/DSDoiThi?idCuocThi=' + idKyThi;
+                    }
+                    else {
+                        window.location = '/Admin/NguoiThi/DSThiCaNhan?idCuocThi=' + idKyThi;
+                    }
+                } else {
+                    $('#error').html('Vui lòng chọn cuộc thi');
+                    $('#error').css('display', 'block');
+                }
+            }
+            
         };
     </script>
     <!-- /# content wrap -->

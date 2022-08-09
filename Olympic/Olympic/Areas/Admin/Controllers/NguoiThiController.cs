@@ -171,10 +171,12 @@ namespace Olympic.Areas.Admin.Controllers
             List<CaNhanView> lstCaNhan = new List<CaNhanView>();
             List<CaNhanView> lstCaNhanDK = new List<CaNhanView>();
 
-            string sql = $@"select sv.ID, hmcv.ID as IDHM_SV, sv.MaSV, hmcv.SoBaoDanh, sv.HoTen, hm.TenHangMuc, hmcv.TrangThai, hmcv.Diem, cn.GiaiThuong from a_SinhVien sv
+            string sql = $@"select sv.ID, hmcv.ID as IDHM_SV, sv.MaSV, hmcv.SoBaoDanh, sv.HoTen, hm.TenHangMuc, hmcv.TrangThai, hmcv.Diem, cn.GiaiThuong, lt.ThoiGianBatDauChamDiem
+                        from a_SinhVien sv
                         join a_HangMuc_SinhVien_Diem hmcv on sv.ID = hmcv.ID_SV and hmcv.TrangThai <> 10
                         join a_HangMuc hm on hm.ID = hmcv.ID_HangMuc
                         join a_CuocThi ct on ct.ID = hm.ID_CuocThi
+                        left join a_CuocThi_LichTrinh lt on lt.IDCuocThi = ct.ID and lt.TrangThai <> 10
                         left join a_ThiCaNhan cn on cn.ID_SV = hmcv.ID_SV and cn.ID_HangMuc = hmcv.ID_HangMuc
                         where sv.TrangThai <> 10 and ct.ID = {IDCuocThi} and hm.DoiTuong = 2 and hm.TrangThai <> 10";
             var data = db.Database.SqlQuery<CaNhanView>(sql).ToList();

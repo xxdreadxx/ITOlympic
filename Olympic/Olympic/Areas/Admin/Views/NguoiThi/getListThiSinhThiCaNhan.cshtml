@@ -35,17 +35,31 @@
         <tbody id="body_DSThiCN">
             @foreach (var item in Model)
             {
-                <tr data-id="@item.ID" id="idtr_@item.IDHM_SV">
-                    <td class="text-center"><input type="checkbox" autocomplete="off" class="one-delete-js" /></td>
-                    <td class="text-left">@item.SoBaoDanh</td>
-                    <td class="text-left">@item.HoTen</td>
-                    <td class="text-center">@item.TenHangMuc</td>
-                    <td class="text-center"><input value="@item.Diem" onchange="changeDiem(@item.IDHM_SV)" id="txtDiem_@item.IDHM_SV" /></td>
-                    <td class="text-center"><input value="@item.GiaiThuong" onchange="changeGT(@item.IDHM_SV)" id="inpGT_@item.IDHM_SV" /></td>
-                    <td style="text-align:center">
-                        <a href="#" title="Xóa" onclick="DelSVThiCN(@item.IDHM_SV)"><i class="ti-trash"></i></a>
-                    </td>
-                </tr>
+            <tr data-id="@item.ID" id="idtr_@item.IDHM_SV">
+                <td class="text-center"><input type="checkbox" autocomplete="off" class="one-delete-js" /></td>
+                <td class="text-left">@item.SoBaoDanh</td>
+                <td class="text-left">@item.HoTen</td>
+                <td class="text-center">@item.TenHangMuc</td>
+                @{
+                    var test = DateTime.Now.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                    DateTime thoiGianHienTai = DateTime.ParseExact(test, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                    DateTime chamdiem = DateTime.ParseExact(item.ThoiGianBatDauChamDiem, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                    if (thoiGianHienTai >= chamdiem)
+                    {
+                        <td class="text-center"><input value="@item.Diem" onchange="changeDiem(@item.IDHM_SV)" id="txtDiem_@item.IDHM_SV" /></td>
+                        <td class="text-center"><input value="@item.GiaiThuong" onchange="changeGT(@item.IDHM_SV)" id="inpGT_@item.IDHM_SV" /></td>
+                    }
+                    else
+                    {
+                        <td class="text-center"><input value="@item.Diem" disabled onchange="changeDiem(@item.IDHM_SV)" id="txtDiem_@item.IDHM_SV" /></td>
+                        <td class="text-center"><input value="@item.GiaiThuong" disabled onchange="changeGT(@item.IDHM_SV)" id="inpGT_@item.IDHM_SV" /></td>
+                    }
+                }
+
+                <td style="text-align:center">
+                    <a href="#" title="Xóa" onclick="DelSVThiCN(@item.IDHM_SV)"><i class="ti-trash"></i></a>
+                </td>
+            </tr>
             }
         </tbody>
     </table>
@@ -95,7 +109,7 @@
             {
                 <tr data-id="@item.ID" id="idtrDK_@item.IDHM_SV">
                     <td class="text-center"><input type="checkbox" autocomplete="off" class="one-delete-js" /></td>
-                    <td class="text-left">@item.MaSinhVien</td>
+                    <td class="text-left">@item.MaSV</td>
                     <td class="text-left">@item.HoTen</td>
                     <td class="text-center">@item.TenHangMuc</td>
                     <td style="text-align:center">

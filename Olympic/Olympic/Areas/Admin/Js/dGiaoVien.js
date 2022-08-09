@@ -358,32 +358,13 @@ function Save() {
                 if (response.status == true) {
                     $('#addNewUser').modal('hide');
                     if (id == 0) {
-                        bootbox.alert({
-                            title: "Thông báo",
-                            message: "Thêm mới thành công giáo viên",
-                            buttons: {
-                                ok: {
-                                    label: 'Đóng',
-                                    className: "btn btn-default",
-                                }
-                            },
-                            callback: function () { loadPartial(); }
-                        })
+                        toastr.success("Thêm mới thành công giáo viên");
                     }
                     else {
-                        bootbox.alert({
-                            title: "Thông báo",
-                            message: "Cập nhật giáo viên thành công",
-                            buttons: {
-                                ok: {
-                                    label: 'Đóng',
-                                    className: "btn btn-default",
-                                }
-                            },
-                            callback: function () { loadPartial(); }
-                        })
+                        toastr.success("Cập nhật giáo viên thành công");
                     }
                 }
+                loadPartial();
             },
             error: function (err) {
                 console.log(err);
@@ -422,36 +403,17 @@ function deleteOne() {
                     success: function (rs) {
                         if (rs.status == true) {
                             $("#DeleteND").modal("hide");
-                            bootbox.alert({
-                                title: "Thông báo",
-                                message: "Xóa thành công bản ghi",
-                                buttons: {
-                                    ok: {
-                                        label: 'Đóng',
-                                        className: "btn btn-default",
-                                    }
-                                },
-                                callback: function () { loadPartial(); }
-                            })
+                            toastr.success("Xóa thành công bản ghi");
                         }
                     }
                 })
             }
             else {
-                bootbox.alert({
-                    title: "Thông báo",
-                    message: "Có huấn luyện viên đang huấn luyện đội thi, không thể xóa",
-                    buttons: {
-                        ok: {
-                            label: 'Đóng',
-                            className: "btn btn-default",
-                        }
-                    }
-                })
+                toastr.error("Có huấn luyện viên đang huấn luyện đội thi, không thể xóa");
             }
+            loadPartial();
         }
     })
-    
 }
 
 function deleteAll() {
@@ -464,20 +426,12 @@ function deleteAll() {
         success: function (rs) {
             $('#check-all-delete-js').prop('checked', false);
             if (rs.status == true) {
-                bootbox.alert({
-                    title: "Thông báo",
-                    message: "Xóa thành công bản ghi",
-                    buttons: {
-                        ok: {
-                            label: 'Đóng',
-                            className: "btn btn-default",
-                        }
-                    },
-                    callback: function () { loadPartial(); }
-                })
+                toastr.success("Xóa thành công bản ghi");
             }
+            loadPartial();
         }
     })
+
 }
 
 var idBG = "";
@@ -509,34 +463,16 @@ function changeStatus() {
             if (result.status == true) {
                 $("#status").modal("hide");
                 if (status == 1) {
-                    bootbox.alert({
-                        title: "Thông báo",
-                        message: "Kích hoạt tài khoản giáo viên thành công",
-                        buttons: {
-                            ok: {
-                                label: 'Đóng',
-                                className: "btn btn-default",
-                            }
-                        },
-                        callback: function () { loadPartial(); }
-                    })
+                    toastr.success("Kích hoạt tài khoản giáo viên thành công");
                 }
                 else {
-                    bootbox.alert({
-                        title: "Thông báo",
-                        message: "Bỏ kích hoạt tài khoản giáo viên thành công",
-                        buttons: {
-                            ok: {
-                                label: 'Đóng',
-                                className: "btn btn-default",
-                            }
-                        },
-                        callback: function () { loadPartial(); }
-                    })
+                    toastr.success("Bỏ kích hoạt tài khoản giáo viên thành công");
                 }
             }
+            loadPartial();
         }
     });
+
 }
 
 $(document).ready(function () {

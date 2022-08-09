@@ -38,6 +38,7 @@ namespace Models.EF
         public int SoLuong { get; set; }
         public int SoLuongHM { get; set; }
         public string HLV { get; set; }
+        public string ThoiGianBatDauChamDiem { get; set; }
     }
 
     public class CaNhanView
@@ -45,12 +46,13 @@ namespace Models.EF
         public int ID { get; set; }
         public int IDHM_SV { get; set; }
         public string HoTen { get; set; }
-        public string MaSinhVien { get; set; }
+        public string MaSV { get; set; }
         public string SoBaoDanh { get; set; }
         public string TenHangMuc { get; set; }
         public string TenCuocThi { get; set; }
         public string GiaiThuong { get; set; }
         public double? Diem { get; set; }
         public byte TrangThai { get; set; }
+        public string ThoiGianBatDauChamDiem { get; set; }
     }
 }

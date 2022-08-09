@@ -154,23 +154,12 @@ function SaveThongTin() {
     var kiemtra = Validate();
     var f = document.getElementById('fDinhKem');
     if (kiemtra.checkValid == false) {
-        bootbox.alert({
-            title: "Thông báo",
-            message: 'Có thông tin không hợp lệ. Vui lòng kiểm tra lại',
-            buttons: {
-                ok: {
-                    label: 'Đóng',
-                    className: "btn btn-default",
-                }
-            },
-            callback: function () { /*location.href = '/Home/DangKy' */}
-        })
+        toastr.error('Có thông tin chưa chính xác ! Vui lòng kiểm tra lại thông tin đã nhập');
     }
     else {
         var form = new FormData();
         form.append('ID', $('#id').val());
         form.append('IDHangMuc', $('#idHangMuc').val());
-        //form.append('IDCuocThi', $('#idCuocThi').val());
         form.append("MaHocSinh", $('#txtMaSV').val());
         form.append("HoTen", $('#txthoten').val());
         form.append("GioiTinh", $('input[name="Gender"]:checked').val());
@@ -201,16 +190,15 @@ function SaveThongTin() {
             success: function (res) {
                 if (res.status == true) {
                     $('#savethongtin').hide();
-                    if ($('#id').val() == 0) {
-                        var mess = 'Hồ sơ đăng ký của bạn đã được tiếp nhận.  ' +
-                            'Bạn có thể thực hiện tra cứu thông tin hồ sơ trên cổng thông tin.';
 
-                        toastr.success(mess);
-                        location.href = '/Home/DanhSachCuocThi';
-                    }
+                    var mess = 'Hồ sơ đăng ký của bạn đã được tiếp nhận.  ' +
+                        'Bạn có thể thực hiện tra cứu thông tin hồ sơ trên cổng thông tin.';
+
+                    toastr.success(mess);
+                    location.href = '/Home/DanhSachCuocThi';
                 }
                 else {
-                    
+                    toastr.error(res.error);
                 }
             },
             error: function () {
