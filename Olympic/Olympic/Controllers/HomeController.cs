@@ -351,7 +351,7 @@ namespace Olympic.Controllers
                 //        }, JsonRequestBehavior.AllowGet);
                 //    }
                 //}
-                ketquatracuu =string.Concat("/General/KetQuaTraCuuHoSo.cshtml").Replace("//", "/"), null);
+                ketquatracuu =string.Concat("/General/KetQuaTraCuuHoSo.cshtml").Replace("//", "/");
 
                 return Json(new
                 {

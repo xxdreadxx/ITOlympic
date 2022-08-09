@@ -171,7 +171,8 @@ namespace Olympic.Areas.Admin.Controllers
             List<CaNhanView> lstCaNhan = new List<CaNhanView>();
             List<CaNhanView> lstCaNhanDK = new List<CaNhanView>();
 
-            string sql = $@"select sv.ID, hmcv.ID as IDHM_SV, sv.MaSV, hmcv.SoBaoDanh, sv.HoTen, hm.TenHangMuc, hmcv.TrangThai, hmcv.Diem, cn.GiaiThuong, lt.ThoiGianBatDauChamDiem
+            string sql = $@"select sv.ID, hmcv.ID as IDHM_SV, sv.MaSV, hmcv.SoBaoDanh, sv.HoTen, hm.TenHangMuc, hmcv.TrangThai, hmcv.Diem, cn.GiaiThuong, 
+                        lt.ThoiGianBatDauChamDiem, lt.ThoiGianKetThucChamDiem, lt.ThoiGianBatDauThi 
                         from a_SinhVien sv
                         join a_HangMuc_SinhVien_Diem hmcv on sv.ID = hmcv.ID_SV and hmcv.TrangThai <> 10
                         join a_HangMuc hm on hm.ID = hmcv.ID_HangMuc
@@ -341,6 +342,20 @@ namespace Olympic.Areas.Admin.Controllers
             return Json(new
             {
                 status = kt
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult changeSBD(int id, string sbd)
+        {
+            var hs = db.a_HangMuc_SinhVien_Diem.FirstOrDefault(x => x.ID == id);
+            if (hs != null)
+            {
+                hs.SoBaoDanh = sbd;
+                db.SaveChanges();
+            }
+            return Json(new
+            {
+                status = true
             }, JsonRequestBehavior.AllowGet);
         }
     }

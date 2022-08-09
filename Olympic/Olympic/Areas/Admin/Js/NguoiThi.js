@@ -521,7 +521,7 @@ function Duyet(id) {
                     document.getElementById("idtrDK_" + id).style.display = "none";
                 }, 100);
                 html = '';
-                html += '<tr data-id="' + result.data.ID + '" id="idtr_' + result.data.IDHM_SV + '"><td class="text-center"><input type="checkbox" autocomplete="off" class="one-delete-js" /></td><td class="text-left">' + result.data.SoBaoDanh + '</td><td class="text-left">' + result.data.HoTen+'</td>';
+                html += '<tr data-id="' + result.data.ID + '" id="idtr_' + result.data.IDHM_SV + '"><td class="text-center"><input type="checkbox" autocomplete="off" class="one-delete-js" /></td><td class="text-left"><input value="" onchange="changeSBD(' + item.IDHM_SV + ')" id="txtSBD_' + item.IDHM_SV + '" /></td><td class="text-left">' + result.data.HoTen+'</td>';
                 html += '<td class="text-center">' + result.data.TenHangMuc + '</td><td class="text-center"><input value="" onchange="changeDiem(' + item.IDHM_SV + ')" id="txtDiem_' + result.data.IDHM_SV + '" /></td><td class="text-center"><input value="" onchange="changeGT(' + item.IDHM_SV + ')" id="inpGT_' + result.data.IDHM_SV+'" /></td>';
                 html += '</td><td style="text-align:center"><a href="#" title="Xóa" onclick="DelSVThiCN(' + result.data.ID+')"><i class="ti-trash"></i></a></td></tr>';
                 $('#body_DSThiCN').append(html);
@@ -570,4 +570,21 @@ function DelSVThiCN(id) {
 
 function closeF() {
     loadPartial();
+}
+
+function changeSBD(id) {
+    var diem = $('#txtSBD_' + id).val();
+    $.ajax({
+        url: "/NguoiThi/changeSBD",
+        data: {
+            id: id,
+            sbd: diem
+        },
+        type: 'post',
+        success: function (result) {
+            if (result.status == true) {
+                toastr.success('Nhập số báo danh thành công', '', { timeOut: 1000 });
+            }
+        }
+    });
 }

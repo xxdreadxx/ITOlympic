@@ -54,5 +54,7 @@ namespace Models.EF
         public double? Diem { get; set; }
         public byte TrangThai { get; set; }
         public string ThoiGianBatDauChamDiem { get; set; }
+        public string ThoiGianKetThucChamDiem { get; set; }
+        public string ThoiGianBatDauThi { get; set; }
     }
 }
