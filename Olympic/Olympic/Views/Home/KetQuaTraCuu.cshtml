@@ -1,13 +1,146 @@
-﻿<div class="container">
+﻿
+<div class="container">
     <div class="formthongtin">
         <div class="col-lg-9 mx-auto">
             <div class="faq-body">
                 <div class="row titleheaderhs">
                     <h3>
-                        Thông tin hồ sơ
+                        Thông tin sinh viên
                     </h3>
                 </div>
-              
+                @if (ViewBag.ThongTinHoSo != null)
+                {
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="row thongtinhoso">
+                                <div class="col-lg-4">
+                                    Mã sinh viên:
+                                </div>
+                                <div class="col-lg-8 righttitle">
+                                    @ViewBag.ThongTinHoSo.MaSV
+                                </div>
+                            </div>
+                            <div class="row thongtinhoso">
+                                <div class="col-lg-4">
+                                    Họ tên:
+                                </div>
+                                <div class="col-lg-8 righttitle">
+                                    @ViewBag.ThongTinHoSo.HoTen
+                                </div>
+                            </div>
+                            <div class="row thongtinhoso">
+                                <div class="col-lg-4">
+                                    Ngày sinh:
+                                </div>
+                                <div class="col-lg-8 righttitle">
+                                    @ViewBag.ThongTinHoSo.NgaySinh
+                                </div>
+                            </div>
+                            <div class="row thongtinhoso">
+                                <div class="col-lg-4">
+                                    Giới tính:
+                                </div>
+                                <div class="col-lg-8 righttitle">
+                                    @if (ViewBag.ThongTinHoSo.GioiTinh == 1)
+                                    {
+                                        <span>Nam</span>
+                                    }
+                                    else
+                                    {
+                                        <span>Nữ</span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                            <div class="row thongtinhoso">
+                                <div class="col-lg-5">
+                                    Email:
+                                </div>
+                                <div class="col-lg-7 righttitle">
+                                    @ViewBag.ThongTinHoSo.Email
+                                </div>
+                            </div>
+                            <div class="row thongtinhoso">
+                                <div class="col-lg-5">
+                                    Số điện thoại:
+                                </div>
+                                <div class="col-lg-7 righttitle">
+                                    @ViewBag.ThongTinHoSo.SDT
+                                </div>
+                            </div>
+                            <div class="row thongtinhoso">
+                                <div class="col-lg-5">
+                                    Ngày nộp hồ sơ:
+                                </div>
+                                <div class="col-lg-7 righttitle">
+                                    @{
+                                        var ngay = ViewBag.ThongTinHoSo.NgayTao.ToString("dd/MM/yyyy");
+                                    }
+                                    @ngay
+                                </div>
+                            </div>
+                            <div class="row thongtinhoso" style="display: none">
+                                <div class="col-lg-5">
+                                    Trạng thái hồ sơ:
+                                </div>
+                                <div class="col-lg-7 righttitle">
+                                    @if (ViewBag.ThongTinHoSo.TrangThai == 2)
+                                    {
+                                        <span>Đã đăng ký</span>
+                                    }
+                                    else if (ViewBag.ThongTinHoSo.TrangThai == 1)
+                                    {
+                                        <span>Đã được duyệt</span>
+                                    }
+                                    else if (ViewBag.ThongTinHoSo.TrangThai == 3)
+                                    {
+                                        <span>Đã trả lại</span>
+                                    }
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="row titleheaderhs" style="margin-top:10px">
+                        <h3 class="col-md-10">
+                            Kết quả
+                        </h3>
+                    </div>
+                    if (ViewBag.ThoiGianCongBo == false)
+                    {
+                        <p>Chưa đến thời gian công bố kết quả. Vui lòng theo dõi lịch trình cuộc thi</p>
+                    }
+                    else
+                    {
+                        <div class="row">
+                            <div class="col-md-12">
+                                <table class="table table-bordered" style="margin: 10px 0px">
+                                    <thead>
+                                        <tr>
+                                            <th class="text-center">Tên hạng mục</th>
+                                            <th class="text-center">Hình thức thi</th>
+                                            <th class="text-center">Điểm</th>
+                                            <th class="text-center">Giải thưởng</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td class="text-center">@ViewBag.KetQuaTuyenSinh.TenHangMuc</td>
+                                            <td class="text-center">@ViewBag.KetQuaTuyenSinh.HinhThucThi</td>
+                                            <td class="text-center">@ViewBag.KetQuaTuyenSinh.Diem</td>
+                                            <td class="text-center">@ViewBag.KetQuaTuyenSinh.GiaiThuong</td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+                            </div>
+                        </div>
+                    }
+                }
+                else
+                {
+                    <p> Không tìm thấy kết quả(vui lòng kiểm tra lại thông tin đã nhập)</p>
+                }
             </div><!-- end faq-body -->
         </div><!-- end col-lg-8-->
     </div><!-- end row -->

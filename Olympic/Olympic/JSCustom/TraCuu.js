@@ -48,8 +48,8 @@ $('#timkiem').off('click').on('click', function () {
 
     var mahocsinh = $('#mahocsinh').val() || "";
     var sobaodanh = $('#sobaodanh').val() || "";
-
     var cuocthi = $('#cuocthi').val();
+    var hangmuc = $('#hangmuc').val();
 
     // reset validate 
     $('#errorthongtin').text('');
@@ -98,7 +98,8 @@ $('#timkiem').off('click').on('click', function () {
                 type,
                 mahocsinh,
                 sobaodanh,
-                cuocthi
+                cuocthi,
+                hangmuc
             },
             success: function (res) {
                     $('#thongtinhoso').html(res.ketquatracuu)
@@ -112,4 +113,20 @@ $('#timkiem').off('click').on('click', function () {
 $('document').ready(function () {
     $('#navTraCuu').addClass('active');
 });
+
+function selectHangMuc() {
+    var cuocthi = $('#cuocthi').val();
+    $.ajax({
+        url: '/Home/GetHangMuc',
+        data: {cuocthi},
+        success: function (res) {
+            var selectCuocThi = $('#hangmuc');
+            var op = "";
+            $.each(res.data, function (i, item) {
+                op += '<option value=' + item.ID + '>' + item.TenHangMuc + '</option>'
+            });
+            selectCuocThi.html(op);
+        }
+    });
+}
 

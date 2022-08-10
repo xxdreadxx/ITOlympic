@@ -25,25 +25,25 @@
                                         <input value="2" checked type="radio" name="rdlLoaiTraCuu" onclick="ShowInfo(this)"> Mã học sinh
                                     </label>
                                 </div>
-                                <div class="checkbox col-md-6 pull-left">
+                                @*<div class="checkbox col-md-6 pull-left">
                                     <label>
                                         <input value="3" type="radio" checked name="rdlLoaiTraCuu" onclick="ShowInfo(this)"> Số báo danh
                                     </label>
                                 </div>
-                                <span class="error-text" id="errorthongtin"></span>
+                                <span class="error-text" id="errorthongtin"></span>*@
                             </div>
                         </div>
                         <div class="row justify-content-md-center" id="nhapthongtintracuu">
                             <div class="col-12">
-                                <label class="required"><span>Số báo danh</span></label>
-                                <input class="form-control" type="text" id="sobaodanh" />
+                                <label class="required"><span>Mã sinh viên</span></label>
+                                <input class="form-control" type="text" id="mahocsinh" />
                                 <span class="error-text" id="error_input"></span>
                             </div>
                         </div>
                         <div class="row justify-content-md-center">
                             <div class="col-12">
                                 <label id="schoolyear_required">Cuộc thi</label>
-                                <select class="form-control ctl_selectone" name="Type" id="cuocthi" data-placeholder="-- Chọn cuộc thi --">
+                                <select class="form-control ctl_selectone" name="Type" id="cuocthi" data-placeholder="-- Chọn cuộc thi --" onchange="selectHangMuc()">
                                     @{
                                         foreach (var i in ViewBag.CuocThi)
                                         {
@@ -52,6 +52,15 @@
                                     }
                                 </select>
                                 <span class="error-text" id="error_cuocthi"></span>
+                            </div>
+                        </div>
+                        <div class="row justify-content-md-center">
+                            <div class="col-12">
+                                <label id="schoolyear_required">Hạng mục thi</label>
+                                <select class="form-control ctl_selectone" name="Type" id="hangmuc" data-placeholder="-- Chọn hạng mục thi --">
+  
+                                </select>
+                                <span class="error-text" id="error_hangmuc"></span>
                             </div>
                         </div>
                         <div class="row mt-3 mb-3 justify-content-center">
@@ -88,4 +97,3 @@
     </script>
 
 }
-

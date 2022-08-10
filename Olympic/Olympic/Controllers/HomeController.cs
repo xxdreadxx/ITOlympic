@@ -175,7 +175,7 @@ namespace Olympic.Controllers
             }
         }
 
-        public JsonResult KetQuaTraCuuHoSo(string type, string mahoso, string mahocsinh, string matkhau, string sobaodanh, int namhoc, int truongthi)
+        public JsonResult KetQuaTraCuuHoSo(string type,  string mahocsinh, string sobaodanh, int cuocthi, int hangmuc)
         {
             ViewBag.ThongTinHoSo = null;
             ViewBag.KetQuaTuyenSinh = null;
@@ -183,183 +183,86 @@ namespace Olympic.Controllers
 
                 string _sql = "";
                 string ketquatracuu;
-                //ThongTinHoSo thongTinHoSo = new ThongTinHoSo();
+            ThongTin thongTinHoSo = new ThongTin();
 
-                // Mã học sinh 
-               if (type == "2")
+            // Mã học sinh 
+            if (type == "2")
+            {
+                _sql = $@"select sv.ID, sv.MaSV, sv.HoTen, sv.NgaySinh, sv.GioiTinh, sv.Lop, hm.DoiTuong, sv.SDT, sv.Email, sv.NgayTao, hmdiem.TrangThai
+                                from a_SinhVien sv
+                                join a_HangMuc_SinhVien_Diem hmdiem on hmdiem.ID_SV = sv.ID
+                                join a_HangMuc hm on hm.ID = hmdiem.ID_HangMuc
+                                where sv.TrangThai <> 10 and LOWER(sv.MaSV)=LOWER(N'{mahocsinh}') and hm.ID = {hangmuc} ";
+
+                thongTinHoSo = db.Database.SqlQuery<ThongTin>(_sql).FirstOrDefault();
+
+                KetQua ketqua = new KetQua();
+                if (thongTinHoSo != null)
                 {
-                    _sql = $""+
-
-                           $"where hs.TrangThai != 10 " +
-                           $"and LOWER(hs.MaHocSinh)=LOWER(N''+ @mahocsinh + '') and kt.NamHoc= @namhoc ";
-
-                    //object[] lstPara = {
-                    //new SqlParameter("@mahocsinh",mahocsinh),
-                    //new SqlParameter("@matkhau",matkhau),
-                    //new SqlParameter("@namhoc",namhoc)
-                    //};
-                    //thongTinHoSo = db.Database.SqlQuery<ThongTinHoSo>(_sql, lstPara).FirstOrDefault();
-
-                    #region Kết quả tra cứu - Kiên Giang
-                    //lấy thông tin số báo danh trước khi lấy kết quả
-                    //TS_KyThi_SoBaoDanh ketqua_sobaodanh = new TS_KyThi_SoBaoDanh();
-                    //ketqua_sobaodanh = db.TS_KyThi_SoBaoDanh.FirstOrDefault(k => k.IDHocSinh == thongTinHoSo.IDHocSinh);
-                    //if (ketqua_sobaodanh != null)
-                    //{
-                    //    TS_KetQuaTuyenSinh ketQua = new TS_KetQuaTuyenSinh();
-                    //    ketQua = db.TS_KetQuaTuyenSinh.FirstOrDefault(k => k.SoBaoDanh == ketqua_sobaodanh.SoBaoDanh && k.TrangThai != 10);
-                    //    ViewBag.KetQuaTuyenSinh = ketQua;
-                    //}
-                    #endregion
-
+                    string sqlKetQua = "";
+                  
+                    var doituongthi = thongTinHoSo.DoiTuong;
+                    int idSV = thongTinHoSo.ID;
+                    //1: thi đội; 2: cá nhân
+                    if (doituongthi == 1)
+                    {
+                        
+                    }
+                    else
+                    {
+                        sqlKetQua = $@"select hm.TenHangMuc, hm.HinhThucThi, diem.Diem, cn.GiaiThuong
+                                        from a_HangMuc hm
+                                        join a_HangMuc_SinhVien_Diem diem on diem.ID_HangMuc = hm.ID  and diem.TrangThai <> 10
+                                        join a_ThiCaNhan cn on cn.ID_HangMuc = hm.ID and cn.TrangThai <> 10
+                                        where hm.TrangThai <> 10 and diem.ID_SV = {idSV}";
+                        ketqua = db.Database.SqlQuery<KetQua>(sqlKetQua).FirstOrDefault();
+                    }
                 }
-                // Số báo danh
+
+                var lichtrinh = db.a_CuocThi_LichTrinh.Where(x => x.IDCuocThi == cuocthi && x.TrangThai != 10).FirstOrDefault();
+                DateTime congbo = DateTime.ParseExact(lichtrinh.ThoiGianCongBoDiem, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                var test = DateTime.Now.ToString("dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                DateTime thoiGianHienTai = DateTime.ParseExact(test, "dd/MM/yyyy", System.Globalization.CultureInfo.InvariantCulture);
+                if (congbo >= thoiGianHienTai)
+                {
+                    ViewBag.ThoiGianCongBo = true;
+                }
                 else
                 {
-                    _sql = $"select hs.ID as IDHocSinh, hs.MaHoSo, hs.MaHocSinh, hs.HoTen, hs.NgaySinh, hs.GioiTinh, hs.NgayTao, sbd.SoBaoDanh, " +
-                           $" t.TenTruong, hs_nv.TrangThai, hs.IDKyThi, hs_nv.TrangThai_Mail_Str, hs.DoiTuongTuyenThang, " +
-
-                           "hs.DiaChiTT,(c0.TenDiaChi) as PhuongTT, (c.TenDiaChi) as QuanTT,(c1.TenDiaChi) as ThanhPhoTT, " +
-                           "hs.DiaChiTamTru, (c2.TenDiaChi) as PhuongTamTru, (c3.TenDiaChi) as QuanTamTru, (c4.TenDiaChi) as ThanhPhoTamTru " +
-
-                           $"from TS_HocSinh hs " +
-                           $"left join TS_HocSinh_NguyenVong hs_nv on hs_nv.IDHocSinh = hs.ID " +
-                           $"left join TS_Truong t on hs.IDTruong = t.ID " +
-                           $"left join TS_KyThi_TaoKyThi kt on hs.IDKyThi = kt.ID " +
-                           $"left join TS_KyThi_SoBaoDanh sbd on sbd.IDHocSinh = hs.ID and sbd.TrangThai != 10 " +
-                           // Thường trú
-                           "left join TS_DiaChi c on c.ID = hs.IDQuanTT " +
-                           "left join TS_DiaChi c0 on c0.ID= hs.IDPhuongTT " +
-                           "left join TS_DiaChi c1 on c1.ID = hs.IDTinhTT " +
-                           // Tạm trú
-                           "left join TS_DiaChi c2 on c2.ID= hs.IDPhuongTamTru  " +
-                           "left join TS_DiaChi c3 on c3.ID = hs.IDQuanTamTru " +
-                           "left join TS_DiaChi c4 on c4.ID = hs.IDTinhTamTru " +
-
-                           $"where hs.TrangThai != 10 and sbd.SoBaoDanh = @sobaodanh and kt.NamHoc= @namhoc and sbd.IDTruongThi = @truongthi and sbd.MaDonViSuDung = (select MaDonViSuDung from TS_Truong where ID = @truongthi)";
-                    //object[] lstPara = {
-                    //new SqlParameter("@namhoc",namhoc),
-                    //new SqlParameter("@sobaodanh",sobaodanh),
-                    //new SqlParameter("@truongthi",truongthi)
-                    //};
-                    //thongTinHoSo = db.Database.SqlQuery<ThongTinHoSo>(_sql, lstPara).FirstOrDefault();
-
-
-                    #region Kết quả tra cứu - Kiên Giang
-                    //TS_KetQuaTuyenSinh ketQua = new TS_KetQuaTuyenSinh();
-                    //ketQua = db.TS_KetQuaTuyenSinh.FirstOrDefault(k => k.SoBaoDanh == sobaodanh && k.TrangThai != 10);
-                    //ViewBag.KetQuaTuyenSinh = ketQua;
-                    #endregion
+                    ViewBag.ThoiGianCongBo = false;
                 }
-
-                //if (thongTinHoSo != null)
-                //{
-                //    TS_KyThi_TaoKyThi kyThi = db.TS_KyThi_TaoKyThi.FirstOrDefault(k => k.ID == thongTinHoSo.IDKyThi && k.TrangThai != 10);
-
-                //    //lấy ra thông tin thời gian đăng ký trực tiếp từ lịch trình tuyển sinh
-                //    string sqlLichTrinh = "Select lttg.* from TS_LichTrinh_ThoiGian lttg " +
-                //        "join TS_LichTrinh lt on lt.ID = lttg.IDLichTrinh and lt.TrangThai <> 10 " +
-                //        $"where lt.IDKyThi = {kyThi.ID} and lttg.IDNoiDung = 7 ";
-                //    TS_LichTrinh_ThoiGian objThoiGian = db.Database.SqlQuery<TS_LichTrinh_ThoiGian>(sqlLichTrinh).FirstOrDefault();
-                //    if (objThoiGian == null)
-                //    {
-                //        ViewBag.ThoiGianCongBo = false;
-                //    }
-                //    else
-                //    {
-                //        string[] thoiGianStr = objThoiGian.ThoiGian.Split('-');
-                //        DateTime tuNgay = DateTime.ParseExact(thoiGianStr[0], "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                //        //DateTime denNgay = DateTime.ParseExact(thoiGianStr[1], "dd/MM/yyyy", CultureInfo.InvariantCulture);
-
-                //        DateTime ngayHienTai = DateTime.ParseExact(DateTime.Now.Date.ToString("dd/MM/yyyy", CultureInfo.InvariantCulture), "dd/MM/yyyy", CultureInfo.InvariantCulture);
-                //        if (tuNgay <= ngayHienTai)
-                //        {
-                //            ViewBag.ThoiGianCongBo = true;
-                //        }
-                //        else
-                //        {
-                //            ViewBag.ThoiGianCongBo = false;
-                //        }
-                //    }
-                //    //Lấy danh sách điểm thi của thí sinh
-                //    int cap = kyThi == null ? 0 : kyThi.DoiTuongTuyenSinh.Value;
-                //    if (cap == 3)
-                //    {
-                //        //Lấy thông tin điểm ưu tiên
-                //        string sqlUuTien = "Select SUM(isnull(dt.DiemCong,0)) from TS_HocSinh_DoiTuongUuTien dtut " +
-                //            "join TS_DoiTuongUuTien dt on dt.ID = dtut.IDDoiTuongUuTien and dt.TrangThai != 10 " +
-                //            $"where dtut.TrangThai != 10 and dtut.IDHocSinh = {thongTinHoSo.IDHocSinh} " +
-                //            $"group by dtut.IDHocSinh ";
-                //        double diemCong = db.Database.SqlQuery<double>(sqlUuTien).FirstOrDefault();
-                //        thongTinHoSo.DiemUuTien = diemCong;
-
-                //        string sqlDiemThi = "Select mt.Ma as MaMon, mt.Ten as TenMon, isnull((isnull(dt.DiemPhucKhao, dt.DiemThi) * isnull(ct.HeSo,0)),0) as DiemThi, ct.HeSo " +
-                //            "from TS_KyThi_DiemThi dt " +
-                //            "join TS_KyThi_SoBaoDanh sbd on sbd.ID = dt.IDSoBaoDanh and sbd.TrangThai <> 10 " +
-                //            "join TS_MonThi mt on mt.ID = dt.IDMonThi and mt.TrangThai != 10 " +
-                //            $"join TS_KyThi_CongThucTinhDiem ct on ct.IDMonThi = dt.IDMonThi and ct.TrangThai != 10 and ct.IDKyThi = {thongTinHoSo.IDKyThi} " +
-                //            $"where dt.TrangThai != 10 and sbd.IDHocSinh = {thongTinHoSo.IDHocSinh}";
-
-                //        List<KetQuaThi> lstKetQua = db.Database.SqlQuery<KetQuaThi>(sqlDiemThi).ToList();
-                //        thongTinHoSo.lstKetQua = lstKetQua;
-                //        thongTinHoSo.TongDiem = lstKetQua.Sum(k => k.DiemThi) + diemCong;
-                //    }
-                //    // Lấy ra danh sách tên trường đăng ký
-                //    string sql_lstNguyenVong = "select nv.* , lc.TenLopChuyen, m.Ten as TenMonChuyen " +
-                //        "from TS_HocSinh_NguyenVong nv " +
-                //        "left join TS_LopChuyen lc on nv.IDLopChuyen = lc.ID and lc.TrangThai != 10 " +
-                //        "left join TS_MonThi m on m.ID = nv.IDMonChuyen and m.TrangThai != 10 " +
-                //        $"where nv.TrangThai != 10 and nv.IDHocSinh = {thongTinHoSo.IDHocSinh} ";
-                //    var list_NguyenVong = db.Database.SqlQuery<HocSinh_NguyenVong>(sql_lstNguyenVong).ToList();
-                //    //Lấy ra danh sách nguyện vọng hợp lệ
-                //    //List<TS_HocSinh_NguyenVong> nguyenVong = db.TS_HocSinh_NguyenVong.Where(k => k.IDHocSinh == thongTinHoSo.IDHocSinh && k.TrangThai != 10).OrderBy(k => k.NguyenVong).ToList(); ;
-                //    ViewBag.TrungTuyen = list_NguyenVong;
-                //    ViewBag.Cap = cap;
-                //    ViewBag.ListNguyenVong = list_NguyenVong;
-                //    // Tìm danh sách điểm học bạ
-                //    List<DoiTuongUuTien> lst_DTUT = new List<DoiTuongUuTien>();
-                //    string sql_dtut = "select dt.* " +
-                //                      "from TS_HocSinh_DoiTuongUuTien hs_dt " +
-                //                      "left join TS_DoiTuongUuTien dt on dt.ID = hs_dt.IDDoiTuongUuTien " +
-                //                      $"where IDHocSinh = {thongTinHoSo.IDHocSinh} and dt.TrangThai <> 10 and hs_dt.TrangThai <> 10 ";
-                //    lst_DTUT = db.Database.SqlQuery<DoiTuongUuTien>(sql_dtut).ToList();
-                //    // Tìm danh sách điểm học bạ
-                //    List<TS_Diem_NguyenVong> lst_DiemHocBa = new List<TS_Diem_NguyenVong>();
-                //    if (cap == 2 || cap == 3)
-                //    {
-                //        string sql_diemhocba = "select * " +
-                //                               "from TS_Diem_NguyenVong " +
-                //                               $"where IDHocSinh = {thongTinHoSo.IDHocSinh} and TrangThai<> 10 ";
-                //        lst_DiemHocBa = db.Database.SqlQuery<TS_Diem_NguyenVong>(sql_diemhocba).ToList();
-                //    }
-                //    // View kết quả tra cứu
-                //    ViewBag.ThongTinHoSo = thongTinHoSo;
-                //    ketquatracuu = ConvertViewToString(string.Concat(currentPortal.Tb_Template.DuongDan, "/General/KetQuaTraCuuHoSo.cshtml").Replace("//", "/"), null);
-                //    //var ketquatracuu = PartialView(string.Concat(currentPortal.Tb_Template.DuongDan, "/General/KetQuaTraCuuHoSo.cshtml").Replace("//", "/"));
-
-                //    if (cap != 3) // Không phải cấp 3 thì mới hiện đơn
-                //    {
-                //        // View đơn đăng ký dự tuyển
-                //        string don_dangkydutuyen = GetDonDangKyDuTuyen("TRACUU_TRANGCHU", thongTinHoSo.IDHocSinh, thongTinHoSo.IDKyThi, list_NguyenVong, lst_DiemHocBa, lst_DTUT);
-
-                //        return Json(new
-                //        {
-                //            status = 1,
-                //            nguyenVong = list_NguyenVong,
-                //            don_dangkydutuyen,
-                //            ketquatracuu,
-                //        }, JsonRequestBehavior.AllowGet);
-                //    }
-                //}
-                ketquatracuu =string.Concat("/General/KetQuaTraCuuHoSo.cshtml").Replace("//", "/");
-
-                return Json(new
-                {
-                    status = 2,
-                    ketquatracuu,
-                }, JsonRequestBehavior.AllowGet);
-                //return PartialView(string.Concat(currentPortal.Tb_Template.DuongDan, "/General/KetQuaTraCuuHoSo.cshtml").Replace("//", "/"));
+                ViewBag.KetQuaTuyenSinh = ketqua;
+                ViewBag.ThongTinHoSo = thongTinHoSo;
             }
-        
+            ketquatracuu = ConvertViewToString(string.Concat("~/Views/Home/KetQuaTraCuu.cshtml").Replace("//", "/"), null);
+
+            return Json(new
+            {
+                status = 2,
+                ketquatracuu,
+            }, JsonRequestBehavior.AllowGet);
+
+        }
+        private string ConvertViewToString(string viewName, object model)
+        {
+            ViewData.Model = model;
+            using (StringWriter writer = new StringWriter())
+            {
+                ViewEngineResult vResult = ViewEngines.Engines.FindPartialView(ControllerContext, viewName);
+                ViewContext vContext = new ViewContext(this.ControllerContext, vResult.View, ViewData, new TempDataDictionary(), writer);
+                vResult.View.Render(vContext, writer);
+                return writer.ToString();
+            }
+        }
+        public JsonResult GetHangMuc(int cuocthi)
+        {
+            var data = db.a_HangMuc.Where(x =>x.ID_CuocThi == cuocthi && x.TrangThai != 10).ToList();
+
+            return Json(new
+            {
+                status = true,
+                data = data
+            }, JsonRequestBehavior.AllowGet);
+        }
     }
 }
