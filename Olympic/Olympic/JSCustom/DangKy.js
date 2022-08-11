@@ -191,11 +191,13 @@ function SaveThongTin() {
                 if (res.status == true) {
                     $('#savethongtin').hide();
 
-                    var mess = 'Hồ sơ đăng ký của bạn đã được tiếp nhận.  ' +
+                    var mess = 'Thông tin đăng ký của bạn đã được tiếp nhận.  ' +
                         'Bạn có thể thực hiện tra cứu thông tin hồ sơ trên cổng thông tin.';
 
-                    toastr.success(mess);
-                    location.href = '/Home/DanhSachCuocThi';
+                    toastr.success(mess, '', { timeOut: 6000 });
+                    setTimeout(function () {
+                        window.location = '/Home/DanhSachCuocThi';
+                    }, 1000);
                 }
                 else {
                     toastr.error(res.error);

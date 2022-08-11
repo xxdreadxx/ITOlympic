@@ -24,6 +24,12 @@ namespace Olympic.Areas.Admin.Controllers
             ViewBag.User = userDao.getByID(userID);
             Session["UserImg"] = ViewBag.User.Image;
             Session["UserHoTen"] = ViewBag.User.HoTen;
+
+            ViewBag.SLCuocThi = db.a_CuocThi.Where(x => x.TrangThai != 10).Count();
+            ViewBag.SLGiaoVien = db.a_GiaoVien.Where(x => x.TrangThai != 10).Count();
+            ViewBag.SLSinhVien = db.a_SinhVien.Where(x => x.TrangThai != 10).Count();
+            ViewBag.SLDoiTuyen = db.a_DoiTuyen.Where(x => x.TrangThai != 10).Count();
+
             return View();
         }
         public JsonResult GetCuocThi(int type = 0)
@@ -61,6 +67,16 @@ namespace Olympic.Areas.Admin.Controllers
             {
                 status = true,
                 data = data
+            }, JsonRequestBehavior.AllowGet);
+        }
+
+        public JsonResult GetlineChart()
+        {
+            var yearnow = DateTime.Now.Year;
+
+            return Json(new
+            {
+                status = true,
             }, JsonRequestBehavior.AllowGet);
         }
     }

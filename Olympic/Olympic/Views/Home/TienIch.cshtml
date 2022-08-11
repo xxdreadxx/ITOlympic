@@ -7,12 +7,15 @@
     .hd-top-block {
         position: unset !important;
     }
-    .paragraph{
-        background:#ffffff;
+
+    .paragraph {
+        background: #ffffff;
     }
-    .item{
-        margin-left:10px;
+
+    .item {
+        margin-left: 10px;
     }
+
     .head {
         margin-left: 10px;
     }
@@ -32,16 +35,16 @@
                         <div class="list-group">
                             <div id="content-left" style="padding: 10px">
                                 <div id="ListOrganization" class="list-group">
-                                    <a class="list-group-item list-group-item-action active" href="#page-gt" onclick="jsWalkthrough.changePage(this, event);">Giới thiệu</a>
-                                    <a class="list-group-item list-group-item-action" href="#page-hd" onclick="jsWalkthrough.changePage(this, event);">Hướng dẫn sử dụng</a>
+                                    <a class="list-group-item list-group-item-action" href="#page-gt" onclick="jsWalkthrough.changePage(this, event);">Giới thiệu</a>
+                                    <a class="list-group-item list-group-item-action active" href="#page-hd" onclick="jsWalkthrough.changePage(this, event);">Hướng dẫn sử dụng</a>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-9">
-                    <div class="page-item active" id="page-gt" style="background:#ffff;">
-                        <h2 class="head" style="text-align:center">GIỚI THIỆU CHUNG VỀ KHOA CNTT - VIỆN ĐH MỞ HN</h2>
+                    <div class="page-item hide" id="page-gt" style="background:#ffff;">
+                        <h2 class="head" style="text-align:center;padding-top:20px">GIỚI THIỆU CHUNG VỀ KHOA CNTT - VIỆN ĐH MỞ HN</h2>
                         <p></p>
                         <div class="paragraph" style="margin-top: 10px">
                             <div class="item" style="margin-bottom: 5px">
@@ -91,14 +94,38 @@
                             <br />
                         </div>
                     </div>
-                    <div class="page-item hide" id="page-hd" style="background:#ffff;">
-                        <h2 class="head" style="text-align:center">HƯỚNG DẪN SỬ DỤNG</h2>
+                    <div class="page-item active" id="page-hd" style="background:#ffff;">
+                        <h2 class="head" style="text-align:center; padding-top:20px">HƯỚNG DẪN SỬ DỤNG</h2>
                         <p></p>
-                        <div class="paragraph" style="margin-top: 10px">
+                        <div class="paragraph">
                             <div class="item" style="margin-bottom: 5px">
-
+                                <h3><span class="label">Bước 1</span></h3>
+                                <p style="margin-bottom: 5px">Tại màn hình trang chủ, nhấn nút <strong>Đăng ký tham gia </strong>:</p>
+                                <p class="text-center"><img class="img-fluid img-custom-shadow text-center" src="~/Content/TuyenSinhHN/dky3.png"></p>
                             </div>
+                            <div class="item" style="margin-bottom: 5px">
+                                <h3><span class="label">Bước 2</span></h3>
+                                <p style="margin-bottom: 5px">Trang đăng ký hiển thị danh sách các cuộc thi hiện có, sinh viên click chọn hạng mục muốn đăng ký :</p>
+                                <p class="text-center"><img class="img-fluid img-custom-shadow" src="~/Content/TuyenSinhHN/dky1.png"></p>
+                            </div>
+                            <div class="item" style="margin-bottom: 5px">
+                                <h3><span class="label">Bước 3</span></h3>
+                                <p>Sinh viên nhập đầy đủ các trường thông tin vào form đăng ký :</p>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <p class="text-center"><img class="img-fluid img-custom-shadow" style="height: 545px" src="~/Content/TuyenSinhHN/dky2.png"></p>
 
+                                    </div>
+                                </div>
+                                <p><strong>Lưu ý: </strong></p>
+                                <p style="margin-bottom: 5px; margin-left: 15px"><strong>►&emsp;</strong>Các thông tin chứa dấu "<span class="text-red" style="color: red">*</span>" đỏ là các thông tin bắt buộc nhập.</p>
+                                <p style="margin-bottom: 5px; margin-left: 15px"><strong>►&emsp;</strong>Nếu thông tin về sinh viên không chính xác, vui lòng liên hệ cơ sở giáo dục để chỉnh sửa hoặc đăng ký trực tiếp.</p>
+                            </div>
+                            <div class="item" style="margin-bottom: 5px">
+                                <h3><span class="label">Bước 4</span></h3>
+                                <p>Sinh viên kiểm tra lại thông tin sau đó tích chọn cam kết, nhấn <strong>Đăng ký</strong></p>
+                                <p>Sau khi đăng ký thành công. Sinh viên sử dụng mã sinh viên để tra cứu kết quả.</p>
+                            </div>
                             <br />
                             <br />
                             <br />
