@@ -71,7 +71,7 @@
                             </div>
                             <div class="row thongtinhoso">
                                 <div class="col-lg-5">
-                                    Ngày nộp hồ sơ:
+                                    Ngày đăng ký:
                                 </div>
                                 <div class="col-lg-7 righttitle">
                                     @{
@@ -113,28 +113,59 @@
                     }
                     else
                     {
-                        <div class="row">
-                            <div class="col-md-12">
-                                <table class="table table-bordered" style="margin: 10px 0px">
-                                    <thead>
-                                        <tr>
-                                            <th class="text-center">Tên hạng mục</th>
-                                            <th class="text-center">Hình thức thi</th>
-                                            <th class="text-center">Điểm</th>
-                                            <th class="text-center">Giải thưởng</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <tr>
-                                            <td class="text-center">@ViewBag.KetQuaTuyenSinh.TenHangMuc</td>
-                                            <td class="text-center">@ViewBag.KetQuaTuyenSinh.HinhThucThi</td>
-                                            <td class="text-center">@ViewBag.KetQuaTuyenSinh.Diem</td>
-                                            <td class="text-center">@ViewBag.KetQuaTuyenSinh.GiaiThuong</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                        if (ViewBag.DoiTuong == 2)
+                        {
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered" style="margin: 10px 0px">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">Tên hạng mục</th>
+                                                <th class="text-center">Hình thức thi</th>
+                                                <th class="text-center">Điểm</th>
+                                                <th class="text-center">Giải thưởng</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-center">@ViewBag.KetQuaTuyenSinh.TenHangMuc</td>
+                                                <td class="text-center">@ViewBag.KetQuaTuyenSinh.HinhThucThi</td>
+                                                <td class="text-center">@ViewBag.KetQuaTuyenSinh.Diem</td>
+                                                <td class="text-center">@ViewBag.KetQuaTuyenSinh.GiaiThuong</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
                             </div>
-                        </div>
+                        }
+                        else
+                        {
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <table class="table table-bordered" style="margin: 10px 0px">
+                                        <thead>
+                                            <tr>
+                                                <th class="text-center">Tên hạng mục</th>
+                                                <th class="text-center">Đội tuyển</th>
+                                                <th class="text-center">Hình thức thi</th>
+                                                <th class="text-center">Điểm</th>
+                                                <th class="text-center">Giải thưởng toàn đội</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr>
+                                                <td class="text-center">@ViewBag.KetQuaTuyenSinh.TenHangMuc</td>
+                                                <td class="text-center">@ViewBag.KetQuaTuyenSinh.TenDoi</td>
+                                                <td class="text-center">@ViewBag.KetQuaTuyenSinh.HinhThucThi</td>
+                                                <td class="text-center">@ViewBag.KetQuaTuyenSinh.Diem</td>
+                                                <td class="text-center">@ViewBag.KetQuaTuyenSinh.GiaiThuong</td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        }
+
                     }
                 }
                 else

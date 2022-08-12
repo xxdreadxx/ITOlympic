@@ -54,40 +54,48 @@ $('#timkiem').off('click').on('click', function () {
     // reset validate 
     $('#errorthongtin').text('');
     $('#errorthongtin').css('display', 'none');
-    $('#error_input_1').text('');
-    $('#error_input_1').css('display', 'none');
-    $('#error_input_2').text('');
-    $('#error_input_2').css('display', 'none');
+    $('#error_input').text('');
+    $('#error_input').css('display', 'none');
+    $('#error_cuocthi').text('');
+    $('#error_cuocthi').css('display', 'none');
+    $('#error_hangmuc').text('');
+    $('#error_hangmuc').css('display', 'none');
     // validate input
     (() => {
         // Kiểm tra kiểu tra cứu
-        if (type == "" || type == null) {
-            $('#errorthongtin').text('Vui lòng nhập thông tin muốn tìm kiếm');
-            $('#errorthongtin').css('display', 'unset');
-            return false;
-        }
+        //if (type == "" || type == null) {
+        //    $('#errorthongtin').text('Vui lòng nhập thông tin muốn tìm kiếm');
+        //    $('#errorthongtin').css('display', 'unset');
+        //    return false;
+        //}
         // Kiểm tra mã học sinh và mật khẩu
         if (type == 2) {
 
             if (mahocsinh == "" || mahocsinh == null) {
-                $('#error_input_1').text('Vui lòng nhập mã học sinh');
-                $('#error_input_1').css('display', 'unset');
-                return false;
-            }
-        }
-        // Kiểm tra số báo danh
-        if (type == 3) {
-            if (sobaodanh == "" || sobaodanh == null) {
-                $('#error_input').text('Vui lòng nhập số báo danh');
+                $('#error_input').text('Vui lòng nhập mã sinh viên');
                 $('#error_input').css('display', 'unset');
                 return false;
             }
         }
+        // Kiểm tra số báo danh
+        //if (type == 3) {
+        //    if (sobaodanh == "" || sobaodanh == null) {
+        //        $('#error_input').text('Vui lòng nhập số báo danh');
+        //        $('#error_input').css('display', 'unset');
+        //        return false;
+        //    }
+        //}
 
         // Kiểm tra cuocthi
         if (cuocthi == "" || cuocthi == null) {
             $('#error_cuocthi').text('Vui lòng chọn cuộc thi');
             $('#error_cuocthi').css('display', 'unset');
+            return false;
+        }
+
+        if (hangmuc == "" || hangmuc == null) {
+            $('#error_hangmuc').text('Vui lòng chọn hạng mục thi');
+            $('#error_hangmuc').css('display', 'unset');
             return false;
         }
         return true;

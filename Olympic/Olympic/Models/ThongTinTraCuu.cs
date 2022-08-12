@@ -24,8 +24,9 @@ namespace Olympic.Models
     public class KetQua
     {
         public string TenHangMuc { get; set; }
+        public string TenDoi { get; set; }
         public string HinhThucThi { get; set; }
-        public double Diem { get; set; }
+        public double? Diem { get; set; }
         public string GiaiThuong { get; set; }
     }
 }
