@@ -197,20 +197,26 @@ namespace Olympic.Controllers
                 thongTinHoSo = db.Database.SqlQuery<ThongTin>(_sql).FirstOrDefault();
 
                 KetQua ketqua = new KetQua();
+                var doituongthi = 0;
                 if (thongTinHoSo != null)
                 {
                     string sqlKetQua = "";
                   
-                    var doituongthi = thongTinHoSo.DoiTuong;
+                    doituongthi = thongTinHoSo.DoiTuong;
                     int idSV = thongTinHoSo.ID;
                     //1: thi đội; 2: cá nhân
                     if (doituongthi == 1)
                     {
-                        
+                        sqlKetQua = $@"select distinct hm.TenHangMuc, hm.HinhThucThi, diem.Diem, cn.KetQua as GiaiThuong, cn.TenDoi
+                                        from a_HangMuc hm
+                                        join a_HangMuc_SinhVien_Diem diem on diem.ID_HangMuc = hm.ID  and diem.TrangThai <> 10
+                                        join a_DoiTuyen cn on cn.ID_HangMuc = hm.ID and cn.TrangThai <> 10
+                                        where hm.TrangThai <> 10 and diem.ID_SV = {idSV}";
+                        ketqua = db.Database.SqlQuery<KetQua>(sqlKetQua).FirstOrDefault();
                     }
                     else
                     {
-                        sqlKetQua = $@"select hm.TenHangMuc, hm.HinhThucThi, diem.Diem, cn.GiaiThuong
+                        sqlKetQua = $@"select distinct hm.TenHangMuc, hm.HinhThucThi, diem.Diem, cn.GiaiThuong
                                         from a_HangMuc hm
                                         join a_HangMuc_SinhVien_Diem diem on diem.ID_HangMuc = hm.ID  and diem.TrangThai <> 10
                                         join a_ThiCaNhan cn on cn.ID_HangMuc = hm.ID and cn.TrangThai <> 10
@@ -231,6 +237,7 @@ namespace Olympic.Controllers
                 {
                     ViewBag.ThoiGianCongBo = false;
                 }
+                ViewBag.DoiTuong = doituongthi;
                 ViewBag.KetQuaTuyenSinh = ketqua;
                 ViewBag.ThongTinHoSo = thongTinHoSo;
             }

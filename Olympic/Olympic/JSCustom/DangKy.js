@@ -152,7 +152,7 @@ function Validate() {
 
 function SaveThongTin() {
     var kiemtra = Validate();
-    var f = document.getElementById('fDinhKem');
+    var f = document.getElementById('fDinhKem').files[0];
     if (kiemtra.checkValid == false) {
         toastr.error('Có thông tin chưa chính xác ! Vui lòng kiểm tra lại thông tin đã nhập');
     }
