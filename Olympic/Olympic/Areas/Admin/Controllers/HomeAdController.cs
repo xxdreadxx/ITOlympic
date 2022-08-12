@@ -1,11 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using Models;
 using Models.DAO;
 using Models.EF;
+using Olympic.Models;
 
 namespace Olympic.Areas.Admin.Controllers
 {
@@ -70,13 +73,51 @@ namespace Olympic.Areas.Admin.Controllers
             }, JsonRequestBehavior.AllowGet);
         }
 
+        public List<string> CreateListYear(int? startYear, int? lastYear)
+        {
+            List<string> ListYear = new List<string>();
+            for (int? i = startYear+1; i <= lastYear; i++)
+            {
+                ListYear.Add(i.ToString());
+            }
+            return ListYear;
+        }
+
         public JsonResult GetlineChart()
         {
-            var yearnow = DateTime.Now.Year;
+            int yearnow = DateTime.Now.Year;
+            int year5 = yearnow - 5;
+            List<string> ListYear = CreateListYear(year5, yearnow);
+            List<ThongKe> lstData = new List<ThongKe>();
+            if(ListYear != null)
+            {
+                foreach(var item in ListYear)
+                {
+
+                    string sql = $@"select  CONVERT(int,Year( ct.ThoiGianBatDau)) as Nam 
+                            from a_HangMuc_SinhVien_Diem diem
+                            join a_HangMuc hm on hm.ID = diem.ID_HangMuc 
+                            join a_CuocThi ct on ct.ID = hm.ID_CuocThi and ct.TrangThai <> 10
+                            where diem.TrangThai <> 10 and Nam = {int.Parse(item)}";
+                    int soluong =  db.Database.SqlQuery<ThongKe>(sql).Count();
+                    ThongKe tk = new ThongKe();
+                    tk.Nam = int.Parse(item);
+                    tk.SoLuong = soluong;
+                    db.SaveChanges();
+                    lstData.Add(tk);
+                }
+            }
+            //var jsonSerializer = new JavaScriptSerializer();
+            //string result = jsonSerializer.Serialize(lstData);
+
+            //var jsonSerializer1 = new JavaScriptSerializer();
+            //string result1 = jsonSerializer1.Serialize(ListYear);
 
             return Json(new
             {
                 status = true,
+                data = lstData,
+                lstNam = ListYear
             }, JsonRequestBehavior.AllowGet);
         }
     }
