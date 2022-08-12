@@ -12,7 +12,7 @@
             <th width="8%" class="text-center">Cấp</th>
             <th width="10%" class="text-center">Bắt đầu</th>
             <th width="10%" class="text-center">Kết thúc</th>
-            <th width="10%" class="text-center">Hạng mục thi</th>
+            <th width="10%" class="text-center">Số hạng mục</th>
             <th width="15%" class="text-center">Trạng thái</th>
             <th width="15%" style="text-align:center">Chức năng</th>
         </tr>
@@ -40,20 +40,24 @@
             @if (item.TrangThai == 1)
             {
                 <td class="text-center color-primary">Chưa triển khai </td>
+                <td style="text-align:center">
+                    <a href="#" onclick="link(@item.ID)" title="Danh sách hạng mục" type="button"><i class="ti-file"></i></a>
+                    <a href="#" title="Sửa" type="button" onclick="Add(@item.ID)"><i class="ti-pencil"></i></a>
+                    <a href="#" title="Xóa" onclick="Link_DeleteTT_onclick(@item.ID)"><i class="ti-trash"></i></a>
+                </td>
             }
             else if (item.TrangThai == 2)
             {
                 <td class="text-center color-success">Đang triển khai</td>
+                <td></td>
             }
             else if (item.TrangThai == 3)
             {
                 <td class="text-center color-danger">Kết thúc</td>
+                <td></td>
+
             }
-            <td style="text-align:center">
-                <a href="#" onclick="link(@item.ID)"  title="Danh sách hạng mục" type="button"><i class="ti-file"></i></a>
-                <a href="#" title="Sửa" type="button" onclick="Add(@item.ID)"><i class="ti-pencil"></i></a>
-                <a href="#" title="Xóa" onclick="Link_DeleteTT_onclick(@item.ID)"><i class="ti-trash"></i></a>
-            </td>
+
         </tr>
         }
     </tbody>

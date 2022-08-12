@@ -200,10 +200,12 @@ namespace Olympic.Areas.Admin.Controllers
 
         public JsonResult getDSSVTrongDoiThi(int ID)
         {
+
             var kt = dtDao.checkChamDiem(ID);
             int totalcount = 0;
             var data = dtDao.getListSVInDoiTuyen(ID, ref totalcount);
             var dataHM = hmDao.getByIDDT(ID);
+            var dataDT = db.a_DoiTuyen.Find(ID);
             if (kt == null)
             {
                 return Json(new
@@ -211,6 +213,7 @@ namespace Olympic.Areas.Admin.Controllers
                     status = false,
                     data = data,
                     dataHM = dataHM,
+                    dataDT = dataDT,
                     totalCount = totalcount
                 }, JsonRequestBehavior.AllowGet);
             }
@@ -221,6 +224,7 @@ namespace Olympic.Areas.Admin.Controllers
                     status = true,
                     data = data,
                     dataHM = dataHM,
+                    dataDT = dataDT,
                     totalCount = totalcount
                 }, JsonRequestBehavior.AllowGet);
             }

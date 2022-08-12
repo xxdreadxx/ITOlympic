@@ -82,7 +82,7 @@ namespace Models.DAO
                         "from a_DoiTuyen dt join a_HangMuc hm on hm.ID = dt.ID_HangMuc and hm.TrangThai <> 10 join a_GiaoVien gv on gv.ID = dt.ID_HLV " +
                         "join a_CuocThi ct on ct.ID = hm.ID_CuocThi join a_DoiTuyen_SV ds on ds.ID_Doi = dt.ID and ds.TrangThai <> 10 " +
                         "join a_CuocThi_LichTrinh lt on lt.IDCuocThi = ct.ID " +
-                        $"where dt.ID = {ID} and convert(date, lt.ThoiGianBatDauNhanHS, 103) <= GETDATE() and GETDATE()<= convert(date, lt.ThoiGianKetThucNhanHS, 103) " +
+                        $"where dt.ID = {ID} and  convert(datetime,lt.ThoiGianBatDauNhanHS, 103) <= DATEADD(dd, 0, DATEDIFF(dd, 0, GETDATE())) and DATEADD(dd, 0, DATEDIFF(dd, 0, GETDATE())) <= convert(datetime, lt.ThoiGianKetThucNhanHS, 103) " +
                         "group by dt.ID, dt.ID_HangMuc, dt.ID_HLV, dt.KetQua, dt.MaDoi, dt.TenDoi, dt.TrangThai, hm.TenHangMuc, ct.TenCuocThi, gv.HoTen";
                     }
                     else
@@ -116,7 +116,7 @@ namespace Models.DAO
                         "from a_DoiTuyen dt join a_HangMuc hm on hm.ID = dt.ID_HangMuc and hm.TrangThai <> 10 join a_GiaoVien gv on gv.ID = dt.ID_HLV " +
                         "join a_CuocThi ct on ct.ID = hm.ID_CuocThi join a_DoiTuyen_SV ds on ds.ID_Doi = dt.ID and ds.TrangThai <> 10 " +
                         "join a_CuocThi_LichTrinh lt on lt.IDCuocThi = ct.ID " +
-                        $"where dt.ID = {ID} and convert(date, lt.ThoiGianBatDauChamDiem, 103) <= GETDATE() and GETDATE()<= convert(date, lt.ThoiGianKetThucChamDiem, 103) " +
+                        $"where dt.ID = {ID} and  convert(datetime,lt.ThoiGianBatDauChamDiem, 103) <= DATEADD(dd, 0, DATEDIFF(dd, 0, GETDATE())) and DATEADD(dd, 0, DATEDIFF(dd, 0, GETDATE())) <= convert(datetime, lt.ThoiGianKetThucChamDiem, 103) " +
                         "group by dt.ID, dt.ID_HangMuc, dt.ID_HLV, dt.KetQua, dt.MaDoi, dt.TenDoi, dt.TrangThai, hm.TenHangMuc, ct.TenCuocThi, gv.HoTen";
                     lst = _conn.Query<a_DoiTuyenView>(_sqlStr, null, commandType: CommandType.Text).FirstOrDefault();
                     return lst;

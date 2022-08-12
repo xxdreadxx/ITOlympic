@@ -72,6 +72,7 @@ function Add(id) {
     resetForm();
     $('#id').val(id);
     if (id == null || id == 0) {
+        $('#addNewUser').modal('show');
         document.getElementById('tieude').innerHTML = "Thêm mới đội tuyển";
     }
     else {
@@ -92,12 +93,11 @@ function Add(id) {
                     $('#addNewUser').modal('show');
                 }
                 else {
-                    alert('Quá ngày đăng kí, không được sửa');
+                    toastr.warning('Quá ngày đăng kí, không được sửa');
                 }
             }
         });
     }
-    $('#addNewUser').modal('show');
 }
 
 function resetForm() {
@@ -310,6 +310,7 @@ function getListMember(id) {
         },
         type: 'post',
         success: function (result) {
+            let isFinished = result.dataDT.TrangThai
             if (result.status == true) {
                 $('#txtMaHM').val(result.dataHM.MaHangMuc);
                 $('#idHM').val(result.dataHM.ID);
@@ -319,6 +320,7 @@ function getListMember(id) {
                 $('#txtHMTGBD').val(result.dataHM.ThoiGianBatDau);
                 $('#txtTenHM').val(result.dataHM.TenHangMuc);
                 $('#txtHMTGKT').val(result.dataHM.ThoiGianKetThuc);
+
                 var html = '';
                 var stt = 0;
                 $.each(result.data, function (i, item) {
@@ -349,10 +351,18 @@ function getListMember(id) {
                         html += '<tr id=\"trlstMem_' + item.ID + '\"><td class="text-center">' + stt + '</td><td class="text-center">' + item.MaSV + '</td><td class="text-center">' + item.TenSV + '</td><td class="text-center">' + item.Lop + '</td><td><input id="txtDiem" type="text" value="0" disabled onchange="changeDiem(' + item.ID + ')" id="txtDiem_' + item.ID + '" /></td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelMember(' + item.ID_SV + ', ' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
                     }
                     else {
-                        html += '<tr id=\"trlstMem_' + item.ID + '\"><td class="text-center">' + stt + '</td><td class="text-center">' + item.MaSV + '</td><td class="text-center">' + item.TenSV + '</td><td class="text-center">' + item.Lop + '</td><td><input id="txtDiem" type="text" disable value="' + item.Diem + '" onchange="changeDiem(' + item.ID + ')" id="txtDiem_' + item.ID + '" /></td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelMember(' + item.ID_SV + ', ' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
+                        html += '<tr id=\"trlstMem_' + item.ID + '\"><td class="text-center">' + stt + '</td><td class="text-center">' + item.MaSV + '</td><td class="text-center">' + item.TenSV + '</td><td class="text-center">' + item.Lop + '</td><td><input id="txtDiem" type="text" disabled value="' + item.Diem + '" onchange="changeDiem(' + item.ID + ')" id="txtDiem_' + item.ID + '" /></td><td><a href=\"#\" title=\"Xóa\" type=\"button\" onclick=\"DelMember(' + item.ID_SV + ', ' + item.ID + ')\"><i class=\"ti-trash\"></i></a></td></tr>';
                     }
                 });
                 $('#tblMember').html(html);
+            }
+            if (isFinished == 3) {
+                $('#divMember .modal-body :input').prop('disabled', true)
+                $('#divMember .modal-body a').hide();
+
+            } else {
+                $('#divMember .modal-body :input').attr('disabled', false);
+                $('#divMember .modal-body a').show();
             }
         }
     });
@@ -458,15 +468,33 @@ function AddKQ(id) {
         },
         type: 'post',
         success: function (result) {
-            $('#txtKQ_TenHM').val(result.data.TenHangMuc);
-            $('#txtKQ_TenHLV').val(result.data.HLV);
-            $('#txtKQ_TenDoiTuyen').val(result.data.TenDoi);
-            $('#txtKQ_SL').val(result.data.SoLuong);
-            $('#hdID_DoiThi_KQ').val(id);
-            $('#txtKQ_KetQua').val(result.data.KetQua);
+            if (result.status) {
+                $('#txtKQ_TenHM').val(result.data.TenHangMuc);
+                $('#txtKQ_TenHLV').val(result.data.HLV);
+                $('#txtKQ_TenDoiTuyen').val(result.data.TenDoi);
+                $('#txtKQ_SL').val(result.data.SoLuong);
+                $('#hdID_DoiThi_KQ').val(id);
+                $('#txtKQ_KetQua').val(result.data.KetQua);
+                $('#divAddKQ').modal('show');
+                if (result.data.TrangThai == 3) {
+
+                    $('#divAddKQ .modal-body :input').attr('disabled', true);
+                    $('#btnSaveKQ').hide();
+
+                } else {
+                    
+                    $('#divAddKQ .modal-body :input').attr('disabled', false);
+                    $('#btnSaveKQ').show();
+                }
+
+            }
+            else {
+                toastr.warning("Chưa kết thúc hạng mục thi!");
+
+            }
+           
         }
     });
-    $('#divAddKQ').modal('show');
 }
 
 function SaveKQ() {
